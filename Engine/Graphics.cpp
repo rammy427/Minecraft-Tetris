@@ -240,6 +240,59 @@ Graphics::Graphics( HWNDKey& key )
 		_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
 }
 
+void Graphics::DrawIsoRightTriUL(int x, int y, int size, Color c)
+{
+	for (int y_loop = y; y_loop < y + size; y_loop++)
+	{
+		const int cur_line = y_loop - y;
+		for (int x_loop = x; x_loop < x + size - cur_line; x_loop++)
+		{
+			PutPixel(x_loop, y_loop, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriUR(int x, int y, int size, Color c)
+{
+	for (int y_loop = y; y_loop < y + size; y_loop++)
+	{
+		const int cur_line = y_loop - y;
+		for (int x_loop = x + cur_line; x_loop < x + size; x_loop++)
+		{
+			PutPixel(x_loop, y_loop, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriBL(int x, int y, int size, Color c)
+{
+	for (int y_loop = y; y_loop < y + size; y_loop++)
+	{
+		const int cur_line = y_loop - y;
+		for (int x_loop = x; x_loop < x + cur_line; x_loop++)
+		{
+			PutPixel(x_loop, y_loop, c);
+		}
+	}
+}
+
+void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
+{
+	for (int y_loop = y; y_loop < y + size; y_loop++)
+	{
+		const int cur_line = y_loop - y;
+		for (int x_loop = x + size - cur_line; x_loop < x + size; x_loop++)
+		{
+			PutPixel(x_loop, y_loop, c);
+		}
+	}
+}
+
+RectI Graphics::GetRect() const
+{
+	return { 0,ScreenWidth,0,ScreenHeight };
+}
+
 Graphics::~Graphics()
 {
 	// free sysbuffer memory (aligned free)
@@ -316,6 +369,25 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
+void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
+{
+	if (x0 > x1)
+	{
+		std::swap(x0, x1);
+	}
+	if (y0 > y1)
+	{
+		std::swap(y0, y1);
+	}
+
+	for (int y = y0; y < y1; y++)
+	{
+		for (int x = x0; x < x1; x++)
+		{
+			PutPixel(x, y, c);
+		}
+	}
+}
 
 //////////////////////////////////////////////////
 //           Graphics Exception
