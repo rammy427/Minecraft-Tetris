@@ -42,6 +42,14 @@ public:
 	{
 		return *this = *this - rhs;
 	}
+	Vec2_ operator/(T rhs) const
+	{
+		return Vec2_(x / rhs, y / rhs);
+	}
+	Vec2_& operator/=(T rhs)
+	{
+		return *this = *this / rhs;
+	}
 	T GetLength() const
 	{
 		return (T)std::sqrt( GetLengthSq() );
