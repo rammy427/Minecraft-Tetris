@@ -4,25 +4,25 @@ Board::Tile::Tile(const RectI& rect)
 	:
 	rect(rect)
 {
-	SetColor(c);
 }
 
-void Board::Tile::SetColor(Color c)
-{
-	bev.SetBaseColor(c);
-}
-
-void Board::Tile::Draw(Graphics& gfx) const
+void Board::Tile::Draw(Graphics& gfx)
 {
 	if (isAlive)
 	{
-		bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
+		bev.SetBaseColor(c);
 	}
+	else
+	{
+		bev.SetBaseColor({ 230,230,230 });
+	}
+	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 }
 
 void Board::Tile::DrawGhost(Color ghostColor, Graphics& gfx)
 {
-	SetColor(ghostColor);
+	assert(!isAlive);
+	bev.SetBaseColor(ghostColor);
 	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 }
 
@@ -45,9 +45,9 @@ Board::Board(const Vei2& center)
 	}
 }
 
-void Board::Draw(Graphics& gfx) const
+void Board::Draw(Graphics& gfx)
 {
-	for (const Tile& t : tiles)
+	for (Tile& t : tiles)
 	{
 		t.Draw(gfx);
 	}
@@ -60,5 +60,9 @@ void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
+	assert(gridPos.x >= 0);
+	assert(gridPos.x < width);
+	assert(gridPos.y >= 0);
+	assert(gridPos.y < height);
 	return tiles[gridPos.y * width + gridPos.x];
 }

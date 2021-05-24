@@ -45,6 +45,6 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	Brick brick({ 5,4 }, { 127, 0, 0 });
-	brick.Draw(brd, gfx);
 	brd.Draw(gfx);
+	brick.Draw(brd, gfx);
 }
