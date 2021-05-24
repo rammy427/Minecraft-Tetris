@@ -20,6 +20,12 @@ void Board::Tile::Draw(Graphics& gfx) const
 	}
 }
 
+void Board::Tile::DrawGhost(Color ghostColor, Graphics& gfx)
+{
+	SetColor(ghostColor);
+	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
+}
+
 int Board::Tile::GetDimension()
 {
 	return dimension;
@@ -45,6 +51,11 @@ void Board::Draw(Graphics& gfx) const
 	{
 		t.Draw(gfx);
 	}
+}
+
+void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
+{
+	TileAt(gridPos).DrawGhost(ghostColor, gfx);
 }
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)
