@@ -25,7 +25,7 @@ void Beveler::DrawOuterBevel(const RectI& rect, int size, Graphics& gfx) const
 	gfx.DrawIsoRightTriBL(right - size, bottom - size, size, bottomColor);
 }
 
-void Beveler::DrawBeveledBrick(const RectI& rect, int bevelSize, Graphics& gfx)
+void Beveler::DrawBeveledBrick(const RectI& rect, int bevelSize, Graphics& gfx) const
 {
 	DrawOuterBevel(rect, bevelSize, gfx);
 	gfx.DrawRect(rect.GetExpanded(-bevelSize), baseColor);
