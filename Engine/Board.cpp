@@ -58,6 +58,16 @@ void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
 	TileAt(gridPos).DrawGhost(ghostColor, gfx);
 }
 
+int Board::GetWidth() const
+{
+	return width;
+}
+
+int Board::GetHeight() const
+{
+	return height;
+}
+
 Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
 	assert(gridPos.x >= 0);

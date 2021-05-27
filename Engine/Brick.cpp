@@ -1,8 +1,9 @@
 #include "Brick.h"
 
-Brick::Brick(const Vei2& gridPos, Color c)
+Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 	:
-	c(c)
+	c(c),
+	brd(brd)
 {
 	tilePositions[0] = gridPos;
 	tilePositions[1] = { gridPos.x - 1, gridPos.y };
@@ -20,9 +21,17 @@ void Brick::Update(Keyboard& kbd)
 	{
 		TranslateBy({ 1,0 });
 	}
+	if (kbd.KeyIsPressed(VK_UP))
+	{
+		TranslateBy({ 0,-1 });
+	}
+	else if (kbd.KeyIsPressed(VK_DOWN))
+	{
+		TranslateBy({ 0,1 });
+	}
 }
 
-void Brick::Draw(Board& brd, Graphics& gfx)
+void Brick::Draw(Graphics& gfx)
 {
 	for (const Vei2& pos : tilePositions)
 	{
@@ -32,8 +41,27 @@ void Brick::Draw(Board& brd, Graphics& gfx)
 
 void Brick::TranslateBy(const Vei2& delta)
 {
-	for (Vei2& pos : tilePositions)
+	if (!IsColliding(delta))
 	{
-		pos += delta;
+		for (Vei2& pos : tilePositions)
+		{
+			pos += delta;
+		}
 	}
+}
+
+bool Brick::IsColliding(const Vei2& delta) const
+{
+	for (const Vei2& pos : tilePositions)
+	{
+		const Vei2 newPos = pos + delta;
+		if (newPos.x < 0 ||
+			newPos.x >= brd.GetWidth() ||
+			newPos.y < 0 ||
+			newPos.y >= brd.GetHeight())
+		{
+			return true;
+		}
+	}
+	return false;
 }

@@ -27,7 +27,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	brd(gfx.GetRect().GetCenter()),
-	brick({ 5,4 }, { 127, 0, 0 })
+	brick({ 5,4 }, { 127, 0, 0 }, brd)
 {
 }
 
@@ -47,5 +47,5 @@ void Game::UpdateModel()
 void Game::ComposeFrame()
 {
 	brd.Draw(gfx);
-	brick.Draw(brd, gfx);
+	brick.Draw(gfx);
 }
