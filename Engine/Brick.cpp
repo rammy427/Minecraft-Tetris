@@ -1,14 +1,76 @@
 #include "Brick.h"
+#include <random>
 
 Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 	:
 	c(c),
 	brd(brd)
 {
-	tilePositions[0] = gridPos;
-	tilePositions[1] = { gridPos.x - 1, gridPos.y };
-	tilePositions[2] = { gridPos.x + 1, gridPos.y };
-	tilePositions[3] = { gridPos.x, gridPos.y - 1 };
+	constexpr int nShapes = 7;
+	std::vector<std::vector<Vei2>> shapes;
+	shapes.resize(nShapes);
+
+	// Shape 0 (T)
+	shapes[0] =
+	{
+		{gridPos},
+		{gridPos.x - 1, gridPos.y},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x, gridPos.y + 1}
+	};
+	// Shape 1 (Left Q)
+	shapes[1] =
+	{
+		{gridPos},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x - 1, gridPos.y + 1},
+		{gridPos.x, gridPos.y + 1}
+	};
+	// Shape 2 (Right Q)
+	shapes[2] =
+	{
+		{gridPos},
+		{gridPos.x - 1, gridPos.y},
+		{gridPos.x, gridPos.y + 1},
+		{gridPos.x + 1, gridPos.y + 1}
+	};
+	// Shape 3 (Square)
+	shapes[3] =
+	{
+		{gridPos},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x, gridPos.y + 1},
+		{gridPos.x + 1, gridPos.y + 1}
+	};
+	// Shape 4 (Left L)
+	shapes[4] =
+	{
+		{gridPos},
+		{gridPos.x - 1, gridPos.y},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x - 1, gridPos.y + 1}
+	};
+	// Shape 5 (Right L)
+	shapes[5] =
+	{
+		{gridPos},
+		{gridPos.x - 1, gridPos.y},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x + 1, gridPos.y + 1}
+	};
+	// Shape 6 (Line)
+	shapes[6] =
+	{
+		{gridPos},
+		{gridPos.x - 1, gridPos.y},
+		{gridPos.x + 1, gridPos.y},
+		{gridPos.x + 2, gridPos.y}
+	};
+
+	std::mt19937 rng(std::random_device{}());
+	std::uniform_int_distribution<int> shapeDist(0, nShapes - 1);
+	tilePositions.reserve(tileAmount);
+	tilePositions = shapes[shapeDist(rng)];
 }
 
 void Brick::Update(Keyboard& kbd)

@@ -13,7 +13,8 @@ private:
 	void TranslateBy(const Vei2& delta);
 	bool IsColliding(const Vei2& delta) const;
 private:
-	Vei2 tilePositions[4];
+	static constexpr int tileAmount = 4;
+	std::vector<Vei2> tilePositions;
 	Color c;
 	Board& brd;
 };
