@@ -75,6 +75,15 @@ Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 
 void Brick::Update(Keyboard& kbd)
 {
+	if (kbd.KeyIsPressed('A'))
+	{
+		Rotate(false);
+	}
+	else if (kbd.KeyIsPressed('D'))
+	{
+		Rotate(true);
+	}
+
 	if (kbd.KeyIsPressed(VK_LEFT))
 	{
 		TranslateBy({ -1,0 });
@@ -108,6 +117,25 @@ void Brick::TranslateBy(const Vei2& delta)
 		for (Vei2& pos : tilePositions)
 		{
 			pos += delta;
+		}
+	}
+}
+
+void Brick::Rotate(bool clockwise)
+{
+	// Rotate brick by 90 degrees.
+	const Vei2 origin = tilePositions.front();
+	for (Vei2& pos : tilePositions)
+	{
+		if (clockwise)
+		{
+			// Clockwise rotation. (x, y) -> (-y, x).
+			pos = Vei2(origin.y - pos.y, pos.x - origin.x) + origin;
+		}
+		else
+		{
+			// Counter-clockwise rotation. (x, y) -> (y, -x).
+			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
 		}
 	}
 }

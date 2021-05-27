@@ -11,6 +11,7 @@ public:
 	void Draw(Graphics& gfx);
 private:
 	void TranslateBy(const Vei2& delta);
+	void Rotate(bool clockwise);
 	bool IsColliding(const Vei2& delta) const;
 private:
 	static constexpr int tileAmount = 4;
