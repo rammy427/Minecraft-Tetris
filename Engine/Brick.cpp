@@ -112,12 +112,15 @@ void Brick::Draw(Graphics& gfx)
 
 void Brick::TranslateBy(const Vei2& delta)
 {
-	if (!IsColliding(delta))
+	std::vector<Vei2> newPositions;
+	for (const Vei2& pos : tilePositions)
 	{
-		for (Vei2& pos : tilePositions)
-		{
-			pos += delta;
-		}
+		newPositions.push_back(pos + delta);
+	}
+
+	if (!WillCollide(newPositions))
+	{
+		std::move(newPositions.begin(), newPositions.end(), tilePositions.begin());
 	}
 }
 
@@ -125,33 +128,36 @@ void Brick::Rotate(bool clockwise)
 {
 	// Rotate brick by 90 degrees.
 	const Vei2 origin = tilePositions.front();
-	for (Vei2& pos : tilePositions)
+	std::vector<Vei2> newPositions;
+	for (const Vei2& pos : tilePositions)
 	{
 		if (clockwise)
 		{
 			// Clockwise rotation. (x, y) -> (-y, x).
-			pos = Vei2(origin.y - pos.y, pos.x - origin.x) + origin;
+			newPositions.push_back(Vei2(origin.y - pos.y, pos.x - origin.x) + origin);
 		}
 		else
 		{
 			// Counter-clockwise rotation. (x, y) -> (y, -x).
-			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
+			newPositions.push_back(Vei2(pos.y - origin.y, origin.x - pos.x) + origin);
 		}
+	}
+
+	if (!WillCollide(newPositions))
+	{
+		std::move(newPositions.begin(), newPositions.end(), tilePositions.begin());
 	}
 }
 
-bool Brick::IsColliding(const Vei2& delta) const
+bool Brick::WillCollide(const std::vector<Vei2>& newPositions) const
 {
-	for (const Vei2& pos : tilePositions)
-	{
-		const Vei2 newPos = pos + delta;
-		if (newPos.x < 0 ||
-			newPos.x >= brd.GetWidth() ||
-			newPos.y < 0 ||
-			newPos.y >= brd.GetHeight())
+	return std::any_of(newPositions.begin(), newPositions.end(),
+		[&](const Vei2& pos)
 		{
-			return true;
+			return pos.x < 0 ||
+				pos.x >= brd.GetWidth() ||
+				pos.y < 0 ||
+				pos.y >= brd.GetHeight();
 		}
-	}
-	return false;
+	);
 }

@@ -12,7 +12,7 @@ public:
 private:
 	void TranslateBy(const Vei2& delta);
 	void Rotate(bool clockwise);
-	bool IsColliding(const Vei2& delta) const;
+	bool WillCollide(const std::vector<Vei2>& newPositions) const;
 private:
 	static constexpr int tileAmount = 4;
 	std::vector<Vei2> tilePositions;
