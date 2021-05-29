@@ -75,30 +75,39 @@ Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 
 void Brick::Update(Keyboard& kbd)
 {
-	if (kbd.KeyIsPressed('A'))
+	while (!kbd.KeyIsEmpty())
 	{
-		Rotate(false);
-	}
-	else if (kbd.KeyIsPressed('D'))
-	{
-		Rotate(true);
-	}
-
-	if (kbd.KeyIsPressed(VK_LEFT))
-	{
-		TranslateBy({ -1,0 });
-	}
-	else if (kbd.KeyIsPressed(VK_RIGHT))
-	{
-		TranslateBy({ 1,0 });
-	}
-	if (kbd.KeyIsPressed(VK_UP))
-	{
-		TranslateBy({ 0,-1 });
-	}
-	else if (kbd.KeyIsPressed(VK_DOWN))
-	{
-		TranslateBy({ 0,1 });
+		const Keyboard::Event e = kbd.ReadKey();
+		if (e.IsPress())
+		{
+			switch (e.GetCode())
+			{
+			case 'A':
+				kbd.DisableAutorepeat();
+				Rotate(false);
+				break;
+			case 'D':
+				kbd.DisableAutorepeat();
+				Rotate(true);
+				break;
+			case VK_LEFT:
+				kbd.EnableAutorepeat();
+				TranslateBy({ -1, 0 });
+				break;
+			case VK_RIGHT:
+				kbd.EnableAutorepeat();
+				TranslateBy({ 1, 0 });
+				break;
+			case VK_UP:
+				kbd.EnableAutorepeat();
+				TranslateBy({ 0, -1 });
+				break;
+			case VK_DOWN:
+				kbd.EnableAutorepeat();
+				TranslateBy({ 0, 1 });
+				break;
+			}
+		}
 	}
 }
 
