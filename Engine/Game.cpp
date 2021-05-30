@@ -41,7 +41,8 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	brick.Update(wnd.kbd);
+	const float dt = ft.Mark();
+	brick.Update(wnd.kbd, dt);
 }
 
 void Game::ComposeFrame()

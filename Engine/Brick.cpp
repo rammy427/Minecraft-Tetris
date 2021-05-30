@@ -73,7 +73,7 @@ Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 	tilePositions = shapes[shapeDist(rng)];
 }
 
-void Brick::Update(Keyboard& kbd)
+void Brick::Update(Keyboard& kbd, float dt)
 {
 	while (!kbd.KeyIsEmpty())
 	{
@@ -98,16 +98,16 @@ void Brick::Update(Keyboard& kbd)
 				kbd.EnableAutorepeat();
 				TranslateBy({ 1, 0 });
 				break;
-			case VK_UP:
-				kbd.EnableAutorepeat();
-				TranslateBy({ 0, -1 });
-				break;
-			case VK_DOWN:
-				kbd.EnableAutorepeat();
-				TranslateBy({ 0, 1 });
-				break;
 			}
 		}
+	}
+
+	dropWaitTime = kbd.KeyIsPressed(VK_DOWN) ? .05f : .75f;
+	curTime += dt;
+	while (curTime >= dropWaitTime)
+	{
+		TranslateBy({ 0, 1 });
+		curTime = .0f;
 	}
 }
 
