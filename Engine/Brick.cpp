@@ -75,6 +75,7 @@ Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 
 void Brick::Update(Keyboard& kbd, float dt)
 {
+	std::vector<Vei2> old = tilePositions;
 	while (!kbd.KeyIsEmpty())
 	{
 		const Keyboard::Event e = kbd.ReadKey();
@@ -109,6 +110,12 @@ void Brick::Update(Keyboard& kbd, float dt)
 		TranslateBy({ 0, 1 });
 		curTime = .0f;
 	}
+
+	// Transformation fails (new position is out of bounds or collides with piece).
+	if (WillCollide())
+	{
+		tilePositions = std::move(old);
+	}
 }
 
 void Brick::Draw(Graphics& gfx)
@@ -121,15 +128,9 @@ void Brick::Draw(Graphics& gfx)
 
 void Brick::TranslateBy(const Vei2& delta)
 {
-	std::vector<Vei2> newPositions;
-	for (const Vei2& pos : tilePositions)
+	for (Vei2& pos : tilePositions)
 	{
-		newPositions.push_back(pos + delta);
-	}
-
-	if (!WillCollide(newPositions))
-	{
-		std::move(newPositions.begin(), newPositions.end(), tilePositions.begin());
+		pos += delta;
 	}
 }
 
@@ -137,30 +138,24 @@ void Brick::Rotate(bool clockwise)
 {
 	// Rotate brick by 90 degrees.
 	const Vei2 origin = tilePositions.front();
-	std::vector<Vei2> newPositions;
-	for (const Vei2& pos : tilePositions)
+	for (Vei2& pos : tilePositions)
 	{
 		if (clockwise)
 		{
 			// Clockwise rotation. (x, y) -> (-y, x).
-			newPositions.push_back(Vei2(origin.y - pos.y, pos.x - origin.x) + origin);
+			pos = Vei2(origin.y - pos.y, pos.x - origin.x) + origin;
 		}
 		else
 		{
 			// Counter-clockwise rotation. (x, y) -> (y, -x).
-			newPositions.push_back(Vei2(pos.y - origin.y, origin.x - pos.x) + origin);
+			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
 		}
-	}
-
-	if (!WillCollide(newPositions))
-	{
-		std::move(newPositions.begin(), newPositions.end(), tilePositions.begin());
 	}
 }
 
-bool Brick::WillCollide(const std::vector<Vei2>& newPositions) const
+bool Brick::WillCollide() const
 {
-	return std::any_of(newPositions.begin(), newPositions.end(),
+	return std::any_of(tilePositions.begin(), tilePositions.end(),
 		[&](const Vei2& pos)
 		{
 			return !brd.IsInsideBoard(pos);

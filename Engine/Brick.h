@@ -12,7 +12,7 @@ public:
 private:
 	void TranslateBy(const Vei2& delta);
 	void Rotate(bool clockwise);
-	bool WillCollide(const std::vector<Vei2>& newPositions) const;
+	bool WillCollide() const;
 private:
 	float dropWaitTime;
 	float curTime = .0f;
