@@ -26,8 +26,7 @@ public:
 	Board(const Vei2& center);
 	void Draw(Graphics& gfx);
 	void DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx);
-	int GetWidth() const;
-	int GetHeight() const;
+	bool IsInsideBoard(const Vei2& gridPos) const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 private:

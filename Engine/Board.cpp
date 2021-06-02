@@ -58,21 +58,16 @@ void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
 	TileAt(gridPos).DrawGhost(ghostColor, gfx);
 }
 
-int Board::GetWidth() const
+bool Board::IsInsideBoard(const Vei2& gridPos) const
 {
-	return width;
-}
-
-int Board::GetHeight() const
-{
-	return height;
+	return gridPos.x >= 0 &&
+		gridPos.x < width &&
+		gridPos.y >= 0 &&
+		gridPos.y < height;
 }
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
-	assert(gridPos.x >= 0);
-	assert(gridPos.x < width);
-	assert(gridPos.y >= 0);
-	assert(gridPos.y < height);
+	assert(IsInsideBoard(gridPos));
 	return tiles[gridPos.y * width + gridPos.x];
 }

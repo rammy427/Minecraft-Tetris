@@ -163,10 +163,7 @@ bool Brick::WillCollide(const std::vector<Vei2>& newPositions) const
 	return std::any_of(newPositions.begin(), newPositions.end(),
 		[&](const Vei2& pos)
 		{
-			return pos.x < 0 ||
-				pos.x >= brd.GetWidth() ||
-				pos.y < 0 ||
-				pos.y >= brd.GetHeight();
+			return !brd.IsInsideBoard(pos);
 		}
 	);
 }
