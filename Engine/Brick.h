@@ -11,6 +11,7 @@ public:
 	void Draw(Graphics& gfx);
 private:
 	void TranslateBy(const Vei2& delta);
+	void Drop();
 	void Rotate(bool clockwise);
 	bool WillCollide() const;
 private:

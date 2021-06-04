@@ -99,6 +99,10 @@ void Brick::Update(Keyboard& kbd, float dt)
 				kbd.EnableAutorepeat();
 				TranslateBy({ 1, 0 });
 				break;
+			case VK_UP:
+				kbd.DisableAutorepeat();
+				Drop();
+				break;
 			}
 		}
 	}
@@ -132,6 +136,20 @@ void Brick::TranslateBy(const Vei2& delta)
 	{
 		pos += delta;
 	}
+}
+
+void Brick::Drop()
+{
+	std::vector<Vei2> temp = tilePositions;
+	while (temp == tilePositions)
+	{
+		TranslateBy({ 0, 1 });
+		if (!WillCollide())
+		{
+			temp = tilePositions;
+		}
+	}
+	tilePositions = std::move(temp);
 }
 
 void Brick::Rotate(bool clockwise)
