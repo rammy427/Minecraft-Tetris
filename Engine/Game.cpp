@@ -27,7 +27,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	brd(gfx.GetRect().GetCenter()),
-	brick({ 5,4 }, { 127, 0, 0 }, brd)
+	brick({ 5,4 }, brd)
 {
 }
 

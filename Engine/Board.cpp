@@ -6,6 +6,16 @@ Board::Tile::Tile(const RectI& rect)
 {
 }
 
+void Board::Tile::Set()
+{
+	isAlive = true;
+}
+
+void Board::Tile::SetColor(Color c_in)
+{
+	c = c_in;
+}
+
 void Board::Tile::Draw(Graphics& gfx)
 {
 	if (isAlive)
@@ -31,6 +41,11 @@ int Board::Tile::GetDimension()
 	return dimension;
 }
 
+bool Board::Tile::IsAlive() const
+{
+	return isAlive;
+}
+
 Board::Board(const Vei2& center)
 	:
 	topLeft(center - Vei2(width, height) * Tile::GetDimension() / 2)
@@ -43,6 +58,12 @@ Board::Board(const Vei2& center)
 			TileAt(gridPos) = { { gridPos * dim + topLeft, dim, dim } };
 		}
 	}
+}
+
+void Board::SetTile(const Vei2& gridPos, Color c)
+{
+	TileAt(gridPos).SetColor(c);
+	TileAt(gridPos).Set();
 }
 
 void Board::Draw(Graphics& gfx)
@@ -58,6 +79,11 @@ void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
 	TileAt(gridPos).DrawGhost(ghostColor, gfx);
 }
 
+bool Board::TileIsAlive(const Vei2& gridPos) const
+{
+	return TileAt(gridPos).IsAlive();
+}
+
 bool Board::IsInsideBoard(const Vei2& gridPos) const
 {
 	return gridPos.x >= 0 &&
@@ -70,4 +96,9 @@ Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
 	assert(IsInsideBoard(gridPos));
 	return tiles[gridPos.y * width + gridPos.x];
+}
+
+const Board::Tile& Board::TileAt(const Vei2& gridPos) const
+{
+	return const_cast<Board*>(this)->TileAt(gridPos);
 }
