@@ -24,7 +24,7 @@ void Board::Tile::Draw(Graphics& gfx)
 	}
 	else
 	{
-		bev.SetBaseColor({ 230,230,230 });
+		bev.SetBaseColor(Colors::Gray);
 	}
 	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 }
@@ -90,6 +90,16 @@ bool Board::IsInsideBoard(const Vei2& gridPos) const
 		gridPos.x < width &&
 		gridPos.y >= 0 &&
 		gridPos.y < height;
+}
+
+int Board::GetWidth() const
+{
+	return width;
+}
+
+int Board::GetHeight() const
+{
+	return height;
 }
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)

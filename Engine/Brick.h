@@ -10,6 +10,7 @@ public:
 	void Update(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void BindToBoard();
+	bool IsBinded() const;
 private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();

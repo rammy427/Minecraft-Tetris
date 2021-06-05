@@ -133,6 +133,7 @@ void Brick::Update(Keyboard& kbd, float dt)
 	if (WillCollide())
 	{
 		tilePositions = std::move(old);
+		BindToBoard();
 	}
 }
 
@@ -198,12 +199,18 @@ void Brick::BindToBoard()
 	tilePositions.clear();
 }
 
+bool Brick::IsBinded() const
+{
+	// If binded, position vector should be empty.
+	return tilePositions.empty();
+}
+
 bool Brick::WillCollide() const
 {
 	return std::any_of(tilePositions.begin(), tilePositions.end(),
 		[&](const Vei2& pos)
 		{
-			return !brd.IsInsideBoard(pos);
+			return !brd.IsInsideBoard(pos) || brd.TileIsAlive(pos);
 		}
 	);
 }

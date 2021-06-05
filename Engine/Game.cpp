@@ -26,9 +26,9 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd(gfx.GetRect().GetCenter()),
-	brick({ 5,4 }, brd)
+	brd(gfx.GetRect().GetCenter())
 {
+	SpawnBrick();
 }
 
 void Game::Go()
@@ -42,11 +42,22 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	brick.Update(wnd.kbd, dt);
+	pBrick->Update(wnd.kbd, dt);
+
+	if (pBrick->IsBinded())
+	{
+		SpawnBrick();
+	}
+}
+
+void Game::SpawnBrick()
+{
+	pBrick.reset();
+	pBrick = std::make_unique<Brick>(Vei2(brd.GetWidth() / 2, 0), brd);
 }
 
 void Game::ComposeFrame()
 {
 	brd.Draw(gfx);
-	brick.Draw(gfx);
+	pBrick->Draw(gfx);
 }

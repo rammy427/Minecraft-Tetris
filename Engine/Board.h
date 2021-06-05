@@ -32,6 +32,8 @@ public:
 	void DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx);
 	bool TileIsAlive(const Vei2& gridPos) const;
 	bool IsInsideBoard(const Vei2& gridPos) const;
+	int GetWidth() const;
+	int GetHeight() const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;

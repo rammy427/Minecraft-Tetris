@@ -20,6 +20,7 @@
  ******************************************************************************************/
 #pragma once
 
+#include <memory>
 #include "Brick.h"
 #include "FrameTimer.h"
 #include "Graphics.h"
@@ -38,6 +39,7 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
+	void SpawnBrick();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -46,6 +48,6 @@ private:
 	/*  User Variables              */
 	FrameTimer ft;
 	Board brd;
-	Brick brick;
+	std::unique_ptr<Brick> pBrick;
 	/********************************/
 };
