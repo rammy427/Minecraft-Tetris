@@ -6,9 +6,10 @@
 class Brick
 {
 public:
-	Brick(const Vei2& gridPos, Color c, Board& brd);
+	Brick(const Vei2& gridPos, Board& brd);
 	void Update(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
+	void BindToBoard();
 private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();

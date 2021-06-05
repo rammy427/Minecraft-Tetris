@@ -1,9 +1,10 @@
 #include "Brick.h"
+#include "ChiliWin.h"
+#include <sstream>
 #include <random>
 
-Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
+Brick::Brick(const Vei2& gridPos, Board& brd)
 	:
-	c(c),
 	brd(brd)
 {
 	constexpr int nShapes = 7;
@@ -67,10 +68,23 @@ Brick::Brick(const Vei2& gridPos, Color c, Board& brd)
 		{gridPos.x + 2, gridPos.y}
 	};
 
+	constexpr Color colors[nShapes] =
+	{
+		{230, 0, 0},	// Red
+		{0, 230, 0},	// Green
+		{0, 0, 230},	// Blue
+		{230, 230, 0},	// Yellow
+		{230, 0, 230},	// Magenta
+		{0, 230, 230},	// Cyan
+		{230, 103, 0}	// Orange
+	};
+
 	std::mt19937 rng(std::random_device{}());
 	std::uniform_int_distribution<int> shapeDist(0, nShapes - 1);
 	tilePositions.reserve(tileAmount);
-	tilePositions = shapes[shapeDist(rng)];
+	const int result = shapeDist(rng);
+	tilePositions = shapes[result];
+	c = colors[result];
 }
 
 void Brick::Update(Keyboard& kbd, float dt)
@@ -124,9 +138,10 @@ void Brick::Update(Keyboard& kbd, float dt)
 
 void Brick::Draw(Graphics& gfx)
 {
+	assert(!tilePositions.empty());
 	for (const Vei2& pos : tilePositions)
 	{
-		brd.DrawGhostCell(pos, c, gfx);
+		brd.DrawGhostCell(pos, Color(c.GetR() / 2, c.GetG() / 2, c.GetB() / 2), gfx);
 	}
 }
 
@@ -169,6 +184,18 @@ void Brick::Rotate(bool clockwise)
 			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
 		}
 	}
+}
+
+void Brick::BindToBoard()
+{
+	assert(!tilePositions.empty());
+	for (Vei2& pos : tilePositions)
+	{
+		brd.SetTile(pos, c);
+	}
+	// Clear brick tiles since they're now binded to the board.
+	// Brick should now be deleted.
+	tilePositions.clear();
 }
 
 bool Brick::WillCollide() const
