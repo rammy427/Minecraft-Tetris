@@ -15,7 +15,7 @@ private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();
 	void Rotate(bool clockwise);
-	bool WillCollide() const;
+	bool IsColliding() const;
 private:
 	float dropWaitTime;
 	float curTime = .0f;

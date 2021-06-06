@@ -89,12 +89,12 @@ Brick::Brick(const Vei2& gridPos, Board& brd)
 
 void Brick::Update(Keyboard& kbd, float dt)
 {
-	std::vector<Vei2> old = tilePositions;
 	while (!kbd.KeyIsEmpty())
 	{
 		const Keyboard::Event e = kbd.ReadKey();
 		if (e.IsPress())
 		{
+			std::vector<Vei2> old = tilePositions;
 			switch (e.GetCode())
 			{
 			case 'A':
@@ -118,9 +118,16 @@ void Brick::Update(Keyboard& kbd, float dt)
 				Drop();
 				break;
 			}
+
+			if (IsColliding())
+			{
+				// HORIZONTAL transformation failed. Revert to previous position.
+				tilePositions = std::move(old);
+			}
 		}
 	}
 
+	std::vector<Vei2> old = tilePositions;
 	dropWaitTime = kbd.KeyIsPressed(VK_DOWN) ? .05f : .75f;
 	curTime += dt;
 	while (curTime >= dropWaitTime)
@@ -129,9 +136,9 @@ void Brick::Update(Keyboard& kbd, float dt)
 		curTime = .0f;
 	}
 
-	// Transformation fails (new position is out of bounds or collides with piece).
-	if (WillCollide())
+	if (IsColliding())
 	{
+		// VERTICAL transformation failed (has reached limit). Bind brick to board.
 		tilePositions = std::move(old);
 		BindToBoard();
 	}
@@ -160,7 +167,7 @@ void Brick::Drop()
 	while (temp == tilePositions)
 	{
 		TranslateBy({ 0, 1 });
-		if (!WillCollide())
+		if (!IsColliding())
 		{
 			temp = tilePositions;
 		}
@@ -205,7 +212,7 @@ bool Brick::IsBinded() const
 	return tilePositions.empty();
 }
 
-bool Brick::WillCollide() const
+bool Brick::IsColliding() const
 {
 	return std::any_of(tilePositions.begin(), tilePositions.end(),
 		[&](const Vei2& pos)
