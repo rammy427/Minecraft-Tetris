@@ -11,11 +11,13 @@ private:
 		Tile() = default;
 		Tile(const RectI& rect);
 		void Set();
+		void Kill();
 		void SetColor(Color c_in);
 		void Draw(Graphics& gfx);
 		void DrawGhost(Color ghostColor, Graphics& gfx);
 		static int GetDimension();
 		bool IsAlive() const;
+		Color GetColor() const;
 	private:
 		static constexpr int dimension = 30;
 		static constexpr int bevelSize = 3;
@@ -27,6 +29,7 @@ private:
 	};
 public:
 	Board(const Vei2& center);
+	void Update();
 	void SetTile(const Vei2& gridPos, Color c = { 230, 230, 230 });
 	void Draw(Graphics& gfx);
 	void DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx);

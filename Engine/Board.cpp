@@ -1,4 +1,6 @@
 #include "Board.h"
+#include <algorithm>
+#include <iterator>
 
 Board::Tile::Tile(const RectI& rect)
 	:
@@ -9,6 +11,11 @@ Board::Tile::Tile(const RectI& rect)
 void Board::Tile::Set()
 {
 	isAlive = true;
+}
+
+void Board::Tile::Kill()
+{
+	isAlive = false;
 }
 
 void Board::Tile::SetColor(Color c_in)
@@ -46,6 +53,11 @@ bool Board::Tile::IsAlive() const
 	return isAlive;
 }
 
+Color Board::Tile::GetColor() const
+{
+	return c;
+}
+
 Board::Board(const Vei2& center)
 	:
 	topLeft(center - Vei2(width, height) * Tile::GetDimension() / 2)
@@ -56,6 +68,35 @@ Board::Board(const Vei2& center)
 		for (gridPos.x = 0; gridPos.x < width; gridPos.x++)
 		{
 			TileAt(gridPos) = { { gridPos * dim + topLeft, dim, dim } };
+		}
+	}
+}
+
+void Board::Update()
+{
+	for (Vei2 gridPos = { 0, 0 }; gridPos.y < height; gridPos.y++)
+	{
+		const auto begin = std::begin(tiles) + std::size_t(gridPos.y) * width;
+		const auto end = std::begin(tiles) + std::size_t(gridPos.y) * width + width;
+		const auto pred = [](Tile& t){ return t.IsAlive(); };
+		if (std::all_of(begin, end, pred))
+		{
+			for (auto i = begin; i != end; i++)
+			{
+				i->Kill();
+			}
+			for (Vei2 scanPos = { 0, gridPos.y }; scanPos.y > 1; scanPos.y--)
+			{
+				for (scanPos.x = 0; scanPos.x < width; scanPos.x++)
+				{
+					Tile& upperTile = TileAt(Vei2(scanPos.x, scanPos.y - 1));
+					if (upperTile.IsAlive())
+					{
+						SetTile(scanPos, upperTile.GetColor());
+						upperTile.Kill();
+					}
+				}
+			}
 		}
 	}
 }

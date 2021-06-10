@@ -43,6 +43,7 @@ void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
 	pBrick->Update(wnd.kbd, dt);
+	brd.Update();
 
 	if (pBrick->IsBinded())
 	{
