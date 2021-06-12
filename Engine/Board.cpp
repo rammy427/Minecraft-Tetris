@@ -79,13 +79,16 @@ void Board::Update()
 		const auto begin = std::begin(tiles) + std::size_t(gridPos.y) * width;
 		const auto end = std::begin(tiles) + std::size_t(gridPos.y) * width + width;
 		const auto pred = [](Tile& t){ return t.IsAlive(); };
+		// If all tiles in row are set...
 		if (std::all_of(begin, end, pred))
 		{
+			// Kill all tiles in row.
 			for (auto i = begin; i != end; i++)
 			{
 				i->Kill();
 			}
-			for (Vei2 scanPos = { 0, gridPos.y }; scanPos.y > 1; scanPos.y--)
+			// Let every floating tile fall down.
+			for (Vei2 scanPos = { 0, gridPos.y }; scanPos.y > 0; scanPos.y--)
 			{
 				for (scanPos.x = 0; scanPos.x < width; scanPos.x++)
 				{
