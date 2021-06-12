@@ -19,7 +19,7 @@ private:
 		bool IsAlive() const;
 		Color GetColor() const;
 	private:
-		static constexpr int dimension = 30;
+		static constexpr int dimension = 28;
 		static constexpr int bevelSize = 3;
 		static constexpr int padding = 1;
 		bool isAlive = false;
@@ -42,7 +42,7 @@ private:
 	const Tile& TileAt(const Vei2& gridPos) const;
 private:
 	static constexpr int width = 10;
-	static constexpr int height = 18;
+	static constexpr int height = 20;
 	Tile tiles[width * height];
 	Vei2 topLeft;
 };
