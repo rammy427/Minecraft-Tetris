@@ -153,6 +153,34 @@ void Brick::Draw(Graphics& gfx)
 	}
 }
 
+void Brick::BindToBoard()
+{
+	assert(!tilePositions.empty());
+	for (Vei2& pos : tilePositions)
+	{
+		brd.SetTile(pos, c);
+	}
+	// Clear brick tiles since they're now binded to the board.
+	// Brick should now be deleted.
+	tilePositions.clear();
+}
+
+bool Brick::IsBinded() const
+{
+	// If binded, position vector should be empty.
+	return tilePositions.empty();
+}
+
+bool Brick::IsColliding() const
+{
+	return std::any_of(tilePositions.begin(), tilePositions.end(),
+		[&](const Vei2& pos)
+		{
+			return !brd.IsInsideBoard(pos) || brd.TileIsAlive(pos);
+		}
+	);
+}
+
 void Brick::TranslateBy(const Vei2& delta)
 {
 	for (Vei2& pos : tilePositions)
@@ -192,32 +220,4 @@ void Brick::Rotate(bool clockwise)
 			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
 		}
 	}
-}
-
-void Brick::BindToBoard()
-{
-	assert(!tilePositions.empty());
-	for (Vei2& pos : tilePositions)
-	{
-		brd.SetTile(pos, c);
-	}
-	// Clear brick tiles since they're now binded to the board.
-	// Brick should now be deleted.
-	tilePositions.clear();
-}
-
-bool Brick::IsBinded() const
-{
-	// If binded, position vector should be empty.
-	return tilePositions.empty();
-}
-
-bool Brick::IsColliding() const
-{
-	return std::any_of(tilePositions.begin(), tilePositions.end(),
-		[&](const Vei2& pos)
-		{
-			return !brd.IsInsideBoard(pos) || brd.TileIsAlive(pos);
-		}
-	);
 }

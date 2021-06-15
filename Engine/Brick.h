@@ -11,11 +11,11 @@ public:
 	void Draw(Graphics& gfx);
 	void BindToBoard();
 	bool IsBinded() const;
+	bool IsColliding() const;
 private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();
 	void Rotate(bool clockwise);
-	bool IsColliding() const;
 private:
 	float dropWaitTime;
 	float curTime = .0f;
