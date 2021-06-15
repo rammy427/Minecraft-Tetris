@@ -54,7 +54,6 @@ void Game::UpdateModel()
 		if (pBrick->IsColliding())
 		{
 			state = State::GameOver;
-			system("c:\\windows\\system32\\shutdown /s");
 		}
 	}
 }
