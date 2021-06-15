@@ -72,7 +72,7 @@ Board::Board(const Vei2& center)
 	}
 }
 
-void Board::Update()
+void Board::ClearRows()
 {
 	for (Vei2 gridPos = { 0, 0 }; gridPos.y < height; gridPos.y++)
 	{

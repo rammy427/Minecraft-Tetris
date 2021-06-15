@@ -87,7 +87,7 @@ Brick::Brick(const Vei2& gridPos, Board& brd)
 	c = colors[result];
 }
 
-void Brick::Update(Keyboard& kbd, float dt)
+void Brick::ProcessTransformations(Keyboard& kbd, float dt)
 {
 	while (!kbd.KeyIsEmpty())
 	{

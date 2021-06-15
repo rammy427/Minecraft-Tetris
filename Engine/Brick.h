@@ -7,7 +7,7 @@ class Brick
 {
 public:
 	Brick(const Vei2& gridPos, Board& brd);
-	void Update(Keyboard& kbd, float dt);
+	void ProcessTransformations(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void BindToBoard();
 	bool IsBinded() const;

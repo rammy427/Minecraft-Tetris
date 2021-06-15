@@ -42,8 +42,8 @@ void Game::Go()
 void Game::UpdateModel()
 {
 	const float dt = ft.Mark();
-	pBrick->Update(wnd.kbd, dt);
-	brd.Update();
+	pBrick->ProcessTransformations(wnd.kbd, dt);
+	brd.ClearRows();
 
 	if (pBrick->IsBinded())
 	{
