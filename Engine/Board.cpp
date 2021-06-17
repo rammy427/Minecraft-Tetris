@@ -31,7 +31,7 @@ void Board::Tile::Draw(Graphics& gfx)
 	}
 	else
 	{
-		bev.SetBaseColor(Colors::Gray);
+		bev.SetBaseColor({ 64, 64, 64 });
 	}
 	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 }
