@@ -16,6 +16,12 @@
     <Filter Include="Shaders">
       <UniqueIdentifier>{8b6c92a8-f65d-451e-80e3-d65773602b92}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources">
+      <UniqueIdentifier>{f4e58ad7-7926-47c5-ae22-39995996da02}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resources\Fonts">
+      <UniqueIdentifier>{992ed572-e98f-4962-a79a-d9c3f5aef14e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -78,6 +84,12 @@
     <ClInclude Include="FrameTimer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteEffect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -122,6 +134,9 @@
     <ClCompile Include="FrameTimer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Font.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -139,6 +154,21 @@
   <ItemGroup>
     <Image Include="Chili.ico">
       <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Fonts\Consolas27x50.bmp">
+      <Filter>Resources\Fonts</Filter>
+    </Image>
+    <Image Include="Fonts\ConsolasBold11x21.bmp">
+      <Filter>Resources\Fonts</Filter>
+    </Image>
+    <Image Include="Fonts\ConsolasBold27x50.bmp">
+      <Filter>Resources\Fonts</Filter>
+    </Image>
+    <Image Include="Fonts\Consolas11x21.bmp">
+      <Filter>Resources\Fonts</Filter>
+    </Image>
+    <Image Include="Fonts\ConsolasBold43x77.bmp">
+      <Filter>Resources\Fonts</Filter>
     </Image>
   </ItemGroup>
 </Project>
