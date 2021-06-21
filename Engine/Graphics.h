@@ -112,7 +112,7 @@ public:
 			}
 		}
 	}
-	RectI GetRect() const;
+	static RectI GetRect();
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

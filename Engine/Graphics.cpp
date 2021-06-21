@@ -288,7 +288,7 @@ void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
 	}
 }
 
-RectI Graphics::GetRect() const
+RectI Graphics::GetRect()
 {
 	return { 0,ScreenWidth,0,ScreenHeight };
 }

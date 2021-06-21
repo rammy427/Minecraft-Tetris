@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd(gfx.GetRect().GetCenter())
+	brd(Graphics::GetRect().GetCenter())
 {
 	SpawnBrick();
 }
