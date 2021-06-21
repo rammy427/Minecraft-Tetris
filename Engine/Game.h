@@ -26,6 +26,7 @@
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
+#include "TextCodex.h"
 
 class Game
 {
@@ -56,5 +57,6 @@ private:
 	Board brd;
 	std::unique_ptr<Brick> pBrick;
 	State state = State::Playing;
+	const Font font = "Fonts\\ConsolasBold43x77.bmp";
 	/********************************/
 };

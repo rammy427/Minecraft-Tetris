@@ -66,9 +66,15 @@ void Game::SpawnBrick()
 
 void Game::ComposeFrame()
 {
-	brd.Draw(gfx);
-	if (state == State::Playing)
+	switch (state)
 	{
+	case State::Playing:
+		brd.Draw(gfx);
 		pBrick->Draw(gfx);
+		break;
+	case State::GameOver:
+		brd.Draw(gfx);
+		TextCodex::DrawGameOver(font, gfx);
+		break;
 	}
 }
