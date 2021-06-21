@@ -56,6 +56,26 @@ void Game::UpdateModel()
 			state = State::GameOver;
 		}
 	}
+	else
+	{
+		while (!wnd.kbd.KeyIsEmpty())
+		{
+			const Keyboard::Event e = wnd.kbd.ReadKey();
+			if (e.IsPress() && e.GetCode() == VK_RETURN)
+			{
+				switch (state)
+				{
+				case State::Title:
+					state = State::Playing;
+					break;
+				case State::GameOver:
+					brd.Reset();
+					state = State::Title;
+					break;
+				}
+			}
+		}
+	}
 }
 
 void Game::SpawnBrick()
@@ -68,6 +88,10 @@ void Game::ComposeFrame()
 {
 	switch (state)
 	{
+	case State::Title:
+		brd.Draw(gfx);
+		TextCodex::DrawTitle(font, gfx);
+		break;
 	case State::Playing:
 		brd.Draw(gfx);
 		pBrick->Draw(gfx);

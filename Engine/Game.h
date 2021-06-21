@@ -33,6 +33,7 @@ class Game
 private:
 	enum class State
 	{
+		Title,
 		Playing,
 		GameOver
 	};
@@ -56,7 +57,7 @@ private:
 	FrameTimer ft;
 	Board brd;
 	std::unique_ptr<Brick> pBrick;
-	State state = State::Playing;
+	State state = State::Title;
 	const Font font = "Fonts\\ConsolasBold43x77.bmp";
 	/********************************/
 };

@@ -105,6 +105,14 @@ void Board::ClearRows()
 	}
 }
 
+void Board::Reset()
+{
+	for (Tile& t : tiles)
+	{
+		t.Kill();
+	}
+}
+
 void Board::SetTile(const Vei2& gridPos, Color c)
 {
 	TileAt(gridPos).SetColor(c);
