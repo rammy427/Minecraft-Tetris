@@ -101,6 +101,7 @@ void Board::ClearRows()
 					}
 				}
 			}
+			lineCount++;
 		}
 	}
 }
@@ -111,6 +112,7 @@ void Board::Reset()
 	{
 		t.Kill();
 	}
+	lineCount = 0;
 }
 
 void Board::SetTile(const Vei2& gridPos, Color c)
@@ -153,6 +155,11 @@ int Board::GetWidth() const
 int Board::GetHeight() const
 {
 	return height;
+}
+
+int Board::GetClearedLineCount() const
+{
+	return lineCount;
 }
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)

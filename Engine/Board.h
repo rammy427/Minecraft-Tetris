@@ -38,6 +38,7 @@ public:
 	bool IsInsideBoard(const Vei2& gridPos) const;
 	int GetWidth() const;
 	int GetHeight() const;
+	int GetClearedLineCount() const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
@@ -46,4 +47,5 @@ private:
 	static constexpr int height = 20;
 	Tile tiles[width * height];
 	Vei2 topLeft;
+	int lineCount = 0;
 };

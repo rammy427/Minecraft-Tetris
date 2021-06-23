@@ -58,6 +58,7 @@ private:
 	Board brd;
 	std::unique_ptr<Brick> pBrick;
 	State state = State::Title;
-	const Font font = "Fonts\\ConsolasBold43x77.bmp";
+	const Font consola = "Fonts\\Consolas11x21.bmp";
+	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	/********************************/
 };
