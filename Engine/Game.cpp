@@ -26,7 +26,7 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd(Graphics::GetRect().GetCenter())
+	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y })
 {
 	SpawnBrick();
 }
@@ -80,7 +80,6 @@ void Game::UpdateModel()
 
 void Game::SpawnBrick()
 {
-	pBrick.reset();
 	pBrick = std::make_unique<Brick>(Vei2(brd.GetWidth() / 2, 0), brd);
 }
 
