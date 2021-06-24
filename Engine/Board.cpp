@@ -77,8 +77,8 @@ void Board::ClearRows()
 {
 	for (Vei2 gridPos = { 0, 0 }; gridPos.y < height; gridPos.y++)
 	{
-		const auto begin = std::begin(tiles) + std::size_t(gridPos.y) * width;
-		const auto end = std::begin(tiles) + std::size_t(gridPos.y) * width + width;
+		const auto begin = std::begin(tiles) + width * std::size_t(gridPos.y);
+		const auto end = std::begin(tiles) + width * (std::size_t(gridPos.y) + 1);
 		const auto pred = [](Tile& t){ return t.IsAlive(); };
 		// If all tiles in row are set...
 		if (std::all_of(begin, end, pred))
