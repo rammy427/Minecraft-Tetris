@@ -1,13 +1,11 @@
 #include "Brick.h"
 #include "ChiliWin.h"
 #include <sstream>
-#include <random>
 
-Brick::Brick(const Vei2& gridPos, Board& brd)
+Brick::Brick(int shape, const Vei2& gridPos, Board& brd)
 	:
 	brd(brd)
 {
-	constexpr int nShapes = 7;
 	std::vector<std::vector<Vei2>> shapes;
 	shapes.resize(nShapes);
 
@@ -79,12 +77,9 @@ Brick::Brick(const Vei2& gridPos, Board& brd)
 		{230, 103, 0}	// Orange
 	};
 
-	std::mt19937 rng(std::random_device{}());
-	std::uniform_int_distribution<int> shapeDist(0, nShapes - 1);
 	tilePositions.reserve(tileAmount);
-	const int result = shapeDist(rng);
-	tilePositions = shapes[result];
-	c = colors[result];
+	tilePositions = shapes[shape];
+	c = colors[shape];
 }
 
 void Brick::ProcessTransformations(Keyboard& kbd, float dt)
@@ -179,6 +174,11 @@ bool Brick::IsColliding() const
 			return !brd.IsInsideBoard(pos) || brd.TileIsAlive(pos);
 		}
 	);
+}
+
+int Brick::GetMaxShapes()
+{
+	return nShapes;
 }
 
 void Brick::TranslateBy(const Vei2& delta)

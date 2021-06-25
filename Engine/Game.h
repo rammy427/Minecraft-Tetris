@@ -21,6 +21,7 @@
 #pragma once
 
 #include <memory>
+#include <random>
 #include "Brick.h"
 #include "FrameTimer.h"
 #include "Graphics.h"
@@ -60,5 +61,8 @@ private:
 	State state = State::Title;
 	const Font consola = "Fonts\\Consolas11x21.bmp";
 	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
+	std::mt19937 rng = std::mt19937(std::random_device{}());
+	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Brick::GetMaxShapes() - 1);
+	int nextBrick;
 	/********************************/
 };

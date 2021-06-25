@@ -18,9 +18,9 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "MainWindow.h"
-#include "Game.h"
 #include "Brick.h"
+#include "Game.h"
+#include "MainWindow.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -28,6 +28,7 @@ Game::Game( MainWindow& wnd )
 	gfx( wnd ),
 	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y })
 {
+	nextBrick = shapeDist(rng);
 	SpawnBrick();
 }
 
@@ -80,7 +81,11 @@ void Game::UpdateModel()
 
 void Game::SpawnBrick()
 {
-	pBrick = std::make_unique<Brick>(Vei2(brd.GetWidth() / 2, 0), brd);
+	pBrick = std::make_unique<Brick>(nextBrick, Vei2(brd.GetWidth() / 2, 0), brd);
+	nextBrick = shapeDist(rng);
+	OutputDebugStringA("Next brick: ");
+	OutputDebugStringA(std::to_string(nextBrick).c_str());
+	OutputDebugStringA("\n");
 }
 
 void Game::ComposeFrame()
