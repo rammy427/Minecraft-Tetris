@@ -250,6 +250,13 @@
     <Image Include="Fonts\ConsolasBold11x21.bmp" />
     <Image Include="Fonts\ConsolasBold27x50.bmp" />
     <Image Include="Fonts\ConsolasBold43x77.bmp" />
+    <Image Include="Sprites\preview0.bmp" />
+    <Image Include="Sprites\preview1.bmp" />
+    <Image Include="Sprites\preview2.bmp" />
+    <Image Include="Sprites\preview3.bmp" />
+    <Image Include="Sprites\preview4.bmp" />
+    <Image Include="Sprites\preview5.bmp" />
+    <Image Include="Sprites\preview6.bmp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

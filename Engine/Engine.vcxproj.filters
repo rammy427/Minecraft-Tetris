@@ -22,6 +22,9 @@
     <Filter Include="Resources\Fonts">
       <UniqueIdentifier>{992ed572-e98f-4962-a79a-d9c3f5aef14e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Sprites">
+      <UniqueIdentifier>{f8247a3a-7cfe-4a05-b8f4-37d1f60def9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -175,6 +178,27 @@
     </Image>
     <Image Include="Fonts\ConsolasBold43x77.bmp">
       <Filter>Resources\Fonts</Filter>
+    </Image>
+    <Image Include="Sprites\preview2.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview3.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview4.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview5.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview6.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview0.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\preview1.bmp">
+      <Filter>Resources\Sprites</Filter>
     </Image>
   </ItemGroup>
 </Project>
