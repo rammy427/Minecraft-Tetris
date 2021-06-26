@@ -96,6 +96,9 @@
     <ClInclude Include="TextCodex.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="QueuedBrick.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -144,6 +147,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="TextCodex.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QueuedBrick.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
