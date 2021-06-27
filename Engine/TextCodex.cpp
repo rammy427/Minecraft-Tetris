@@ -14,6 +14,13 @@ void TextCodex::DrawGameOver(const Font& font, Graphics& gfx)
 
 void TextCodex::DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx)
 {
-	font.DrawText("Lines cleared:", { 10, 10 }, Colors::White, gfx);
-	font.DrawText(std::to_string(brd.GetClearedLineCount()), { 10, font.GetGlyphHeight() + 10 }, Colors::White, gfx);
+	font.DrawText("Lines cleared:", { spacing, spacing }, Colors::White, gfx);
+	font.DrawText(std::to_string(brd.GetClearedLineCount()), { spacing, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
+}
+
+void TextCodex::DrawNextBrickText(const Font& font, const QueuedBrick& nextBrick, Graphics& gfx)
+{
+	const std::string str = "Next brick:";
+	const Vei2 pos = { nextBrick.GetRect().GetCenter().x - font.GetGlyphWidth() * int(str.size()) / 2, nextBrick.GetRect().top - font.GetGlyphHeight() - spacing };
+	font.DrawText(str, pos, Colors::White, gfx);
 }

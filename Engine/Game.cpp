@@ -98,6 +98,7 @@ void Game::ComposeFrame()
 		brd.Draw(gfx);
 		pBrick->Draw(gfx);
 		nextBrick.Draw(gfx);
+		TextCodex::DrawNextBrickText(consola, nextBrick, gfx);
 		TextCodex::DrawLineCounter(consola, brd, gfx);
 		break;
 	case State::GameOver:

@@ -29,6 +29,11 @@ int QueuedBrick::GetNumber() const
 	return nNextBrick;
 }
 
+RectI QueuedBrick::GetRect() const
+{
+	return innerRect;
+}
+
 int QueuedBrick::GetSpriteWidth()
 {
 	return maxSpriteWidth;
