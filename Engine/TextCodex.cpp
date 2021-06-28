@@ -18,9 +18,9 @@ void TextCodex::DrawLineCounter(const Font& font, const Board& brd, Graphics& gf
 	font.DrawText(std::to_string(brd.GetClearedLineCount()), { spacing, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
 }
 
-void TextCodex::DrawNextBrickText(const Font& font, const QueuedBrick& nextBrick, Graphics& gfx)
+void TextCodex::DrawNextPieceText(const Font& font, const QueuedPiece& nextPiece, Graphics& gfx)
 {
 	const std::string str = "Next brick:";
-	const Vei2 pos = { nextBrick.GetRect().GetCenter().x - font.GetGlyphWidth() * int(str.size()) / 2, nextBrick.GetRect().top - font.GetGlyphHeight() - spacing };
+	const Vei2 pos = { nextPiece.GetRect().GetCenter().x - font.GetGlyphWidth() * int(str.size()) / 2, nextPiece.GetRect().top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::White, gfx);
 }

@@ -3,10 +3,10 @@
 #include "Board.h"
 #include "Keyboard.h"
 
-class Brick
+class Piece
 {
 public:
-	Brick(int shape, const Vei2& gridPos, Board& brd);
+	Piece(int shape, const Vei2& gridPos, Board& brd);
 	void ProcessTransformations(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void BindToBoard();

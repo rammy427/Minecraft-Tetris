@@ -22,12 +22,11 @@
 
 #include <memory>
 #include <random>
-#include "Brick.h"
 #include "FrameTimer.h"
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
-#include "QueuedBrick.h"
+#include "Piece.h"
 #include "TextCodex.h"
 
 class Game
@@ -60,8 +59,8 @@ private:
 	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	FrameTimer ft;
 	Board brd;
-	std::unique_ptr<Brick> pBrick;
-	QueuedBrick nextBrick;
+	std::unique_ptr<Piece> pPiece;
+	QueuedPiece nextPiece;
 	State state = State::Title;
 	/********************************/
 };

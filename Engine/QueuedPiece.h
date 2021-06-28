@@ -1,12 +1,12 @@
 #pragma once
 
 #include <random>
-#include "Brick.h"
+#include "Piece.h"
 
-class QueuedBrick
+class QueuedPiece
 {
 public:
-	QueuedBrick(const Vei2& center);
+	QueuedPiece(const Vei2& center);
 	void Roll();
 	void Draw(Graphics& gfx);
 	int GetNumber() const;
@@ -19,8 +19,8 @@ private:
 	Beveler bev;
 	Surface sprite;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
-	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Brick::GetMaxShapes() - 1);
-	int nNextBrick = 0;
+	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);
+	int nNextPiece = 0;
 	static constexpr int wallWidth = 4;
 	static constexpr int spacing = 10;
 	static constexpr int maxSpriteWidth = 80;

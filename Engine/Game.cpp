@@ -18,7 +18,6 @@
  *	You should have received a copy of the GNU General Public License					  *
  *	along with The Chili DirectX Framework.  If not, see <http://www.gnu.org/licenses/>.  *
  ******************************************************************************************/
-#include "Brick.h"
 #include "Game.h"
 #include "MainWindow.h"
 
@@ -27,9 +26,9 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y }),
-	nextBrick({ brd.GetRect().right + QueuedBrick::GetSpriteWidth() * 2, brd.GetRect().top + QueuedBrick::GetSpriteHeight() / 2 + consola.GetGlyphHeight() + 10 })
+	nextPiece({ brd.GetRect().right + QueuedPiece::GetSpriteWidth() * 2, brd.GetRect().top + QueuedPiece::GetSpriteHeight() / 2 + consola.GetGlyphHeight() + 10 })
 {
-	nextBrick.Roll();
+	nextPiece.Roll();
 	SpawnBrick();
 }
 
@@ -46,14 +45,14 @@ void Game::UpdateModel()
 	if (state == State::Playing)
 	{
 		const float dt = ft.Mark();
-		pBrick->ProcessTransformations(wnd.kbd, dt);
+		pPiece->ProcessTransformations(wnd.kbd, dt);
 		brd.ClearRows();
 
-		if (pBrick->IsBinded())
+		if (pPiece->IsBinded())
 		{
 			SpawnBrick();
 		}
-		if (pBrick->IsColliding())
+		if (pPiece->IsColliding())
 		{
 			state = State::GameOver;
 		}
@@ -82,8 +81,8 @@ void Game::UpdateModel()
 
 void Game::SpawnBrick()
 {
-	pBrick = std::make_unique<Brick>(nextBrick.GetNumber(), Vei2(brd.GetWidth() / 2, 0), brd);
-	nextBrick.Roll();
+	pPiece = std::make_unique<Piece>(nextPiece.GetNumber(), Vei2(brd.GetWidth() / 2, 0), brd);
+	nextPiece.Roll();
 }
 
 void Game::ComposeFrame()
@@ -96,9 +95,9 @@ void Game::ComposeFrame()
 		break;
 	case State::Playing:
 		brd.Draw(gfx);
-		pBrick->Draw(gfx);
-		nextBrick.Draw(gfx);
-		TextCodex::DrawNextBrickText(consola, nextBrick, gfx);
+		pPiece->Draw(gfx);
+		nextPiece.Draw(gfx);
+		TextCodex::DrawNextPieceText(consola, nextPiece, gfx);
 		TextCodex::DrawLineCounter(consola, brd, gfx);
 		break;
 	case State::GameOver:

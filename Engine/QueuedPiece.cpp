@@ -1,7 +1,7 @@
-#include "QueuedBrick.h"
+#include "QueuedPiece.h"
 #include "SpriteEffect.h"
 
-QueuedBrick::QueuedBrick(const Vei2& center)
+QueuedPiece::QueuedPiece(const Vei2& center)
 	:
 	center(center),
 	innerRect(RectI(center - Vei2(maxSpriteWidth, maxSpriteHeight) / 2, maxSpriteWidth, maxSpriteHeight).GetExpanded(spacing)),
@@ -10,36 +10,36 @@ QueuedBrick::QueuedBrick(const Vei2& center)
 	bev.SetBaseColor(wallColor);
 }
 
-void QueuedBrick::Roll()
+void QueuedPiece::Roll()
 {
-	nNextBrick = shapeDist(rng);
+	nNextPiece = shapeDist(rng);
 }
 
-void QueuedBrick::Draw(Graphics& gfx)
+void QueuedPiece::Draw(Graphics& gfx)
 {
-	sprite = "Sprites\\preview" + std::to_string(nNextBrick) + ".bmp";
+	sprite = "Sprites\\preview" + std::to_string(nNextPiece) + ".bmp";
 	const int x = center.x - sprite.GetWidth() / 2;
 	const int y = center.y - sprite.GetHeight() / 2;
 	gfx.DrawSprite(x, y, sprite, SpriteEffect::Chroma{});
 	bev.DrawBevelFrame(innerRect.GetExpanded(wallWidth), wallWidth / 2, gfx);
 }
 
-int QueuedBrick::GetNumber() const
+int QueuedPiece::GetNumber() const
 {
-	return nNextBrick;
+	return nNextPiece;
 }
 
-RectI QueuedBrick::GetRect() const
+RectI QueuedPiece::GetRect() const
 {
 	return innerRect;
 }
 
-int QueuedBrick::GetSpriteWidth()
+int QueuedPiece::GetSpriteWidth()
 {
 	return maxSpriteWidth;
 }
 
-int QueuedBrick::GetSpriteHeight()
+int QueuedPiece::GetSpriteHeight()
 {
 	return maxSpriteHeight;
 }

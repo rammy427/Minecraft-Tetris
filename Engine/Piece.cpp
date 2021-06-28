@@ -1,8 +1,8 @@
-#include "Brick.h"
+#include "Piece.h"
 #include "ChiliWin.h"
 #include <sstream>
 
-Brick::Brick(int shape, const Vei2& gridPos, Board& brd)
+Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 	:
 	brd(brd)
 {
@@ -82,7 +82,7 @@ Brick::Brick(int shape, const Vei2& gridPos, Board& brd)
 	c = colors[shape];
 }
 
-void Brick::ProcessTransformations(Keyboard& kbd, float dt)
+void Piece::ProcessTransformations(Keyboard& kbd, float dt)
 {
 	while (!kbd.KeyIsEmpty())
 	{
@@ -133,13 +133,13 @@ void Brick::ProcessTransformations(Keyboard& kbd, float dt)
 
 	if (IsColliding())
 	{
-		// VERTICAL transformation failed (has reached limit). Bind brick to board.
+		// VERTICAL transformation failed (has reached limit). Bind piece to board.
 		tilePositions = std::move(old);
 		BindToBoard();
 	}
 }
 
-void Brick::Draw(Graphics& gfx)
+void Piece::Draw(Graphics& gfx)
 {
 	assert(!tilePositions.empty());
 	for (const Vei2& pos : tilePositions)
@@ -148,25 +148,25 @@ void Brick::Draw(Graphics& gfx)
 	}
 }
 
-void Brick::BindToBoard()
+void Piece::BindToBoard()
 {
 	assert(!tilePositions.empty());
 	for (Vei2& pos : tilePositions)
 	{
 		brd.SetTile(pos, c);
 	}
-	// Clear brick tiles since they're now binded to the board.
-	// Brick should now be deleted.
+	// Clear piece tiles since they're now binded to the board.
+	// Piece should now be deleted.
 	tilePositions.clear();
 }
 
-bool Brick::IsBinded() const
+bool Piece::IsBinded() const
 {
 	// If binded, position vector should be empty.
 	return tilePositions.empty();
 }
 
-bool Brick::IsColliding() const
+bool Piece::IsColliding() const
 {
 	return std::any_of(tilePositions.begin(), tilePositions.end(),
 		[&](const Vei2& pos)
@@ -176,12 +176,12 @@ bool Brick::IsColliding() const
 	);
 }
 
-int Brick::GetMaxShapes()
+int Piece::GetMaxShapes()
 {
 	return nShapes;
 }
 
-void Brick::TranslateBy(const Vei2& delta)
+void Piece::TranslateBy(const Vei2& delta)
 {
 	for (Vei2& pos : tilePositions)
 	{
@@ -189,7 +189,7 @@ void Brick::TranslateBy(const Vei2& delta)
 	}
 }
 
-void Brick::Drop()
+void Piece::Drop()
 {
 	std::vector<Vei2> temp = tilePositions;
 	while (temp == tilePositions)
@@ -203,7 +203,7 @@ void Brick::Drop()
 	tilePositions = std::move(temp);
 }
 
-void Brick::Rotate(bool clockwise)
+void Piece::Rotate(bool clockwise)
 {
 	// Rotate brick by 90 degrees.
 	const Vei2 origin = tilePositions.front();
