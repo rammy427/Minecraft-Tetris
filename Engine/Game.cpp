@@ -27,7 +27,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y }),
-	nextBrick({ int(Graphics::GetRect().right - QueuedBrick::GetSpriteWidth() * 2), Graphics::GetRect().GetCenter().y })
+	nextBrick({ brd.GetRect().right + QueuedBrick::GetSpriteWidth() * 2, brd.GetRect().top + QueuedBrick::GetSpriteHeight() / 2 + consola.GetGlyphHeight() + 10 })
 {
 	nextBrick.Roll();
 	SpawnBrick();

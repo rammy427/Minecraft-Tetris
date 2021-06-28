@@ -40,10 +40,12 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetClearedLineCount() const;
+	RectI GetRect() const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
 private:
+	// Width and height in TILES.
 	static constexpr int width = 10;
 	static constexpr int height = 20;
 	static constexpr int wallWidth = 6;

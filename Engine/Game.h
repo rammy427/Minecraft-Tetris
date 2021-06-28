@@ -56,12 +56,12 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	const Font consola = "Fonts\\Consolas11x21.bmp";
+	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	FrameTimer ft;
 	Board brd;
 	std::unique_ptr<Brick> pBrick;
 	QueuedBrick nextBrick;
 	State state = State::Title;
-	const Font consola = "Fonts\\Consolas11x21.bmp";
-	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	/********************************/
 };

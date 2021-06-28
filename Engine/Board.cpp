@@ -170,6 +170,11 @@ int Board::GetClearedLineCount() const
 	return lineCount;
 }
 
+RectI Board::GetRect() const
+{
+	return rect;
+}
+
 Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
 	assert(IsInsideBoard(gridPos));
