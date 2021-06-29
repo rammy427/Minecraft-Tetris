@@ -71,6 +71,7 @@ void Game::UpdateModel()
 					break;
 				case State::GameOver:
 					brd.Reset();
+					SpawnBrick();
 					state = State::Title;
 					break;
 				}
