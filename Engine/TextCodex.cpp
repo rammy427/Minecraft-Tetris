@@ -20,7 +20,7 @@ void TextCodex::DrawLineCounter(const Font& font, const Board& brd, Graphics& gf
 
 void TextCodex::DrawNextPieceText(const Font& font, const QueuedPiece& nextPiece, Graphics& gfx)
 {
-	const std::string str = "Next brick:";
+	const std::string str = "NEXT:";
 	const Vei2 pos = { nextPiece.GetRect().GetCenter().x - font.GetGlyphWidth() * int(str.size()) / 2, nextPiece.GetRect().top - font.GetGlyphHeight() - spacing };
-	font.DrawText(str, pos, Colors::White, gfx);
+	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
