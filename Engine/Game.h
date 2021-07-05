@@ -48,7 +48,8 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	void SpawnBrick();
+	void SpawnPiece(int shapeNum);
+	int Roll();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -63,6 +64,7 @@ private:
 	State state = State::Title;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);
+	int curPiece;
 	int nextPiece;
 	/********************************/
 };

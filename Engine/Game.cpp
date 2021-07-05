@@ -28,7 +28,7 @@ Game::Game( MainWindow& wnd )
 	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y })
 {
 	nextPiece = shapeDist(rng);
-	SpawnBrick();
+	SpawnPiece(Roll());
 }
 
 void Game::Go()
@@ -49,7 +49,7 @@ void Game::UpdateModel()
 
 		if (pPiece->IsBinded())
 		{
-			SpawnBrick();
+			SpawnPiece(Roll());
 		}
 		if (pPiece->IsColliding())
 		{
@@ -70,7 +70,7 @@ void Game::UpdateModel()
 					break;
 				case State::GameOver:
 					brd.Reset();
-					SpawnBrick();
+					SpawnPiece(Roll());
 					state = State::Title;
 					break;
 				}
@@ -79,13 +79,20 @@ void Game::UpdateModel()
 	}
 }
 
-void Game::SpawnBrick()
+void Game::SpawnPiece(int shapeNum)
 {
-	pPiece = std::make_unique<Piece>(nextPiece, Vei2(brd.GetWidth() / 2, 0), brd);
-	nextPiece = shapeDist(rng);
-	OutputDebugStringA("Next brick: ");
+	pPiece = std::make_unique<Piece>(shapeNum, Vei2(brd.GetWidth() / 2, 0), brd);
+	OutputDebugStringA("Next piece: ");
 	OutputDebugStringA(std::to_string(nextPiece).c_str());
 	OutputDebugStringA("\n");
+}
+
+int Game::Roll()
+{
+	// Prepares next piece in queue, but returns CURRENT piece to be spawned.
+	curPiece = nextPiece;
+	nextPiece = shapeDist(rng);
+	return curPiece;
 }
 
 void Game::ComposeFrame()
