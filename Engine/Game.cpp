@@ -44,6 +44,16 @@ void Game::UpdateModel()
 	if (state == State::Playing)
 	{
 		const float dt = ft.Mark();
+
+		while (!wnd.kbd.KeyIsEmpty())
+		{
+			const Keyboard::Event e = wnd.kbd.ReadKey();
+			if (e.IsPress() && e.GetCode() == 'Q')
+			{
+				SwapHoldPiece();
+			}
+		}
+
 		pPiece->ProcessTransformations(wnd.kbd, dt);
 		brd.ClearRows();
 
@@ -70,6 +80,7 @@ void Game::UpdateModel()
 					break;
 				case State::GameOver:
 					brd.Reset();
+					holdPiece = -1;
 					SpawnPiece(Roll());
 					state = State::Title;
 					break;
@@ -85,6 +96,20 @@ void Game::SpawnPiece(int shapeNum)
 	OutputDebugStringA("Next piece: ");
 	OutputDebugStringA(std::to_string(nextPiece).c_str());
 	OutputDebugStringA("\n");
+}
+
+void Game::SwapHoldPiece()
+{
+	if (holdPiece == -1)
+	{
+		holdPiece = curPiece;
+		SpawnPiece(Roll());
+	}
+	else
+	{
+		std::swap(holdPiece, curPiece);
+		SpawnPiece(curPiece);
+	}
 }
 
 int Game::Roll()

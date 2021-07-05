@@ -49,6 +49,7 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void SpawnPiece(int shapeNum);
+	void SwapHoldPiece();
 	int Roll();
 	/********************************/
 private:
@@ -66,5 +67,6 @@ private:
 	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);
 	int curPiece;
 	int nextPiece;
+	int holdPiece = -1;
 	/********************************/
 };
