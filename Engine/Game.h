@@ -60,7 +60,9 @@ private:
 	FrameTimer ft;
 	Board brd;
 	std::unique_ptr<Piece> pPiece;
-	QueuedPiece nextPiece;
 	State state = State::Title;
+	std::mt19937 rng = std::mt19937(std::random_device{}());
+	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);
+	int nextPiece;
 	/********************************/
 };

@@ -25,10 +25,9 @@ Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y }),
-	nextPiece({ brd.GetRect().right + QueuedPiece::GetSpriteWidth() * 2, brd.GetRect().top + QueuedPiece::GetSpriteHeight() / 2 + consola.GetGlyphHeight() + 10 })
+	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y })
 {
-	nextPiece.Roll();
+	nextPiece = shapeDist(rng);
 	SpawnBrick();
 }
 
@@ -82,8 +81,11 @@ void Game::UpdateModel()
 
 void Game::SpawnBrick()
 {
-	pPiece = std::make_unique<Piece>(nextPiece.GetNumber(), Vei2(brd.GetWidth() / 2, 0), brd);
-	nextPiece.Roll();
+	pPiece = std::make_unique<Piece>(nextPiece, Vei2(brd.GetWidth() / 2, 0), brd);
+	nextPiece = shapeDist(rng);
+	OutputDebugStringA("Next brick: ");
+	OutputDebugStringA(std::to_string(nextPiece).c_str());
+	OutputDebugStringA("\n");
 }
 
 void Game::ComposeFrame()
@@ -97,8 +99,6 @@ void Game::ComposeFrame()
 	case State::Playing:
 		brd.Draw(gfx);
 		pPiece->Draw(gfx);
-		nextPiece.Draw(gfx);
-		TextCodex::DrawNextPieceText(consola, nextPiece, gfx);
 		TextCodex::DrawLineCounter(consola, brd, gfx);
 		break;
 	case State::GameOver:
