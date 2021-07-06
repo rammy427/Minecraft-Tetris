@@ -48,13 +48,22 @@ void Game::UpdateModel()
 		while (!wnd.kbd.KeyIsEmpty())
 		{
 			const Keyboard::Event e = wnd.kbd.ReadKey();
-			if (e.IsPress() && e.GetCode() == 'Q')
+			if (e.IsPress())
 			{
-				SwapHoldPiece();
+				const unsigned char charCode = e.GetCode();
+				if (charCode == 'Q')
+				{
+					wnd.kbd.DisableAutorepeat();
+					SwapHoldPiece();
+				}
+				else
+				{
+					pPiece->ProcessTransformations(wnd.kbd, charCode);
+				}
 			}
 		}
 
-		pPiece->ProcessTransformations(wnd.kbd, dt);
+		pPiece->UpdateDrop(wnd.kbd, dt);
 		brd.ClearRows();
 
 		if (pPiece->IsBinded())
@@ -93,8 +102,13 @@ void Game::UpdateModel()
 void Game::SpawnPiece(int shapeNum)
 {
 	pPiece = std::make_unique<Piece>(shapeNum, Vei2(brd.GetWidth() / 2, 0), brd);
+	// Debug queue.
 	OutputDebugStringA("Next piece: ");
 	OutputDebugStringA(std::to_string(nextPiece).c_str());
+	OutputDebugStringA("\n");
+	// Debug hold.
+	OutputDebugStringA("Current piece on hold: ");
+	OutputDebugStringA(std::to_string(holdPiece).c_str());
 	OutputDebugStringA("\n");
 }
 

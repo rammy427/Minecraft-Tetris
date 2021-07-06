@@ -7,7 +7,8 @@ class Piece
 {
 public:
 	Piece(int shape, const Vei2& gridPos, Board& brd);
-	void ProcessTransformations(Keyboard& kbd, float dt);
+	void ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode);
+	void UpdateDrop(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void BindToBoard();
 	bool IsBinded() const;

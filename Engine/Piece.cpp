@@ -82,46 +82,42 @@ Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 	c = colors[shape];
 }
 
-void Piece::ProcessTransformations(Keyboard& kbd, float dt)
+void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 {
-	while (!kbd.KeyIsEmpty())
+	std::vector<Vei2> old = tilePositions;
+	switch (eventCharCode)
 	{
-		const Keyboard::Event e = kbd.ReadKey();
-		if (e.IsPress())
-		{
-			std::vector<Vei2> old = tilePositions;
-			switch (e.GetCode())
-			{
-			case 'A':
-				kbd.DisableAutorepeat();
-				Rotate(false);
-				break;
-			case 'D':
-				kbd.DisableAutorepeat();
-				Rotate(true);
-				break;
-			case VK_LEFT:
-				kbd.EnableAutorepeat();
-				TranslateBy({ -1, 0 });
-				break;
-			case VK_RIGHT:
-				kbd.EnableAutorepeat();
-				TranslateBy({ 1, 0 });
-				break;
-			case VK_UP:
-				kbd.DisableAutorepeat();
-				Drop();
-				break;
-			}
-
-			if (IsColliding())
-			{
-				// HORIZONTAL transformation failed. Revert to previous position.
-				tilePositions = std::move(old);
-			}
-		}
+	case 'A':
+		kbd.DisableAutorepeat();
+		Rotate(false);
+		break;
+	case 'D':
+		kbd.DisableAutorepeat();
+		Rotate(true);
+		break;
+	case VK_LEFT:
+		kbd.EnableAutorepeat();
+		TranslateBy({ -1, 0 });
+		break;
+	case VK_RIGHT:
+		kbd.EnableAutorepeat();
+		TranslateBy({ 1, 0 });
+		break;
+	case VK_UP:
+		kbd.DisableAutorepeat();
+		Drop();
+		break;
 	}
 
+	if (IsColliding())
+	{
+		// HORIZONTAL transformation failed. Revert to previous position.
+		tilePositions = std::move(old);
+	}
+}
+
+void Piece::UpdateDrop(Keyboard& kbd, float dt)
+{
 	std::vector<Vei2> old = tilePositions;
 	dropWaitTime = kbd.KeyIsPressed(VK_DOWN) ? .05f : .75f;
 	curTime += dt;
@@ -205,7 +201,7 @@ void Piece::Drop()
 
 void Piece::Rotate(bool clockwise)
 {
-	// Rotate brick by 90 degrees.
+	// Rotate piece by 90 degrees.
 	const Vei2 origin = tilePositions.front();
 	for (Vei2& pos : tilePositions)
 	{
