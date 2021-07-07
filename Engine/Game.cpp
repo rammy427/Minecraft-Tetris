@@ -140,16 +140,16 @@ void Game::ComposeFrame()
 	{
 	case State::Title:
 		brd.Draw(gfx);
-		TextCodex::DrawTitle(consolab, gfx);
+		TextManager::DrawTitle(consolab, gfx);
 		break;
 	case State::Playing:
 		brd.Draw(gfx);
 		pPiece->Draw(gfx);
-		TextCodex::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawLineCounter(consola, brd, gfx);
 		break;
 	case State::GameOver:
 		brd.Draw(gfx);
-		TextCodex::DrawGameOver(consolab, gfx);
+		TextManager::DrawGameOver(consolab, gfx);
 		break;
 	}
 }

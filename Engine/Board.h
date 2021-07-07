@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Beveler.h"
+#include "Border.h"
 
 class Board
 {
@@ -40,7 +40,6 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetClearedLineCount() const;
-	RectI GetRect() const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
@@ -48,11 +47,8 @@ private:
 	// Width and height in TILES.
 	static constexpr int width = 10;
 	static constexpr int height = 20;
-	static constexpr int wallWidth = 6;
-	static constexpr Color wallColor = { 0, 0, 230 }; // Blue
 	Tile tiles[width * height];
 	Vei2 topLeft;
 	int lineCount = 0;
-	Beveler bev;
-	RectI rect;
+	Border border;
 };

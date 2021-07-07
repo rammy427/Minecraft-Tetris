@@ -67,7 +67,7 @@ Color Board::Tile::GetColor() const
 Board::Board(const Vei2& center)
 	:
 	topLeft(center - Vei2(width, height) * Tile::GetDimension() / 2),
-	rect(topLeft, width * Tile::GetDimension(), height * Tile::GetDimension())
+	border({ topLeft, width * Tile::GetDimension(), height * Tile::GetDimension() })
 {
 	const int dim = Tile::GetDimension();
 	for (Vei2 gridPos = { 0,0 }; gridPos.y < height; gridPos.y++)
@@ -77,7 +77,6 @@ Board::Board(const Vei2& center)
 			TileAt(gridPos) = { { gridPos * dim + topLeft, dim, dim } };
 		}
 	}
-	bev.SetBaseColor(wallColor);
 }
 
 void Board::ClearRows()
@@ -134,7 +133,7 @@ void Board::Draw(Graphics& gfx)
 	{
 		t.Draw(gfx);
 	}
-	bev.DrawBevelFrame(rect.GetExpanded(wallWidth + Tile::GetPadding()), wallWidth / 2, gfx);
+	border.Draw(gfx);
 }
 
 void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
@@ -168,11 +167,6 @@ int Board::GetHeight() const
 int Board::GetClearedLineCount() const
 {
 	return lineCount;
-}
-
-RectI Board::GetRect() const
-{
-	return rect;
 }
 
 Board::Tile& Board::TileAt(const Vei2& gridPos)

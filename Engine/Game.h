@@ -27,7 +27,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Piece.h"
-#include "TextCodex.h"
+#include "TextManager.h"
 
 class Game
 {

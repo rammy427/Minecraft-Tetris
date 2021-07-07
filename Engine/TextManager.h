@@ -3,7 +3,7 @@
 #include "Board.h"
 #include "Font.h"
 
-class TextCodex
+class TextManager
 {
 public:
 	static void DrawTitle(const Font& font, Graphics& gfx);
