@@ -40,6 +40,7 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetClearedLineCount() const;
+	const RectI& GetRect() const;
 private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;

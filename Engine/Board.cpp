@@ -169,6 +169,11 @@ int Board::GetClearedLineCount() const
 	return lineCount;
 }
 
+const RectI& Board::GetRect() const
+{
+	return border.GetInnerBounds();
+}
+
 Board::Tile& Board::TileAt(const Vei2& gridPos)
 {
 	assert(IsInsideBoard(gridPos));
