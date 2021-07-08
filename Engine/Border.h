@@ -5,7 +5,7 @@
 class Border
 {
 public:
-	Border(RectI innerBounds);
+	Border(RectI innerBounds, int offset = 0);
 	void Draw(Graphics& gfx);
 	const RectI& GetInnerBounds() const;
 private:

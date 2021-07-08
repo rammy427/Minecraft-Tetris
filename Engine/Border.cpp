@@ -1,8 +1,8 @@
 #include "Border.h"
 
-Border::Border(RectI innerBounds)
+Border::Border(RectI innerBounds, int offset)
 	:
-	innerBounds(innerBounds)
+	innerBounds(innerBounds.GetExpanded(offset))
 {
 	assert(thickness % 2 == 0);
 	assert(innerBounds.GetExpanded(thickness).IsContainedBy(Graphics::GetRect()));
