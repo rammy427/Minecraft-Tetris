@@ -48,8 +48,10 @@ private:
 	void UpdateModel();
 	/********************************/
 	/*  User Functions              */
-	void SpawnPiece(int shapeNum);
+	void SpawnPiece(int nShape);
 	void SwapHoldPiece();
+	void DrawQueuePreview();
+	void DrawHoldPreview();
 	int Roll();
 	/********************************/
 private:
@@ -68,5 +70,12 @@ private:
 	int curPiece;
 	int nextPiece;
 	int holdPiece = -1;
+	// Preview sprite members.
+	static constexpr int maxPreviewWidth = 80;
+	static constexpr int maxPreviewHeight = 40;
+	Border queueBorder;
+	Border holdBorder;
+	Surface queuePreview;
+	Surface holdPreview;
 	/********************************/
 };

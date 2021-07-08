@@ -20,12 +20,17 @@
  ******************************************************************************************/
 #include "Game.h"
 #include "MainWindow.h"
+#include "SpriteEffect.h"
 
 Game::Game( MainWindow& wnd )
 	:
 	wnd( wnd ),
 	gfx( wnd ),
-	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y })
+	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y }),
+	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
+	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
+	queuePreview(maxPreviewWidth, maxPreviewHeight),
+	holdPreview(maxPreviewWidth, maxPreviewHeight)
 {
 	nextPiece = shapeDist(rng);
 	SpawnPiece(Roll());
@@ -99,17 +104,9 @@ void Game::UpdateModel()
 	}
 }
 
-void Game::SpawnPiece(int shapeNum)
+void Game::SpawnPiece(int nShape)
 {
-	pPiece = std::make_unique<Piece>(shapeNum, Vei2(brd.GetWidth() / 2, 0), brd);
-	// Debug queue.
-	OutputDebugStringA("Next piece: ");
-	OutputDebugStringA(std::to_string(nextPiece).c_str());
-	OutputDebugStringA("\n");
-	// Debug hold.
-	OutputDebugStringA("Current piece on hold: ");
-	OutputDebugStringA(std::to_string(holdPiece).c_str());
-	OutputDebugStringA("\n");
+	pPiece = std::make_unique<Piece>(nShape, Vei2(brd.GetWidth() / 2, 0), brd);
 }
 
 void Game::SwapHoldPiece()
@@ -124,6 +121,27 @@ void Game::SwapHoldPiece()
 		std::swap(holdPiece, curPiece);
 		SpawnPiece(curPiece);
 	}
+}
+
+void Game::DrawQueuePreview()
+{
+	queueBorder.Draw(gfx);
+	queuePreview = "Sprites\\preview" + std::to_string(nextPiece) + ".bmp";
+	const Vei2 pos = queueBorder.GetInnerBounds().GetCenter() - Vei2(queuePreview.GetWidth(), queuePreview.GetHeight()) / 2;
+	gfx.DrawSprite(pos.x, pos.y, queuePreview, SpriteEffect::Chroma{});
+	TextManager::DrawQueueText(consola, queueBorder.GetInnerBounds(), gfx);
+}
+
+void Game::DrawHoldPreview()
+{
+	holdBorder.Draw(gfx);
+	if (holdPiece != -1)
+	{
+		holdPreview = "Sprites\\preview" + std::to_string(holdPiece) + ".bmp";
+		const Vei2 pos = holdBorder.GetInnerBounds().GetCenter() - Vei2(holdPreview.GetWidth(), holdPreview.GetHeight()) / 2;
+		gfx.DrawSprite(pos.x, pos.y, holdPreview, SpriteEffect::Chroma{});
+	}
+	TextManager::DrawHoldText(consola, holdBorder.GetInnerBounds(), gfx);
 }
 
 int Game::Roll()
@@ -145,6 +163,8 @@ void Game::ComposeFrame()
 	case State::Playing:
 		brd.Draw(gfx);
 		pPiece->Draw(gfx);
+		DrawQueuePreview();
+		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		break;
 	case State::GameOver:
