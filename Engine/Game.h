@@ -67,9 +67,9 @@ private:
 	State state = State::Title;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);
-	int curPiece;
-	int nextPiece;
-	int holdPiece = -1;
+	int nCurPiece;
+	int nNextPiece;
+	int nHoldPiece = -1;
 	// Preview sprite members.
 	static constexpr int maxPreviewWidth = 80;
 	static constexpr int maxPreviewHeight = 40;

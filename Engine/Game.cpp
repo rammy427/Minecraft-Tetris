@@ -32,7 +32,7 @@ Game::Game( MainWindow& wnd )
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight)
 {
-	nextPiece = shapeDist(rng);
+	nNextPiece = shapeDist(rng);
 	SpawnPiece(Roll());
 }
 
@@ -94,7 +94,7 @@ void Game::UpdateModel()
 					break;
 				case State::GameOver:
 					brd.Reset();
-					holdPiece = -1;
+					nHoldPiece = -1;
 					SpawnPiece(Roll());
 					state = State::Title;
 					break;
@@ -111,22 +111,22 @@ void Game::SpawnPiece(int nShape)
 
 void Game::SwapHoldPiece()
 {
-	if (holdPiece == -1)
+	if (nHoldPiece == -1)
 	{
-		holdPiece = curPiece;
+		nHoldPiece = nCurPiece;
 		SpawnPiece(Roll());
 	}
 	else
 	{
-		std::swap(holdPiece, curPiece);
-		SpawnPiece(curPiece);
+		std::swap(nHoldPiece, nCurPiece);
+		SpawnPiece(nCurPiece);
 	}
 }
 
 void Game::DrawQueuePreview()
 {
 	queueBorder.Draw(gfx);
-	queuePreview = "Sprites\\preview" + std::to_string(nextPiece) + ".bmp";
+	queuePreview = "Sprites\\preview" + std::to_string(nNextPiece) + ".bmp";
 	const Vei2 pos = queueBorder.GetInnerBounds().GetCenter() - Vei2(queuePreview.GetWidth(), queuePreview.GetHeight()) / 2;
 	gfx.DrawSprite(pos.x, pos.y, queuePreview, SpriteEffect::Chroma{});
 	TextManager::DrawQueueText(consola, queueBorder.GetInnerBounds(), gfx);
@@ -135,9 +135,9 @@ void Game::DrawQueuePreview()
 void Game::DrawHoldPreview()
 {
 	holdBorder.Draw(gfx);
-	if (holdPiece != -1)
+	if (nHoldPiece != -1)
 	{
-		holdPreview = "Sprites\\preview" + std::to_string(holdPiece) + ".bmp";
+		holdPreview = "Sprites\\preview" + std::to_string(nHoldPiece) + ".bmp";
 		const Vei2 pos = holdBorder.GetInnerBounds().GetCenter() - Vei2(holdPreview.GetWidth(), holdPreview.GetHeight()) / 2;
 		gfx.DrawSprite(pos.x, pos.y, holdPreview, SpriteEffect::Chroma{});
 	}
@@ -147,9 +147,9 @@ void Game::DrawHoldPreview()
 int Game::Roll()
 {
 	// Prepares next piece in queue, but returns CURRENT piece to be spawned.
-	curPiece = nextPiece;
-	nextPiece = shapeDist(rng);
-	return curPiece;
+	nCurPiece = nNextPiece;
+	nNextPiece = shapeDist(rng);
+	return nCurPiece;
 }
 
 void Game::ComposeFrame()
