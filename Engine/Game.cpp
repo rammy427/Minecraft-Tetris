@@ -107,6 +107,7 @@ void Game::UpdateModel()
 void Game::SpawnPiece(int nShape)
 {
 	pPiece = std::make_unique<Piece>(nShape, Vei2(brd.GetWidth() / 2, 0), brd);
+	holdIsLocked = false;
 }
 
 void Game::SwapHoldPiece()
@@ -115,11 +116,13 @@ void Game::SwapHoldPiece()
 	{
 		nHoldPiece = nCurPiece;
 		SpawnPiece(Roll());
+		holdIsLocked = true;
 	}
-	else
+	else if (!holdIsLocked && nCurPiece != nHoldPiece)
 	{
 		std::swap(nHoldPiece, nCurPiece);
 		SpawnPiece(nCurPiece);
+		holdIsLocked = true;
 	}
 }
 

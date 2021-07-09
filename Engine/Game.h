@@ -70,6 +70,7 @@ private:
 	int nCurPiece;
 	int nNextPiece;
 	int nHoldPiece = -1;
+	bool holdIsLocked = false;
 	// Preview sprite members.
 	static constexpr int maxPreviewWidth = 80;
 	static constexpr int maxPreviewHeight = 40;
