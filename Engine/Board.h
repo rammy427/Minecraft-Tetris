@@ -50,6 +50,6 @@ private:
 	static constexpr int height = 20;
 	Tile tiles[width * height];
 	Vei2 topLeft;
-	int lineCount = 0;
+	int nClearedLines = 0;
 	Border border;
 };

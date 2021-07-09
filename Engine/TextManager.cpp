@@ -12,6 +12,12 @@ void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Red, gfx);
 }
 
+void TextManager::DrawVictory(const Font& font, Graphics& gfx)
+{
+	const std::string str = "ESTAS BIEN FILU!";
+	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Yellow, gfx);
+}
+
 void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx)
 {
 	font.DrawText("Lines cleared:", { spacing, spacing }, Colors::White, gfx);

@@ -36,7 +36,8 @@ private:
 	{
 		Title,
 		Playing,
-		GameOver
+		GameOver,
+		Victory
 	};
 public:
 	Game( class MainWindow& wnd );
@@ -53,6 +54,7 @@ private:
 	void DrawQueuePreview();
 	void DrawHoldPreview();
 	int Roll();
+	bool GameIsWon();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -71,6 +73,7 @@ private:
 	int nNextPiece;
 	int nHoldPiece = -1;
 	bool holdIsLocked = false;
+	static constexpr int lineWinThreshold = 30;
 	// Preview sprite members.
 	static constexpr int maxPreviewWidth = 80;
 	static constexpr int maxPreviewHeight = 40;

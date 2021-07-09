@@ -71,6 +71,11 @@ void Game::UpdateModel()
 		pPiece->UpdateDrop(wnd.kbd, dt);
 		brd.ClearRows();
 
+		if (GameIsWon())
+		{
+			state = State::Victory;
+		}
+
 		if (pPiece->IsBinded())
 		{
 			SpawnPiece(Roll());
@@ -92,6 +97,7 @@ void Game::UpdateModel()
 				case State::Title:
 					state = State::Playing;
 					break;
+				case State::Victory:
 				case State::GameOver:
 					brd.Reset();
 					nHoldPiece = -1;
@@ -155,6 +161,11 @@ int Game::Roll()
 	return nCurPiece;
 }
 
+bool Game::GameIsWon()
+{
+	return brd.GetClearedLineCount() >= lineWinThreshold;
+}
+
 void Game::ComposeFrame()
 {
 	switch (state)
@@ -173,6 +184,10 @@ void Game::ComposeFrame()
 	case State::GameOver:
 		brd.Draw(gfx);
 		TextManager::DrawGameOver(consolab, gfx);
+		break;
+	case State::Victory:
+		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawVictory(consolab, gfx);
 		break;
 	}
 }
