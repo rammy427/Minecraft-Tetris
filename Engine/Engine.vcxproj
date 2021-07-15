@@ -260,6 +260,18 @@
     <Image Include="Sprites\preview5.bmp" />
     <Image Include="Sprites\preview6.bmp" />
   </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\play0.wav" />
+    <Media Include="Music\play1.wav" />
+    <Media Include="Music\play2.wav" />
+    <Media Include="Music\play3.wav" />
+    <Media Include="Music\play4.wav" />
+    <Media Include="Music\play5.wav" />
+    <Media Include="Music\play6.wav" />
+    <Media Include="Music\play7.wav" />
+    <Media Include="Music\play8.wav" />
+    <Media Include="Music\play9.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

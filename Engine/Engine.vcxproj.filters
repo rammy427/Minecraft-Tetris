@@ -25,6 +25,9 @@
     <Filter Include="Resources\Sprites">
       <UniqueIdentifier>{f8247a3a-7cfe-4a05-b8f4-37d1f60def9e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\Music">
+      <UniqueIdentifier>{1eebba43-8bc8-4eb5-9bc9-d93d249b3bcf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -206,5 +209,37 @@
     <Image Include="Sprites\preview1.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Music\play3.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play4.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play5.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play6.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play7.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play8.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play9.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play0.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play1.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play2.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
   </ItemGroup>
 </Project>
