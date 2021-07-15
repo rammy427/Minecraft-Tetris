@@ -27,6 +27,7 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Piece.h"
+#include "Sound.h"
 #include "TextManager.h"
 
 class Game
@@ -55,6 +56,8 @@ private:
 	void DrawHoldPreview();
 	int Roll();
 	bool GameIsWon();
+	// Sound functions.
+	void ShuffleBoardBGM();
 	/********************************/
 private:
 	MainWindow& wnd;
@@ -81,5 +84,8 @@ private:
 	Border holdBorder;
 	Surface queuePreview;
 	Surface holdPreview;
+	// Sound members.
+	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, 9);
+	Sound boardBgm;
 	/********************************/
 };

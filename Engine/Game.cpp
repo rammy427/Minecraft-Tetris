@@ -32,6 +32,7 @@ Game::Game( MainWindow& wnd )
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight)
 {
+	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
 	SpawnPiece(Roll());
 }
@@ -82,6 +83,7 @@ void Game::UpdateModel()
 		}
 		if (pPiece->IsColliding())
 		{
+			boardBgm.StopAll();
 			state = State::GameOver;
 		}
 	}
@@ -95,6 +97,7 @@ void Game::UpdateModel()
 				switch (state)
 				{
 				case State::Title:
+					boardBgm.Play();
 					state = State::Playing;
 					break;
 				case State::Victory:
@@ -102,6 +105,7 @@ void Game::UpdateModel()
 					brd.Reset();
 					nHoldPiece = -1;
 					SpawnPiece(Roll());
+					ShuffleBoardBGM();
 					state = State::Title;
 					break;
 				}
@@ -164,6 +168,11 @@ int Game::Roll()
 bool Game::GameIsWon()
 {
 	return brd.GetClearedLineCount() >= lineWinThreshold;
+}
+
+void Game::ShuffleBoardBGM()
+{
+	boardBgm = { L"Music\\play" + std::to_wstring(bgmDist(rng)) + L".wav", true };
 }
 
 void Game::ComposeFrame()
