@@ -48,4 +48,12 @@ namespace SpriteEffect
 		Color chroma = Colors::Magenta;
 		Color sub;
 	};
+	class Copy
+	{
+	public:
+		void operator()(Color cSrc, int xDest, int yDest, Graphics& gfx) const
+		{
+			gfx.PutPixel(xDest, yDest, cSrc);
+		}
+	};
 }
