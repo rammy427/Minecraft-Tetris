@@ -252,6 +252,7 @@
     <Image Include="Fonts\ConsolasBold11x21.bmp" />
     <Image Include="Fonts\ConsolasBold27x50.bmp" />
     <Image Include="Fonts\ConsolasBold43x77.bmp" />
+    <Image Include="Sprites\bg.bmp" />
     <Image Include="Sprites\preview0.bmp" />
     <Image Include="Sprites\preview1.bmp" />
     <Image Include="Sprites\preview2.bmp" />

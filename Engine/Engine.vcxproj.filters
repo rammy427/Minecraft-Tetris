@@ -209,6 +209,9 @@
     <Image Include="Sprites\preview1.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
+    <Image Include="Sprites\bg.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Music\play3.wav">
