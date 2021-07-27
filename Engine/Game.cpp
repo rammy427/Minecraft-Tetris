@@ -106,10 +106,7 @@ void Game::UpdateModel(float dt)
 					break;
 				case State::Victory:
 				case State::GameOver:
-					brd.Reset();
-					nHoldPiece = -1;
-					SpawnPiece(Roll());
-					ShuffleBoardBGM();
+					ResetGame();
 					state = State::Title;
 					break;
 				}
@@ -159,6 +156,14 @@ void Game::DrawHoldPreview()
 		gfx.DrawSprite(pos.x, pos.y, holdPreview, SpriteEffect::Chroma{});
 	}
 	TextManager::DrawHoldText(consola, holdBorder.GetInnerBounds(), gfx);
+}
+
+void Game::ResetGame()
+{
+	brd.Reset();
+	nHoldPiece = -1;
+	SpawnPiece(Roll());
+	ShuffleBoardBGM();
 }
 
 int Game::Roll()

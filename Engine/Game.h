@@ -54,6 +54,7 @@ private:
 	void SwapHoldPiece();
 	void DrawQueuePreview();
 	void DrawHoldPreview();
+	void ResetGame();
 	int Roll();
 	bool GameIsWon();
 	// Sound functions.
