@@ -1,6 +1,7 @@
 #include "Board.h"
 #include <algorithm>
 #include <iterator>
+#include "Piece.h"
 
 Board::Tile::Tile(const RectI& rect)
 	:
@@ -107,7 +108,7 @@ void Board::ClearRows()
 					}
 				}
 			}
-			nClearedLines++;
+			Piece::SpeedUp(++nClearedLines);
 		}
 	}
 }

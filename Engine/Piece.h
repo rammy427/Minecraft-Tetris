@@ -13,14 +13,19 @@ public:
 	void BindToBoard();
 	bool IsBinded() const;
 	bool IsColliding() const;
+	static void SpeedUp(int nClearedLines);
+	static void ResetSpeed();
 	static int GetMaxShapes();
 private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();
 	void Rotate(bool clockwise);
 private:
-	float dropWaitTime;
-	float curTime = .0f;
+	float dropTime;
+	float curTime = 0;
+	static float fallTime;
+	static constexpr float softDropTime = .0625f;
+	static constexpr float minFallTime = .0625f;
 	static constexpr int tileAmount = 4;
 	static constexpr int nShapes = 7;
 	std::vector<Vei2> tilePositions;

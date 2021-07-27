@@ -162,6 +162,7 @@ void Game::ResetGame()
 {
 	brd.Reset();
 	nHoldPiece = -1;
+	Piece::ResetSpeed();
 	SpawnPiece(Roll());
 	ShuffleBoardBGM();
 }

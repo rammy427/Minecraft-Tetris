@@ -119,9 +119,9 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
 	std::vector<Vei2> old = tilePositions;
-	dropWaitTime = kbd.KeyIsPressed(VK_DOWN) ? .05f : .75f;
+	dropTime = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : fallTime;
 	curTime += dt;
-	while (curTime >= dropWaitTime)
+	while (curTime >= dropTime)
 	{
 		TranslateBy({ 0, 1 });
 		curTime = .0f;
@@ -172,6 +172,16 @@ bool Piece::IsColliding() const
 	);
 }
 
+void Piece::SpeedUp(int nClearedLines)
+{
+	fallTime = nClearedLines >= 100 ? minFallTime : 1 / std::powf(2, float(nClearedLines) / 25);
+}
+
+void Piece::ResetSpeed()
+{
+	fallTime = 1;
+}
+
 int Piece::GetMaxShapes()
 {
 	return nShapes;
@@ -217,3 +227,5 @@ void Piece::Rotate(bool clockwise)
 		}
 	}
 }
+
+float Piece::fallTime = 1;
