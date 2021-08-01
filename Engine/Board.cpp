@@ -29,20 +29,19 @@ void Board::Tile::Draw(Graphics& gfx)
 	if (isAlive)
 	{
 		bev.SetBaseColor(c);
+		bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 	}
 	else
 	{
-		// Dark gray.
-		bev.SetBaseColor({ 64, 64, 64 });
+		DrawGhost(Colors::Gray, gfx);
 	}
-	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
 }
 
-void Board::Tile::DrawGhost(Color ghostColor, Graphics& gfx)
+void Board::Tile::DrawGhost(Color color, Graphics& gfx)
 {
 	assert(!isAlive);
-	bev.SetBaseColor(ghostColor);
-	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx);
+	bev.SetBaseColor(color);
+	bev.DrawBeveledBrick(rect.GetExpanded(-padding), bevelSize, gfx, true);
 }
 
 int Board::Tile::GetDimension()

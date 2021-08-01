@@ -240,50 +240,106 @@ Graphics::Graphics( HWNDKey& key )
 		_aligned_malloc( sizeof( Color ) * Graphics::ScreenWidth * Graphics::ScreenHeight,16u ) );
 }
 
-void Graphics::DrawIsoRightTriUL(int x, int y, int size, Color c)
+void Graphics::DrawIsoRightTriUL(int x, int y, int size, Color c, bool clear)
 {
 	for (int y_loop = y; y_loop < y + size; y_loop++)
 	{
 		const int cur_line = y_loop - y;
 		for (int x_loop = x; x_loop < x + size - cur_line; x_loop++)
 		{
-			PutPixel(x_loop, y_loop, c);
+			Color newColor;
+			if (clear)
+			{
+				const Color src = GetPixel(x_loop, y_loop);
+				newColor = {
+					unsigned char((c.GetR() + src.GetR()) / 2),
+					unsigned char((c.GetG() + src.GetG()) / 2),
+					unsigned char((c.GetB() + src.GetB()) / 2)
+				};
+			}
+			else
+			{
+				newColor = c;
+			}
+			PutPixel(x_loop, y_loop, newColor);
 		}
 	}
 }
 
-void Graphics::DrawIsoRightTriUR(int x, int y, int size, Color c)
+void Graphics::DrawIsoRightTriUR(int x, int y, int size, Color c, bool clear)
 {
 	for (int y_loop = y; y_loop < y + size; y_loop++)
 	{
 		const int cur_line = y_loop - y;
 		for (int x_loop = x + cur_line; x_loop < x + size; x_loop++)
 		{
-			PutPixel(x_loop, y_loop, c);
+			Color newColor;
+			if (clear)
+			{
+				const Color src = GetPixel(x_loop, y_loop);
+				newColor = {
+					unsigned char((c.GetR() + src.GetR()) / 2),
+					unsigned char((c.GetG() + src.GetG()) / 2),
+					unsigned char((c.GetB() + src.GetB()) / 2)
+				};
+			}
+			else
+			{
+				newColor = c;
+			}
+			PutPixel(x_loop, y_loop, newColor);
 		}
 	}
 }
 
-void Graphics::DrawIsoRightTriBL(int x, int y, int size, Color c)
+void Graphics::DrawIsoRightTriBL(int x, int y, int size, Color c, bool clear)
 {
 	for (int y_loop = y; y_loop < y + size; y_loop++)
 	{
 		const int cur_line = y_loop - y;
 		for (int x_loop = x; x_loop < x + cur_line; x_loop++)
 		{
-			PutPixel(x_loop, y_loop, c);
+			Color newColor;
+			if (clear)
+			{
+				const Color src = GetPixel(x_loop, y_loop);
+				newColor = {
+					unsigned char((c.GetR() + src.GetR()) / 2),
+					unsigned char((c.GetG() + src.GetG()) / 2),
+					unsigned char((c.GetB() + src.GetB()) / 2)
+				};
+			}
+			else
+			{
+				newColor = c;
+			}
+			PutPixel(x_loop, y_loop, newColor);
 		}
 	}
 }
 
-void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
+void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c, bool clear)
 {
 	for (int y_loop = y; y_loop < y + size; y_loop++)
 	{
 		const int cur_line = y_loop - y;
 		for (int x_loop = x + size - cur_line; x_loop < x + size; x_loop++)
 		{
-			PutPixel(x_loop, y_loop, c);
+			Color newColor;
+			if (clear)
+			{
+				const Color src = GetPixel(x_loop, y_loop);
+				newColor = {
+					unsigned char((c.GetR() + src.GetR()) / 2),
+					unsigned char((c.GetG() + src.GetG()) / 2),
+					unsigned char((c.GetB() + src.GetB()) / 2)
+				};
+			}
+			else
+			{
+				newColor = c;
+			}
+			PutPixel(x_loop, y_loop, newColor);
 		}
 	}
 }
@@ -291,6 +347,11 @@ void Graphics::DrawIsoRightTriBR(int x, int y, int size, Color c)
 RectI Graphics::GetRect()
 {
 	return { 0,ScreenWidth,0,ScreenHeight };
+}
+
+const Color Graphics::GetPixel(int x, int y) const
+{
+	return pSysBuffer[y * ScreenWidth + x];
 }
 
 Graphics::~Graphics()
@@ -369,7 +430,7 @@ void Graphics::PutPixel( int x,int y,Color c )
 	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
-void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
+void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c, bool clear)
 {
 	if (x0 > x1)
 	{
@@ -384,7 +445,21 @@ void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c)
 	{
 		for (int x = x0; x < x1; x++)
 		{
-			PutPixel(x, y, c);
+			Color newColor;
+			if (clear)
+			{
+				const Color src = GetPixel(x, y);
+				newColor = {
+					unsigned char((c.GetR() + src.GetR()) / 2),
+					unsigned char((c.GetG() + src.GetG()) / 2),
+					unsigned char((c.GetB() + src.GetB()) / 2)
+				};
+			}
+			else
+			{
+				newColor = c;
+			}
+			PutPixel(x, y, newColor);
 		}
 	}
 }

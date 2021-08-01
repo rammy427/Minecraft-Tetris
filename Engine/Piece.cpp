@@ -140,7 +140,7 @@ void Piece::Draw(Graphics& gfx)
 	assert(!tilePositions.empty());
 	for (const Vei2& pos : tilePositions)
 	{
-		brd.DrawGhostCell(pos, Color(c.GetR() / 2, c.GetG() / 2, c.GetB() / 2), gfx);
+		brd.DrawGhostCell(pos, c, gfx);
 	}
 }
 

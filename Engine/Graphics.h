@@ -60,15 +60,15 @@ public:
 		PutPixel( x,y,{ unsigned char( r ),unsigned char( g ),unsigned char( b ) } );
 	}
 	void PutPixel( int x,int y,Color c );
-	void DrawRect(int x0, int y0, int x1, int y1, Color c);
-	void DrawRect(const RectI& rect, Color c)
+	void DrawRect(int x0, int y0, int x1, int y1, Color c, bool clear = false);
+	void DrawRect(const RectI& rect, Color c, bool clear = false)
 	{
-		DrawRect(rect.left, rect.top, rect.right, rect.bottom, c);
+		DrawRect(rect.left, rect.top, rect.right, rect.bottom, c, clear);
 	}
-	void DrawIsoRightTriUL(int x, int y, int size, Color c);
-	void DrawIsoRightTriUR(int x, int y, int size, Color c);
-	void DrawIsoRightTriBL(int x, int y, int size, Color c);
-	void DrawIsoRightTriBR(int x, int y, int size, Color c);
+	void DrawIsoRightTriUL(int x, int y, int size, Color c, bool clear = false);
+	void DrawIsoRightTriUR(int x, int y, int size, Color c, bool clear = false);
+	void DrawIsoRightTriBL(int x, int y, int size, Color c, bool clear = false);
+	void DrawIsoRightTriBR(int x, int y, int size, Color c, bool clear = false);
 	template <typename E>
 	void DrawSprite(int x, int y, const Surface& s, E effect)
 	{
@@ -113,6 +113,7 @@ public:
 		}
 	}
 	static RectI GetRect();
+	const Color GetPixel(int x, int y) const;
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

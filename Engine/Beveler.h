@@ -7,10 +7,10 @@ class Beveler
 {
 public:
 	Beveler() = default;
-	void DrawOuterBevel(const RectI& rect, int size, Graphics& gfx) const;
-	void DrawInnerBevel(const RectI& rect, int size, Graphics& gfx) const;
-	void DrawBeveledBrick(const RectI& rect, int bevelSize, Graphics& gfx) const;
-	void DrawBevelFrame(const RectI& rect, int bevelSize, Graphics& gfx) const;
+	void DrawOuterBevel(const RectI& rect, int size, Graphics& gfx, bool clear = false) const;
+	void DrawInnerBevel(const RectI& rect, int size, Graphics& gfx, bool clear = false) const;
+	void DrawBeveledBrick(const RectI& rect, int bevelSize, Graphics& gfx, bool clear = false) const;
+	void DrawBevelFrame(const RectI& rect, int bevelSize, Graphics& gfx, bool clear = false) const;
 	void SetBaseColor(Color baseColor_in);
 private:
 	static constexpr float leftFactor = 1.11f;
