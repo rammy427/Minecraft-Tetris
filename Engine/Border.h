@@ -12,5 +12,5 @@ private:
 	Beveler bev;
 	RectI innerBounds;
 	static constexpr int thickness = 6;
-	static constexpr Color color = { 0,0,230 }; // Blue
+	static constexpr Color color = { 114,114,38 }; // Dark Yellow
 };

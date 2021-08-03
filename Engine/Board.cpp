@@ -33,7 +33,7 @@ void Board::Tile::Draw(Graphics& gfx)
 	}
 	else
 	{
-		DrawGhost(Colors::Gray, gfx);
+		DrawGhost({ 171, 142, 114 }, gfx); // Dark Apricot.
 	}
 }
 

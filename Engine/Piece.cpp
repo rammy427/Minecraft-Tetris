@@ -68,13 +68,13 @@ Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 
 	constexpr Color colors[nShapes] =
 	{
-		{230, 0, 0},	// Red
-		{0, 230, 0},	// Green
-		{0, 0, 230},	// Blue
-		{230, 230, 0},	// Yellow
-		{230, 0, 230},	// Magenta
-		{0, 230, 230},	// Cyan
-		{230, 103, 0}	// Orange
+		{228, 25, 25},	// Red
+		{25, 228, 25},	// Green
+		{25, 25, 228},	// Blue
+		{228, 228, 25},	// Yellow
+		{228, 25, 228},	// Magenta
+		{25, 228, 228},	// Cyan
+		{228, 126, 25}	// Orange
 	};
 
 	tilePositions.reserve(tileAmount);
