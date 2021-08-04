@@ -136,6 +136,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Bencher.h" />
     <ClInclude Include="Beveler.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Border.h" />
@@ -162,6 +163,7 @@
     <ClInclude Include="Vec2.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bencher.cpp" />
     <ClCompile Include="Beveler.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Border.cpp" />

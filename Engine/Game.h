@@ -22,7 +22,7 @@
 
 #include <memory>
 #include <random>
-#include "FrameTimer.h"
+#include "Bencher.h"
 #include "Graphics.h"
 #include "Keyboard.h"
 #include "Mouse.h"
@@ -65,6 +65,7 @@ private:
 	Graphics gfx;
 	/********************************/
 	/*  User Variables              */
+	Bencher bencher;
 	const Font consola = "Fonts\\Consolas11x21.bmp";
 	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	FrameTimer ft;

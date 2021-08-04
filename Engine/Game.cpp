@@ -187,6 +187,8 @@ void Game::ShuffleBoardBGM()
 
 void Game::ComposeFrame()
 {
+	bencher.Start();
+
 	switch (state)
 	{
 	case State::Title:
@@ -211,5 +213,10 @@ void Game::ComposeFrame()
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
 		break;
+	}
+
+	if (bencher.End())
+	{
+		OutputDebugString((std::wstring(bencher) + L"\n").c_str());
 	}
 }
