@@ -113,7 +113,7 @@ public:
 		}
 	}
 	static RectI GetRect();
-	const Color GetPixel(int x, int y) const;
+	Color GetPixel(int x, int y) const;
 	~Graphics();
 private:
 	Microsoft::WRL::ComPtr<IDXGISwapChain>				pSwapChain;

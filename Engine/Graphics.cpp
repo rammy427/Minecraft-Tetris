@@ -349,11 +349,6 @@ RectI Graphics::GetRect()
 	return { 0,ScreenWidth,0,ScreenHeight };
 }
 
-const Color Graphics::GetPixel(int x, int y) const
-{
-	return pSysBuffer[y * ScreenWidth + x];
-}
-
 Graphics::~Graphics()
 {
 	// free sysbuffer memory (aligned free)
@@ -413,21 +408,6 @@ void Graphics::EndFrame()
 			throw CHILI_GFX_EXCEPTION( hr,L"Presenting back buffer" );
 		}
 	}
-}
-
-void Graphics::BeginFrame()
-{
-	// clear the sysbuffer
-	memset( pSysBuffer,0u,sizeof( Color ) * Graphics::ScreenHeight * Graphics::ScreenWidth );
-}
-
-void Graphics::PutPixel( int x,int y,Color c )
-{
-	assert( x >= 0 );
-	assert( x < int( Graphics::ScreenWidth ) );
-	assert( y >= 0 );
-	assert( y < int( Graphics::ScreenHeight ) );
-	pSysBuffer[Graphics::ScreenWidth * y + x] = c;
 }
 
 void Graphics::DrawRect(int x0, int y0, int x1, int y1, Color c, bool clear)
