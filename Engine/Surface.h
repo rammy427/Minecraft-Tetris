@@ -11,6 +11,11 @@ public:
 	Surface( const std::string& filename );
 	Surface( int width,int height );
 	Surface() = default;
+	Surface(const Surface&) = default;
+	Surface(Surface&& donor);
+	~Surface() = default;
+	Surface& operator=(const Surface&) = default;
+	Surface& operator=(Surface&& rhs);
 	void PutPixel( int x,int y,Color c );
 	Color GetPixel( int x,int y ) const;
 	int GetWidth() const;
