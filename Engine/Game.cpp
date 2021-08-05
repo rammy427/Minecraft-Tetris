@@ -61,7 +61,12 @@ void Game::UpdateModel(float dt)
 			if (e.IsPress())
 			{
 				const unsigned char charCode = e.GetCode();
-				if (charCode == 'Q')
+				if (charCode == VK_ESCAPE)
+				{
+					state = State::Paused;
+					wnd.kbd.DisableAutorepeat();
+				}
+				else if (charCode == 'Q')
 				{
 					wnd.kbd.DisableAutorepeat();
 					SwapHoldPiece();
@@ -89,6 +94,18 @@ void Game::UpdateModel(float dt)
 		{
 			boardBgm.StopAll();
 			state = State::GameOver;
+		}
+	}
+	else if (state == State::Paused)
+	{
+		while (!wnd.kbd.KeyIsEmpty())
+		{
+			const Keyboard::Event e = wnd.kbd.ReadKey();
+			if (e.IsPress() && e.GetCode() == VK_ESCAPE)
+			{
+				state = State::Playing;
+				wnd.kbd.DisableAutorepeat();
+			}
 		}
 	}
 	else
@@ -200,6 +217,15 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		break;
+	case State::Paused:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
+		brd.Draw(gfx);
+		pPiece->Draw(gfx);
+		DrawQueuePreview();
+		DrawHoldPreview();
+		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});

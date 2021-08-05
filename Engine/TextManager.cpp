@@ -12,6 +12,12 @@ void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Red, gfx);
 }
 
+void TextManager::DrawPaused(const Font& font, Graphics& gfx)
+{
+	const std::string str = "PAUSE";
+	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Red, gfx);
+}
+
 void TextManager::DrawVictory(const Font& font, Graphics& gfx)
 {
 	const std::string str = "ESTAS BIEN FILU!";

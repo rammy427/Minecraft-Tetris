@@ -37,6 +37,7 @@ private:
 	{
 		Title,
 		Playing,
+		Paused,
 		GameOver,
 		Victory
 	};
