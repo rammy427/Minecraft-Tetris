@@ -102,9 +102,6 @@
     <ClInclude Include="Border.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Bencher.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -156,9 +153,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Border.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bencher.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SurfaceOD.cpp">
