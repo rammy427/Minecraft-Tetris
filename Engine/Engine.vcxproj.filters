@@ -102,6 +102,9 @@
     <ClInclude Include="Border.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Powerup.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DXErr.cpp">
@@ -161,6 +164,9 @@
     <ClCompile Include="GraphicsOD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Powerup.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="FramebufferPS.hlsl">
@@ -216,6 +222,9 @@
       <Filter>Resources\Sprites</Filter>
     </Image>
     <Image Include="Sprites\bg.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\tnt.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
   </ItemGroup>

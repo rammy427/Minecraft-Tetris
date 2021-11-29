@@ -29,6 +29,7 @@
 #include "Piece.h"
 #include "Sound.h"
 #include "TextManager.h"
+#include "Powerup.h"
 
 class Game
 {
@@ -91,5 +92,6 @@ private:
 	// Sound members.
 	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, 9);
 	Sound boardBgm;
+	Powerup bomb;
 	/********************************/
 };

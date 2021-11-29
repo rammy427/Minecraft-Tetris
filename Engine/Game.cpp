@@ -30,7 +30,8 @@ Game::Game( MainWindow& wnd )
 	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
-	holdPreview(maxPreviewWidth, maxPreviewHeight)
+	holdPreview(maxPreviewWidth, maxPreviewHeight),
+	bomb(Vei2((Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, brd.GetRect().bottom - 64 - 10), brd)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -217,6 +218,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		bomb.Draw(gfx);
 		break;
 	case State::Paused:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
@@ -225,6 +227,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		bomb.Draw(gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
