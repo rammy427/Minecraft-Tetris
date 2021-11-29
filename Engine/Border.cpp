@@ -9,7 +9,7 @@ Border::Border(RectI innerBounds, int offset)
 	bev.SetBaseColor(color);
 }
 
-void Border::Draw(Graphics& gfx)
+void Border::Draw(Graphics& gfx) const
 {
 	bev.DrawBevelFrame(innerBounds.GetExpanded(thickness), thickness / 2, gfx);
 }
