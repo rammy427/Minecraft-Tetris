@@ -102,7 +102,8 @@ void Board::ClearRows()
 					Tile& upperTile = TileAt(Vei2(scanPos.x, scanPos.y - 1));
 					if (upperTile.IsAlive())
 					{
-						SetTile(scanPos, upperTile.GetColor());
+						TileAt(scanPos).SetColor(upperTile.GetColor());
+						TileAt(scanPos).Set();
 						upperTile.Kill();
 					}
 				}
@@ -121,12 +122,6 @@ void Board::Reset()
 	nClearedLines = 0;
 }
 
-void Board::SetTile(const Vei2& gridPos, Color c)
-{
-	TileAt(gridPos).SetColor(c);
-	TileAt(gridPos).Set();
-}
-
 void Board::Draw(Graphics& gfx)
 {
 	for (Tile& t : tiles)
@@ -134,16 +129,6 @@ void Board::Draw(Graphics& gfx)
 		t.Draw(gfx);
 	}
 	border.Draw(gfx);
-}
-
-void Board::DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx)
-{
-	TileAt(gridPos).DrawGhost(ghostColor, gfx);
-}
-
-bool Board::TileIsAlive(const Vei2& gridPos) const
-{
-	return TileAt(gridPos).IsAlive();
 }
 
 bool Board::IsInsideBoard(const Vei2& gridPos) const

@@ -32,16 +32,12 @@ public:
 	Board(const Vei2& center);
 	void ClearRows();
 	void Reset();
-	void SetTile(const Vei2& gridPos, Color c = { 230, 230, 230 });
 	void Draw(Graphics& gfx);
-	void DrawGhostCell(const Vei2& gridPos, Color ghostColor, Graphics& gfx);
-	bool TileIsAlive(const Vei2& gridPos) const;
 	bool IsInsideBoard(const Vei2& gridPos) const;
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetClearedLineCount() const;
 	const RectI& GetRect() const;
-private:
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
 private:

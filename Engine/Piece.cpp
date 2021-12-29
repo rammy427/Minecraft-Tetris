@@ -140,7 +140,7 @@ void Piece::Draw(Graphics& gfx)
 	assert(!tilePositions.empty());
 	for (const Vei2& pos : tilePositions)
 	{
-		brd.DrawGhostCell(pos, c, gfx);
+		brd.TileAt(pos).DrawGhost(c, gfx);
 	}
 }
 
@@ -149,7 +149,8 @@ void Piece::BindToBoard()
 	assert(!tilePositions.empty());
 	for (Vei2& pos : tilePositions)
 	{
-		brd.SetTile(pos, c);
+		brd.TileAt(pos).SetColor(c);
+		brd.TileAt(pos).Set();
 	}
 	// Clear piece tiles since they're now binded to the board.
 	// Piece should now be deleted.
@@ -167,14 +168,14 @@ bool Piece::IsColliding() const
 	return std::any_of(tilePositions.begin(), tilePositions.end(),
 		[&](const Vei2& pos)
 		{
-			return !brd.IsInsideBoard(pos) || brd.TileIsAlive(pos);
+			return !brd.IsInsideBoard(pos) || brd.TileAt(pos).IsAlive();
 		}
 	);
 }
 
 void Piece::SpeedUp(int nClearedLines)
 {
-	fallTime = nClearedLines >= 100 ? minFallTime : 1 / std::powf(2, float(nClearedLines) / 25);
+	fallTime = std::max(minFallTime, 1 / std::powf(2, float(nClearedLines) / 25));
 }
 
 void Piece::ResetSpeed()
