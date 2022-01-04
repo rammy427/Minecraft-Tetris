@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	bomb(Vei2((Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, brd.GetRect().bottom - 64 - 10), brd)
+	bomb(Vei2((Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, brd.GetRect().bottom - 64 - 10), brd, wnd.mouse)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -72,6 +72,10 @@ void Game::UpdateModel(float dt)
 					wnd.kbd.DisableAutorepeat();
 					SwapHoldPiece();
 				}
+				else if (charCode == '1')
+				{
+					bomb.Activate();
+				}
 				else
 				{
 					pPiece->ProcessTransformations(wnd.kbd, charCode);
@@ -80,6 +84,7 @@ void Game::UpdateModel(float dt)
 		}
 
 		pPiece->UpdateDrop(wnd.kbd, dt);
+		bomb.Update(dt);
 		brd.ClearRows();
 
 		if (GameIsWon())
