@@ -169,3 +169,8 @@ const Board::Tile& Board::TileAt(const Vei2& gridPos) const
 {
 	return const_cast<Board*>(this)->TileAt(gridPos);
 }
+
+Vei2 Board::ScreenToGrid(const Vei2& screenPos) const
+{
+	return (screenPos - topLeft) / Tile::GetDimension();
+}

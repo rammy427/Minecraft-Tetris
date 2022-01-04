@@ -40,6 +40,7 @@ public:
 	const RectI& GetRect() const;
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
+	Vei2 ScreenToGrid(const Vei2& screenPos) const;
 private:
 	// Width and height in TILES.
 	static constexpr int width = 10;
