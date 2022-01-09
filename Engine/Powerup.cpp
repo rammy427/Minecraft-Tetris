@@ -59,6 +59,7 @@ void Powerup::Activate()
 {
 	if (!isOnCooldown)
 	{
+		mouse.Flush();
 		isActive = true;
 	}
 }
