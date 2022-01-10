@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	bomb(Vei2((Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, brd.GetRect().bottom - 64 - 10), brd, wnd.mouse)
+	bomb({(Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74}, brd, wnd.mouse)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
