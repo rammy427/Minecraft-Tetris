@@ -223,7 +223,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		bomb.Draw(gfx);
+		bomb.Draw(consola, gfx);
 		break;
 	case State::Paused:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
@@ -232,7 +232,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		bomb.Draw(gfx);
+		bomb.Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:

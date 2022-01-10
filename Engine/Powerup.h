@@ -2,6 +2,7 @@
 
 #include "Board.h"
 #include "Mouse.h"
+#include "TextManager.h"
 
 class Powerup
 {
@@ -9,7 +10,7 @@ public:
 	Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
 	void Update(float dt);
 	void Activate();
-	void Draw(Graphics& gfx) const;
+	void Draw(const Font& font, Graphics& gfx) const;
 private:
 	Board& brd;
 	Mouse& mouse;

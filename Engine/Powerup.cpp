@@ -64,7 +64,7 @@ void Powerup::Activate()
 	}
 }
 
-void Powerup::Draw(Graphics& gfx) const
+void Powerup::Draw(const Font& font, Graphics& gfx) const
 {
 	border.Draw(gfx);
 	const Vei2 pos = border.GetInnerBounds().GetCenter() - Vei2(sprite.GetWidth(), sprite.GetHeight()) / 2;
@@ -75,4 +75,5 @@ void Powerup::Draw(Graphics& gfx) const
 		int width = int(border.GetInnerBounds().GetWidth() * (1 - curTime / coolTime));
 		gfx.DrawRect({ topLeft, width, border.GetInnerBounds().GetHeight() }, Colors::Red, true);
 	}
+	TextManager::DrawPowerupText(font, border.GetInnerBounds(), gfx);
 }

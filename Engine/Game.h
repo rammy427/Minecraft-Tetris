@@ -28,7 +28,6 @@
 #include "Mouse.h"
 #include "Piece.h"
 #include "Sound.h"
-#include "TextManager.h"
 #include "Powerup.h"
 
 class Game

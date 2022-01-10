@@ -43,3 +43,10 @@ void TextManager::DrawHoldText(const Font& font, const RectI& borderRect, Graphi
 	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
+
+void TextManager::DrawPowerupText(const Font& font, const RectI& borderRect, Graphics& gfx)
+{
+	const std::string str = "POWERUP:";
+	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
+	font.DrawText(str, pos, Colors::Yellow, gfx);
+}
