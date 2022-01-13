@@ -8,6 +8,7 @@ public:
 	Border(RectI innerBounds, int offset = 0);
 	void Draw(Graphics& gfx) const;
 	const RectI& GetInnerBounds() const;
+	static const Color GetColor();
 private:
 	Beveler bev;
 	RectI innerBounds;

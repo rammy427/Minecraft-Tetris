@@ -18,3 +18,8 @@ const RectI& Border::GetInnerBounds() const
 {
 	return innerBounds;
 }
+
+const Color Border::GetColor()
+{
+	return color;
+}
