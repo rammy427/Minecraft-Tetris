@@ -26,27 +26,27 @@ void TextManager::DrawVictory(const Font& font, Graphics& gfx)
 
 void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx)
 {
-	font.DrawText("Lines cleared:", { spacing, spacing }, Colors::White, gfx);
+	font.DrawText("Lines:", { spacing, spacing }, Colors::White, gfx);
 	font.DrawText(std::to_string(brd.GetClearedLineCount()), { spacing, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
 }
 
 void TextManager::DrawQueueText(const Font& font, const RectI& borderRect, Graphics& gfx)
 {
-	const std::string str = "NEXT:";
+	const std::string str = "NEXT";
 	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
 
 void TextManager::DrawHoldText(const Font& font, const RectI& borderRect, Graphics& gfx)
 {
-	const std::string str = "HOLD:";
+	const std::string str = "HOLD";
 	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
 
 void TextManager::DrawPowerupText(const Font& font, const RectI& borderRect, Graphics& gfx)
 {
-	const std::string str = "POWERUP:";
+	const std::string str = "POWERUP";
 	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
