@@ -10,6 +10,7 @@ public:
 	Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
 	void Update(float dt);
 	void Activate();
+	void Reset();
 	void Draw(const Font& font, Graphics& gfx) const;
 private:
 	virtual void ProcessUsage() = 0;

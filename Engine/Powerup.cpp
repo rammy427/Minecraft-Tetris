@@ -38,6 +38,12 @@ void Powerup::Activate()
 	}
 }
 
+void Powerup::Reset()
+{
+	isActive = false;
+	isOnCooldown = true;
+}
+
 void Powerup::Draw(const Font& font, Graphics& gfx) const
 {
 	border.Draw(gfx);
@@ -88,8 +94,7 @@ void Bomb::ProcessUsage()
 						}
 					}
 				}
-				isActive = false;
-				isOnCooldown = true;
+				Reset();
 			}
 		}
 	}
