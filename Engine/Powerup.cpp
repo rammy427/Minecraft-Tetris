@@ -1,10 +1,11 @@
 #include "Powerup.h"
 
-Powerup::Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+Powerup::Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
-	border({ rectTopLeft, spriteDim, spriteDim }, 10)
+	border({ rectTopLeft, spriteDim, spriteDim }, 10),
+	sprite(spritename)
 {
 }
 
@@ -24,34 +25,7 @@ void Powerup::Update(float dt)
 	}
 	else
 	{
-		while (!mouse.IsEmpty())
-		{
-			const Mouse::Event e = mouse.Read();
-			if (e.GetType() == Mouse::Event::Type::LPress)
-			{
-				const Vei2 mousePos = e.GetPos();
-				if (brd.GetRect().Contains(mousePos))
-				{
-					const Vei2 center = brd.ScreenToGrid(mousePos);
-					const int left = center.x - blastRadius;
-					const int right = center.x + blastRadius;
-					const int top = center.y - blastRadius;
-					const int bottom = center.y + blastRadius;
-					for (Vei2 gridPos = { left, top }; gridPos.y <= bottom; gridPos.y++)
-					{
-						for (gridPos.x = left; gridPos.x <= right; gridPos.x++)
-						{
-							if (brd.IsInsideBoard(gridPos) && (gridPos - center).GetLengthSq() <= blastRadius * blastRadius)
-							{
-								brd.TileAt(gridPos).Kill();
-							}
-						}
-					}
-					isActive = false;
-					isOnCooldown = true;
-				}
-			}
-		}
+		ProcessUsage();
 	}
 }
 
@@ -81,4 +55,42 @@ void Powerup::Draw(const Font& font, Graphics& gfx) const
 		gfx.DrawRect({ topLeft, border.GetInnerBounds().GetWidth(), border.GetInnerBounds().GetHeight() }, Border::GetColor(), true);
 	}
 	TextManager::DrawPowerupText(font, border.GetInnerBounds(), gfx);
+}
+
+Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+	:
+	Powerup(rectTopLeft, brd, mouse, "Sprites\\tnt.bmp")
+{
+}
+
+void Bomb::ProcessUsage()
+{
+	while (!mouse.IsEmpty())
+	{
+		const Mouse::Event e = mouse.Read();
+		if (e.GetType() == Mouse::Event::Type::LPress)
+		{
+			const Vei2 mousePos = e.GetPos();
+			if (brd.GetRect().Contains(mousePos))
+			{
+				const Vei2 center = brd.ScreenToGrid(mousePos);
+				const int left = center.x - blastRadius;
+				const int right = center.x + blastRadius;
+				const int top = center.y - blastRadius;
+				const int bottom = center.y + blastRadius;
+				for (Vei2 gridPos = { left, top }; gridPos.y <= bottom; gridPos.y++)
+				{
+					for (gridPos.x = left; gridPos.x <= right; gridPos.x++)
+					{
+						if (brd.IsInsideBoard(gridPos) && (gridPos - center).GetLengthSq() <= blastRadius * blastRadius)
+						{
+							brd.TileAt(gridPos).Kill();
+						}
+					}
+				}
+				isActive = false;
+				isOnCooldown = true;
+			}
+		}
+	}
 }
