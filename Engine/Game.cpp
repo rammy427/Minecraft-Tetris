@@ -31,7 +31,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	bomb({(Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74}, brd, wnd.mouse)
+	pPowerup(std::make_unique<Bomb>(Vei2((Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74), brd, wnd.mouse))
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -74,7 +74,7 @@ void Game::UpdateModel(float dt)
 				}
 				else if (charCode == '1')
 				{
-					bomb.Activate();
+					pPowerup->Activate();
 				}
 				else
 				{
@@ -84,7 +84,7 @@ void Game::UpdateModel(float dt)
 		}
 
 		pPiece->UpdateDrop(wnd.kbd, dt);
-		bomb.Update(dt);
+		pPowerup->Update(dt);
 		brd.ClearRows();
 
 		if (GameIsWon())
@@ -223,7 +223,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		bomb.Draw(consola, gfx);
+		pPowerup->Draw(consola, gfx);
 		break;
 	case State::Paused:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
@@ -232,7 +232,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		bomb.Draw(consola, gfx);
+		pPowerup->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
