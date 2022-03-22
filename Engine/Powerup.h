@@ -22,7 +22,6 @@ protected:
 	Border border;
 	static constexpr int spriteDim = 64;
 	static constexpr float coolTime = 5.0f;
-	static constexpr int blastRadius = 2;
 	float curTime = .0f;
 	bool isActive = false;
 	bool isOnCooldown = true;
@@ -34,6 +33,8 @@ public:
 	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
 private:
 	void ProcessUsage() override;
+private:
+	static constexpr int blastRadius = 2;
 };
 
 class Sand : public Powerup
