@@ -11,6 +11,7 @@ Board::Tile::Tile(const RectI& rect)
 
 void Board::Tile::Set()
 {
+	assert(!isAlive);
 	isAlive = true;
 }
 
