@@ -1,5 +1,6 @@
 #pragma once
 
+#include <random>
 #include "Board.h"
 #include "Mouse.h"
 #include "TextManager.h"
@@ -33,4 +34,17 @@ public:
 	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
 private:
 	void ProcessUsage() override;
+};
+
+class Sand : public Powerup
+{
+public:
+	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+private:
+	void ProcessUsage() override;
+private:
+	static constexpr int nBlocks = 10;
+	static constexpr Color c = { 230, 206, 184 }; // Apricot
+	std::mt19937 rng = std::mt19937(std::random_device{}());
+	std::uniform_int_distribution<int> xDist = std::uniform_int_distribution<int>(0, brd.GetWidth() - 1);
 };

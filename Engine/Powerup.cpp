@@ -99,3 +99,30 @@ void Bomb::ProcessUsage()
 		}
 	}
 }
+
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+	:
+	Powerup(rectTopLeft, brd, mouse, "Sprites\\sand.bmp")
+{
+}
+
+void Sand::ProcessUsage()
+{
+	for (int n = 0; n < nBlocks; n++)
+	{
+		Vei2 gridPos = { 0,0 };
+		do
+		{
+			gridPos.x = xDist(rng);
+		} while (brd.TileAt(gridPos).IsAlive());
+
+		while (gridPos.y < brd.GetHeight() - 1 && !brd.TileAt({ gridPos.x, gridPos.y + 1 }).IsAlive())
+		{
+			gridPos.y++;
+		}
+
+		brd.TileAt(gridPos).SetColor(c);
+		brd.TileAt(gridPos).Set();
+	}
+	Reset();
+}
