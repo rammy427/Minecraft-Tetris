@@ -110,17 +110,19 @@ void Sand::ProcessUsage()
 {
 	for (int n = 0; n < nBlocks; n++)
 	{
-		Vei2 gridPos = { 0,0 };
+		int rand_x;
 		do
 		{
-			gridPos.x = xDist(rng);
-		} while (brd.TileAt(gridPos).IsAlive());
+			rand_x = xDist(rng);
+		} while (brd.TileAt({ rand_x,0 }).IsAlive());
 
-		while (gridPos.y < brd.GetHeight() - 1 && !brd.TileAt({ gridPos.x, gridPos.y + 1 }).IsAlive())
+		int next_y = 0;
+		while (next_y < brd.GetHeight() && !brd.TileAt({ rand_x, next_y }).IsAlive())
 		{
-			gridPos.y++;
+			next_y++;
 		}
 
+		const Vei2 gridPos = { rand_x,next_y - 1 };
 		brd.TileAt(gridPos).SetColor(c);
 		brd.TileAt(gridPos).Set();
 	}
