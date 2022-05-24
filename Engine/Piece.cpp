@@ -129,9 +129,9 @@ void Piece::UpdateDrop(Keyboard& kbd, float dt)
 
 	if (IsColliding())
 	{
-		// VERTICAL transformation failed (has reached limit). Bind piece to board.
+		// VERTICAL transformation failed (has reached limit). Lock piece to board.
 		tilePositions = std::move(old);
-		BindToBoard();
+		LockToBoard();
 	}
 }
 
@@ -144,7 +144,7 @@ void Piece::Draw(Graphics& gfx)
 	}
 }
 
-void Piece::BindToBoard()
+void Piece::LockToBoard()
 {
 	assert(!tilePositions.empty());
 	for (Vei2& pos : tilePositions)
@@ -152,14 +152,14 @@ void Piece::BindToBoard()
 		brd.TileAt(pos).SetColor(c);
 		brd.TileAt(pos).Set();
 	}
-	// Clear piece tiles since they're now binded to the board.
+	// Clear piece tiles since they're now locked to the board.
 	// Piece should now be deleted.
 	tilePositions.clear();
 }
 
-bool Piece::IsBinded() const
+bool Piece::IsLocked() const
 {
-	// If binded, position vector should be empty.
+	// If locked, position vector should be empty.
 	return tilePositions.empty();
 }
 

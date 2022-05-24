@@ -10,8 +10,8 @@ public:
 	void ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode);
 	void UpdateDrop(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
-	void BindToBoard();
-	bool IsBinded() const;
+	void LockToBoard();
+	bool IsLocked() const;
 	bool IsColliding() const;
 	static void SpeedUp(int nClearedLines);
 	static void ResetSpeed();

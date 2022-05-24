@@ -92,7 +92,7 @@ void Game::UpdateModel(float dt)
 			state = State::Victory;
 		}
 
-		if (pPiece->IsBinded())
+		if (pPiece->IsLocked())
 		{
 			SpawnPiece(Roll());
 		}
