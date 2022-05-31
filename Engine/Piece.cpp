@@ -109,9 +109,9 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 		break;
 	}
 
-	if (IsColliding())
+	if (DetectCollision() != CollisionType::None)
 	{
-		// HORIZONTAL transformation failed. Revert to previous position.
+		// Piece collision detected. Return to previous position.
 		tilePositions = std::move(old);
 	}
 }
@@ -127,11 +127,14 @@ void Piece::UpdateDrop(Keyboard& kbd, float dt)
 		curTime = .0f;
 	}
 
-	if (IsColliding())
+	switch (DetectCollision())
 	{
-		// VERTICAL transformation failed (has reached limit). Lock piece to board.
+	case CollisionType::Bottom:
+	case CollisionType::Tile:
+		// Peace has reached bottom of the board or another tile.
 		tilePositions = std::move(old);
 		LockToBoard();
+		break;
 	}
 }
 
@@ -163,14 +166,34 @@ bool Piece::IsLocked() const
 	return tilePositions.empty();
 }
 
-bool Piece::IsColliding() const
+Piece::CollisionType Piece::DetectCollision() const
 {
-	return std::any_of(tilePositions.begin(), tilePositions.end(),
-		[&](const Vei2& pos)
-		{
-			return !brd.IsInsideBoard(pos) || brd.TileAt(pos).IsAlive();
-		}
-	);
+	const auto xPred = [](const Vei2& lhs, const Vei2& rhs) { return lhs.x < rhs.x; };
+	const auto yPred = [](const Vei2& lhs, const Vei2& rhs) { return lhs.y < rhs.y; };
+	const auto tilePred = [&](const Vei2& pos) { return brd.TileAt(pos).IsAlive(); };
+
+	const int left = std::min_element(tilePositions.begin(), tilePositions.end(), xPred)->x;
+	const int right = std::max_element(tilePositions.begin(), tilePositions.end(), xPred)->x;
+	const int top = std::min_element(tilePositions.begin(), tilePositions.end(), yPred)->y;
+	const int bottom = std::max_element(tilePositions.begin(), tilePositions.end(), yPred)->y;
+
+	if (left < 0 || right >= brd.GetWidth())
+	{
+		return CollisionType::Side;
+	}
+	if (top < 0)
+	{
+		return CollisionType::Top;
+	}
+	if (bottom >= brd.GetHeight())
+	{
+		return CollisionType::Bottom;
+	}
+	if (std::any_of(tilePositions.begin(), tilePositions.end(), tilePred))
+	{
+		return CollisionType::Tile;
+	}
+	return CollisionType::None;
 }
 
 void Piece::SpeedUp(int nClearedLines)
@@ -202,7 +225,7 @@ void Piece::Drop()
 	while (temp == tilePositions)
 	{
 		TranslateBy({ 0, 1 });
-		if (!IsColliding())
+		if (DetectCollision() == CollisionType::None)
 		{
 			temp = tilePositions;
 		}
