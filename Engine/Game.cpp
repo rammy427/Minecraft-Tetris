@@ -96,7 +96,7 @@ void Game::UpdateModel(float dt)
 		{
 			SpawnPiece(Roll());
 		}
-		if (pPiece->DetectCollision() != Piece::CollisionType::None)
+		if (pPiece->IsColliding())
 		{
 			boardBgm.StopAll();
 			state = State::GameOver;
