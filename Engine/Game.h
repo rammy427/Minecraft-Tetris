@@ -79,6 +79,12 @@ private:
 	int nHoldPiece = -1;
 	bool holdIsLocked = false;
 	static constexpr int lineWinThreshold = 120;
+	// Tick time values
+	float curTime = 0.0f;
+	float tickTime;
+	static constexpr float freeFallTime = 1.0f;
+	static constexpr float dropTime = 0.0625f;
+	static constexpr float minDropTime = 0.0625f;
 	// Preview sprite members.
 	static constexpr int maxPreviewWidth = 80;
 	static constexpr int maxPreviewHeight = 40;

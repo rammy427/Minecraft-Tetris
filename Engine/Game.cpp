@@ -83,7 +83,13 @@ void Game::UpdateModel(float dt)
 			}
 		}
 
-		pPiece->UpdateDrop(wnd.kbd, dt);
+		tickTime = wnd.kbd.KeyIsPressed(VK_DOWN) ? dropTime : freeFallTime;
+		curTime += dt;
+		if (curTime >= tickTime)
+		{
+			pPiece->TranslateBy({ 0, 1 });
+			curTime = 0.0f;
+		}
 		pPowerup->Update(dt);
 		brd.ClearRows();
 
