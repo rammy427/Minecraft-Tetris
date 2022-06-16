@@ -108,30 +108,16 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 		Drop();
 		break;
 	}
-
-	if (IsColliding())
-	{
-		// HORIZONTAL transformation failed. Revert to previous position.
-		tilePositions = std::move(old);
-	}
 }
 
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
-	std::vector<Vei2> old = tilePositions;
 	dropTime = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : fallTime;
 	curTime += dt;
 	while (curTime >= dropTime)
 	{
 		TranslateBy({ 0, 1 });
 		curTime = .0f;
-	}
-
-	if (IsColliding())
-	{
-		// VERTICAL transformation failed (has reached limit). Lock piece to board.
-		tilePositions = std::move(old);
-		LockToBoard();
 	}
 }
 
@@ -180,7 +166,7 @@ void Piece::SpeedUp(int nClearedLines)
 
 void Piece::ResetSpeed()
 {
-	fallTime = 1;
+	fallTime = 1.0f;
 }
 
 int Piece::GetMaxShapes()
@@ -190,28 +176,37 @@ int Piece::GetMaxShapes()
 
 void Piece::TranslateBy(const Vei2& delta)
 {
+	const std::vector<Vei2> old = tilePositions;
 	for (Vei2& pos : tilePositions)
 	{
 		pos += delta;
+	}
+
+	if (IsColliding())
+	{
+		// Revert translation.
+		tilePositions = old;
+		if (delta.y > 0)
+		{
+			// Reached bottom limit. Lock piece to board.
+			LockToBoard();
+		}
 	}
 }
 
 void Piece::Drop()
 {
-	std::vector<Vei2> temp = tilePositions;
-	while (temp == tilePositions)
+	std::vector<Vei2> old;
+	do
 	{
+		old = tilePositions;
 		TranslateBy({ 0, 1 });
-		if (!IsColliding())
-		{
-			temp = tilePositions;
-		}
-	}
-	tilePositions = std::move(temp);
+	} while (old != tilePositions);
 }
 
 void Piece::Rotate(bool clockwise)
 {
+	const std::vector<Vei2> old = tilePositions;
 	// Rotate piece by 90 degrees.
 	const Vei2 origin = tilePositions.front();
 	for (Vei2& pos : tilePositions)
@@ -227,6 +222,12 @@ void Piece::Rotate(bool clockwise)
 			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
 		}
 	}
+	
+	if (IsColliding())
+	{
+		// Revert rotation.
+		tilePositions = old;
+	}
 }
 
-float Piece::fallTime = 1;
+float Piece::fallTime = 1.0f;

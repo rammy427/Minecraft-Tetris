@@ -22,10 +22,10 @@ private:
 	void Rotate(bool clockwise);
 private:
 	float dropTime;
-	float curTime = 0;
+	float curTime = 0.0f;
 	static float fallTime;
-	static constexpr float softDropTime = .0625f;
-	static constexpr float minFallTime = .0625f;
+	static constexpr float softDropTime = 0.0625f;
+	static constexpr float minFallTime = 0.0625f;
 	static constexpr int tileAmount = 4;
 	static constexpr int nShapes = 7;
 	std::vector<Vei2> tilePositions;
