@@ -206,27 +206,30 @@ void Piece::Drop()
 
 void Piece::Rotate(bool clockwise)
 {
-	const std::vector<Vei2> old = tilePositions;
-	// Rotate piece by 90 degrees.
-	const Vei2 origin = tilePositions.front();
-	for (Vei2& pos : tilePositions)
+	if (!IsLocked())
 	{
-		if (clockwise)
+		const std::vector<Vei2> old = tilePositions;
+		// Rotate piece by 90 degrees.
+		const Vei2 origin = tilePositions.front();
+		for (Vei2& pos : tilePositions)
 		{
-			// Clockwise rotation. (x, y) -> (-y, x).
-			pos = Vei2(origin.y - pos.y, pos.x - origin.x) + origin;
+			if (clockwise)
+			{
+				// Clockwise rotation. (x, y) -> (-y, x).
+				pos = Vei2(origin.y - pos.y, pos.x - origin.x) + origin;
+			}
+			else
+			{
+				// Counter-clockwise rotation. (x, y) -> (y, -x).
+				pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
+			}
 		}
-		else
+
+		if (IsColliding())
 		{
-			// Counter-clockwise rotation. (x, y) -> (y, -x).
-			pos = Vei2(pos.y - origin.y, origin.x - pos.x) + origin;
+			// Revert rotation.
+			tilePositions = old;
 		}
-	}
-	
-	if (IsColliding())
-	{
-		// Revert rotation.
-		tilePositions = old;
 	}
 }
 
