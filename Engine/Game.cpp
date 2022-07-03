@@ -210,14 +210,14 @@ void Game::ShuffleBoardBGM()
 
 void Game::ComposeFrame()
 {
+	gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
+
 	switch (state)
 	{
 	case State::Title:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		TextManager::DrawTitle(consolab, gfx);
 		break;
 	case State::Playing:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		pPiece->Draw(gfx);
 		DrawQueuePreview();
@@ -226,7 +226,6 @@ void Game::ComposeFrame()
 		pPowerup->Draw(consola, gfx);
 		break;
 	case State::Paused:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		pPiece->Draw(gfx);
 		DrawQueuePreview();
@@ -236,12 +235,10 @@ void Game::ComposeFrame()
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		TextManager::DrawGameOver(consolab, gfx);
 		break;
 	case State::Victory:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
 		break;

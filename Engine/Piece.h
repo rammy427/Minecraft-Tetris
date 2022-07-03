@@ -20,6 +20,7 @@ private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();
 	void Rotate(bool clockwise);
+	bool TileIsColliding(const Vei2& gridPos) const;
 private:
 	float dropTime;
 	float curTime = 0.0f;

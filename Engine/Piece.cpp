@@ -151,12 +151,8 @@ bool Piece::IsLocked() const
 
 bool Piece::IsColliding() const
 {
-	return std::any_of(tilePositions.begin(), tilePositions.end(),
-		[&](const Vei2& pos)
-		{
-			return !brd.IsInsideBoard(pos) || brd.TileAt(pos).IsAlive();
-		}
-	);
+	const auto pred = [&](const Vei2& pos){ return TileIsColliding(pos); };
+	return std::any_of(tilePositions.begin(), tilePositions.end(), pred);
 }
 
 void Piece::SpeedUp(int nClearedLines)
@@ -231,6 +227,11 @@ void Piece::Rotate(bool clockwise)
 			tilePositions = old;
 		}
 	}
+}
+
+bool Piece::TileIsColliding(const Vei2& gridPos) const
+{
+	return !brd.IsInsideBoard(gridPos) || brd.TileAt(gridPos).IsAlive();
 }
 
 float Piece::fallTime = 1.0f;
