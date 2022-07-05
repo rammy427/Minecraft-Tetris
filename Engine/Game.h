@@ -56,7 +56,8 @@ private:
 	void DrawQueuePreview();
 	void DrawHoldPreview();
 	void ResetGame();
-	int Roll();
+	void SpawnPowerup();
+	int RollPiece();
 	bool GameIsWon();
 	// Sound functions.
 	void ShuffleBoardBGM();

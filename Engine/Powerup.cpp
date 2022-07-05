@@ -100,9 +100,10 @@ void Bomb::ProcessUsage()
 	}
 }
 
-Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece)
 	:
-	Powerup(rectTopLeft, brd, mouse, "Sprites\\sand.bmp")
+	Powerup(rectTopLeft, brd, mouse, "Sprites\\sand.bmp"),
+	piece(piece)
 {
 }
 

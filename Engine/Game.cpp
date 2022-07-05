@@ -30,12 +30,12 @@ Game::Game( MainWindow& wnd )
 	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
-	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	pPowerup(std::make_unique<Sand>(Vei2((Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74), brd, wnd.mouse))
+	holdPreview(maxPreviewWidth, maxPreviewHeight)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
-	SpawnPiece(Roll());
+	SpawnPiece(RollPiece());
+	SpawnPowerup();
 }
 
 void Game::Go()
@@ -94,7 +94,7 @@ void Game::UpdateModel(float dt)
 
 		if (pPiece->IsLocked())
 		{
-			SpawnPiece(Roll());
+			SpawnPiece(RollPiece());
 		}
 		if (pPiece->IsColliding())
 		{
@@ -149,7 +149,7 @@ void Game::SwapHoldPiece()
 	if (nHoldPiece == -1)
 	{
 		nHoldPiece = nCurPiece;
-		SpawnPiece(Roll());
+		SpawnPiece(RollPiece());
 		holdIsLocked = true;
 	}
 	else if (!holdIsLocked && nCurPiece != nHoldPiece)
@@ -186,11 +186,17 @@ void Game::ResetGame()
 	brd.Reset();
 	nHoldPiece = -1;
 	Piece::ResetSpeed();
-	SpawnPiece(Roll());
+	SpawnPiece(RollPiece());
 	ShuffleBoardBGM();
 }
 
-int Game::Roll()
+void Game::SpawnPowerup()
+{
+	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
+	pPowerup = std::make_unique<Sand>(topLeft, brd, wnd.mouse, *pPiece);
+}
+
+int Game::RollPiece()
 {
 	// Prepares next piece in queue, but returns CURRENT piece to be spawned.
 	nCurPiece = nNextPiece;

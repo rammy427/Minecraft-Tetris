@@ -1,7 +1,7 @@
 #pragma once
 
 #include <random>
-#include "Board.h"
+#include "Piece.h"
 #include "Mouse.h"
 #include "TextManager.h"
 
@@ -40,10 +40,11 @@ private:
 class Sand : public Powerup
 {
 public:
-	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece);
 private:
 	void ProcessUsage() override;
 private:
+	const Piece& piece;
 	static constexpr int nBlocks = 10;
 	static constexpr Color c = { 230, 206, 184 }; // Apricot
 	std::mt19937 rng = std::mt19937(std::random_device{}());
