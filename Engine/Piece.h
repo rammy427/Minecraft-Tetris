@@ -16,6 +16,7 @@ public:
 	static void SpeedUp(int nClearedLines);
 	static void ResetSpeed();
 	static int GetMaxShapes();
+	const std::vector<Vei2>& GetTilePositions() const;
 private:
 	void TranslateBy(const Vei2& delta);
 	void Drop();

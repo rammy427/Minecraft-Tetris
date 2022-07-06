@@ -111,11 +111,16 @@ void Sand::ProcessUsage()
 {
 	for (int n = 0; n < nBlocks; n++)
 	{
+		const std::vector<Vei2>& positions = piece.GetTilePositions();
+		const auto pred = [](const Vei2& lhs, const Vei2& rhs) { return lhs.x < rhs.x; };
+		const int leftLim = std::min_element(positions.begin(), positions.end(), pred)->x;
+		const int rightLim = std::max_element(positions.begin(), positions.end(), pred)->x;
+
 		int rand_x;
 		do
 		{
 			rand_x = xDist(rng);
-		} while (brd.TileAt({ rand_x,0 }).IsAlive());
+		} while ((rand_x >= leftLim && rand_x <= rightLim) || brd.TileAt({ rand_x,0 }).IsAlive());
 
 		int next_y = 0;
 		while (next_y < brd.GetHeight() && !brd.TileAt({ rand_x, next_y }).IsAlive())

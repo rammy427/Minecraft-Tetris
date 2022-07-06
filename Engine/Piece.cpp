@@ -170,6 +170,11 @@ int Piece::GetMaxShapes()
 	return nShapes;
 }
 
+const std::vector<Vei2>& Piece::GetTilePositions() const
+{
+	return tilePositions;
+}
+
 void Piece::TranslateBy(const Vei2& delta)
 {
 	const std::vector<Vei2> old = tilePositions;
