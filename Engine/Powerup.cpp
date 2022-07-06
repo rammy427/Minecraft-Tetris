@@ -113,8 +113,9 @@ void Sand::ProcessUsage()
 	{
 		const std::vector<Vei2>& positions = piece.GetTilePositions();
 		const auto pred = [](const Vei2& lhs, const Vei2& rhs) { return lhs.x < rhs.x; };
-		const int leftLim = std::min_element(positions.begin(), positions.end(), pred)->x;
-		const int rightLim = std::max_element(positions.begin(), positions.end(), pred)->x;
+		const auto limits = std::minmax_element(positions.begin(), positions.end(), pred);
+		const int leftLim = limits.first->x;
+		const int rightLim = limits.second->x;
 
 		int rand_x;
 		do
