@@ -78,12 +78,12 @@ void Game::UpdateModel(float dt)
 				}
 				else
 				{
-					pPiece->ProcessTransformations(wnd.kbd, charCode);
+					piece.ProcessTransformations(wnd.kbd, charCode);
 				}
 			}
 		}
 
-		pPiece->UpdateDrop(wnd.kbd, dt);
+		piece.UpdateDrop(wnd.kbd, dt);
 		pPowerup->Update(dt);
 		brd.ClearRows();
 
@@ -92,11 +92,11 @@ void Game::UpdateModel(float dt)
 			state = State::Victory;
 		}
 
-		if (pPiece->IsLocked())
+		if (piece.IsLocked())
 		{
 			SpawnPiece(RollPiece());
 		}
-		if (pPiece->IsColliding())
+		if (piece.IsColliding())
 		{
 			boardBgm.StopAll();
 			state = State::GameOver;
@@ -140,7 +140,7 @@ void Game::UpdateModel(float dt)
 
 void Game::SpawnPiece(int nShape)
 {
-	pPiece = std::make_unique<Piece>(nShape, Vei2(brd.GetWidth() / 2, 0), brd);
+	piece = { nShape, Vei2(brd.GetWidth() / 2, 0), brd };
 	holdIsLocked = false;
 }
 
@@ -193,7 +193,7 @@ void Game::ResetGame()
 void Game::SpawnPowerup()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pPowerup = std::make_unique<Sand>(topLeft, brd, wnd.mouse, *pPiece);
+	pPowerup = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
 }
 
 int Game::RollPiece()
@@ -225,7 +225,7 @@ void Game::ComposeFrame()
 		break;
 	case State::Playing:
 		brd.Draw(gfx);
-		pPiece->Draw(gfx);
+		piece.Draw(gfx);
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
@@ -233,7 +233,7 @@ void Game::ComposeFrame()
 		break;
 	case State::Paused:
 		brd.Draw(gfx);
-		pPiece->Draw(gfx);
+		piece.Draw(gfx);
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);

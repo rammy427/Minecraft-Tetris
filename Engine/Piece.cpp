@@ -126,7 +126,7 @@ void Piece::Draw(Graphics& gfx)
 	assert(!tilePositions.empty());
 	for (const Vei2& pos : tilePositions)
 	{
-		brd.TileAt(pos).DrawGhost(c, gfx);
+		brd.get().TileAt(pos).DrawGhost(c, gfx);
 	}
 }
 
@@ -135,8 +135,8 @@ void Piece::LockToBoard()
 	assert(!tilePositions.empty());
 	for (Vei2& pos : tilePositions)
 	{
-		brd.TileAt(pos).SetColor(c);
-		brd.TileAt(pos).Set();
+		brd.get().TileAt(pos).SetColor(c);
+		brd.get().TileAt(pos).Set();
 	}
 	// Clear piece tiles since they're now locked to the board.
 	// Piece should now be deleted.
@@ -231,7 +231,7 @@ void Piece::Rotate(bool clockwise)
 
 bool Piece::TileIsColliding(const Vei2& gridPos) const
 {
-	return !brd.IsInsideBoard(gridPos) || brd.TileAt(gridPos).IsAlive();
+	return !brd.get().IsInsideBoard(gridPos) || brd.get().TileAt(gridPos).IsAlive();
 }
 
 float Piece::fallTime = 1.0f;

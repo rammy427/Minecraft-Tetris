@@ -71,7 +71,7 @@ private:
 	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	FrameTimer ft;
 	Board brd;
-	std::unique_ptr<Piece> pPiece;
+	Piece piece = { 0, { 0,0 }, brd };
 	State state = State::Title;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);

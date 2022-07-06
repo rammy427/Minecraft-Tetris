@@ -31,5 +31,5 @@ private:
 	static constexpr int nShapes = 7;
 	std::vector<Vei2> tilePositions;
 	Color c;
-	Board& brd;
+	std::reference_wrapper<Board> brd;
 };
