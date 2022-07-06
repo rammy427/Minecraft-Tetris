@@ -221,7 +221,7 @@ void Game::ComposeFrame()
 	switch (state)
 	{
 	case State::Title:
-		TextManager::DrawTitle(consolab, gfx);
+		gfx.DrawSprite(0, 0, title, SpriteEffect::Chroma{});
 		break;
 	case State::Playing:
 		brd.Draw(gfx);

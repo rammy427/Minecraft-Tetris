@@ -1,11 +1,5 @@
 #include "TextManager.h"
 
-void TextManager::DrawTitle(const Font& font, Graphics& gfx)
-{
-	const std::string str = "MINECRAFT TETRIS";
-	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Blue, gfx);
-}
-
 void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 {
 	const std::string str = "NO ESTAS FILU";

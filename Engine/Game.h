@@ -89,6 +89,7 @@ private:
 	Surface holdPreview;
 	// Other sprites.
 	Surface background = "Sprites\\bg.bmp";
+	Surface title = "Sprites\\title.bmp";
 	// Sound members.
 	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, 9);
 	Sound boardBgm;
