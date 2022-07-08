@@ -109,7 +109,7 @@ void Board::ClearRows()
 					}
 				}
 			}
-			Piece::SpeedUp(++nClearedLines);
+			Piece::UpdateFreeFallTime(++nClearedLines);
 		}
 	}
 }

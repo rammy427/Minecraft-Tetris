@@ -112,9 +112,9 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
-	dropTime = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : fallTime;
+	speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
 	curTime += dt;
-	while (curTime >= dropTime)
+	while (curTime >= speed)
 	{
 		TranslateBy({ 0, 1 });
 		curTime = .0f;
@@ -155,14 +155,14 @@ bool Piece::IsColliding() const
 	return std::any_of(tilePositions.begin(), tilePositions.end(), pred);
 }
 
-void Piece::SpeedUp(int nClearedLines)
+void Piece::UpdateFreeFallTime(int nClearedLines)
 {
-	fallTime = std::max(minFallTime, 1 / std::powf(2, float(nClearedLines) / 25));
+	freeFallTime = std::max(minSpeed, 1 / std::powf(2, float(nClearedLines) / 25));
 }
 
-void Piece::ResetSpeed()
+void Piece::ResetFreeFallTime()
 {
-	fallTime = 1.0f;
+	freeFallTime = 1.0f;
 }
 
 int Piece::GetMaxShapes()
@@ -239,4 +239,4 @@ bool Piece::TileIsColliding(const Vei2& gridPos) const
 	return !brd.get().IsInsideBoard(gridPos) || brd.get().TileAt(gridPos).IsAlive();
 }
 
-float Piece::fallTime = 1.0f;
+float Piece::freeFallTime = 1.0f;

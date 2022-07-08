@@ -185,7 +185,7 @@ void Game::ResetGame()
 {
 	brd.Reset();
 	nHoldPiece = -1;
-	Piece::ResetSpeed();
+	Piece::ResetFreeFallTime();
 	SpawnPiece(RollPiece());
 	ShuffleBoardBGM();
 }
