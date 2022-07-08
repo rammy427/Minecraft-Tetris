@@ -28,7 +28,7 @@
 #include "Mouse.h"
 #include "Piece.h"
 #include "Sound.h"
-#include "Powerup.h"
+#include "Item.h"
 
 class Game
 {
@@ -56,7 +56,7 @@ private:
 	void DrawQueuePreview();
 	void DrawHoldPreview();
 	void ResetGame();
-	void SpawnPowerup();
+	void SpawnItem();
 	int RollPiece();
 	bool GameIsWon();
 	// Sound functions.
@@ -93,6 +93,6 @@ private:
 	// Sound members.
 	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, 9);
 	Sound boardBgm;
-	std::unique_ptr<Powerup> pPowerup;
+	std::unique_ptr<Item> pItem;
 	/********************************/
 };

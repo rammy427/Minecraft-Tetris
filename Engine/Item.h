@@ -5,10 +5,10 @@
 #include "Mouse.h"
 #include "TextManager.h"
 
-class Powerup
+class Item
 {
 public:
-	Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
+	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
 	void Update(float dt);
 	void Activate();
 	void Reset();
@@ -27,7 +27,7 @@ protected:
 	bool isOnCooldown = true;
 };
 
-class Bomb : public Powerup
+class Bomb : public Item
 {
 public:
 	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
@@ -37,7 +37,7 @@ private:
 	static constexpr int blastRadius = 2;
 };
 
-class Sand : public Powerup
+class Sand : public Item
 {
 public:
 	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece);

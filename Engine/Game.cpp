@@ -35,7 +35,7 @@ Game::Game( MainWindow& wnd )
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
 	SpawnPiece(RollPiece());
-	SpawnPowerup();
+	SpawnItem();
 }
 
 void Game::Go()
@@ -74,7 +74,7 @@ void Game::UpdateModel(float dt)
 				}
 				else if (charCode == '1')
 				{
-					pPowerup->Activate();
+					pItem->Activate();
 				}
 				else
 				{
@@ -84,7 +84,7 @@ void Game::UpdateModel(float dt)
 		}
 
 		piece.UpdateDrop(wnd.kbd, dt);
-		pPowerup->Update(dt);
+		pItem->Update(dt);
 		brd.ClearRows();
 
 		if (GameIsWon())
@@ -190,10 +190,10 @@ void Game::ResetGame()
 	ShuffleBoardBGM();
 }
 
-void Game::SpawnPowerup()
+void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pPowerup = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
+	pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
 }
 
 int Game::RollPiece()
@@ -229,7 +229,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		pPowerup->Draw(consola, gfx);
+		pItem->Draw(consola, gfx);
 		break;
 	case State::Paused:
 		brd.Draw(gfx);
@@ -237,7 +237,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		pPowerup->Draw(consola, gfx);
+		pItem->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:

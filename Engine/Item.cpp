@@ -1,6 +1,6 @@
-#include "Powerup.h"
+#include "Item.h"
 
-Powerup::Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename)
+Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
@@ -9,7 +9,7 @@ Powerup::Powerup(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& 
 {
 }
 
-void Powerup::Update(float dt)
+void Item::Update(float dt)
 {
 	if (!isActive)
 	{
@@ -29,7 +29,7 @@ void Powerup::Update(float dt)
 	}
 }
 
-void Powerup::Activate()
+void Item::Activate()
 {
 	if (!isOnCooldown)
 	{
@@ -38,13 +38,13 @@ void Powerup::Activate()
 	}
 }
 
-void Powerup::Reset()
+void Item::Reset()
 {
 	isActive = false;
 	isOnCooldown = true;
 }
 
-void Powerup::Draw(const Font& font, Graphics& gfx) const
+void Item::Draw(const Font& font, Graphics& gfx) const
 {
 	border.Draw(gfx);
 	const Vei2 pos = border.GetInnerBounds().GetCenter() - Vei2(sprite.GetWidth(), sprite.GetHeight()) / 2;
@@ -60,12 +60,12 @@ void Powerup::Draw(const Font& font, Graphics& gfx) const
 		const Vei2 topLeft = { border.GetInnerBounds().left, border.GetInnerBounds().top };
 		gfx.DrawRect({ topLeft, border.GetInnerBounds().GetWidth(), border.GetInnerBounds().GetHeight() }, Border::GetColor(), true);
 	}
-	TextManager::DrawPowerupText(font, border.GetInnerBounds(), gfx);
+	TextManager::DrawItemText(font, border.GetInnerBounds(), gfx);
 }
 
 Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
 	:
-	Powerup(rectTopLeft, brd, mouse, "Sprites\\tnt.bmp")
+	Item(rectTopLeft, brd, mouse, "Sprites\\tnt.bmp")
 {
 }
 
@@ -102,7 +102,7 @@ void Bomb::ProcessUsage()
 
 Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece)
 	:
-	Powerup(rectTopLeft, brd, mouse, "Sprites\\sand.bmp"),
+	Item(rectTopLeft, brd, mouse, "Sprites\\sand.bmp"),
 	piece(piece)
 {
 }

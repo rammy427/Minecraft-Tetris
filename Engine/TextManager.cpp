@@ -38,9 +38,9 @@ void TextManager::DrawHoldText(const Font& font, const RectI& borderRect, Graphi
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
 
-void TextManager::DrawPowerupText(const Font& font, const RectI& borderRect, Graphics& gfx)
+void TextManager::DrawItemText(const Font& font, const RectI& borderRect, Graphics& gfx)
 {
-	const std::string str = "POWERUP";
+	const std::string str = "ITEM";
 	const Vei2 pos = { borderRect.GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2, borderRect.top - font.GetGlyphHeight() - spacing };
 	font.DrawText(str, pos, Colors::Yellow, gfx);
 }
