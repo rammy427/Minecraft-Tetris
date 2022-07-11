@@ -112,12 +112,25 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
-	speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
+	if (isUnderPotionEffect)
+	{
+		curEffectTime += dt;
+		if (curEffectTime >= potionEffectDuration)
+		{
+			isUnderPotionEffect = false;
+			curEffectTime = 0.0f;
+		}
+	}
+	else
+	{
+		speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
+	}
+
 	curTime += dt;
 	while (curTime >= speed)
 	{
 		TranslateBy({ 0, 1 });
-		curTime = .0f;
+		curTime = 0.0f;
 	}
 }
 
@@ -141,6 +154,12 @@ void Piece::LockToBoard()
 	// Clear piece tiles since they're now locked to the board.
 	// Piece should now be deleted.
 	tilePositions.clear();
+}
+
+void Piece::InitPotionEffect(bool isSlowingDown)
+{
+	isUnderPotionEffect = true;
+	speed = isSlowingDown ? maxSpeed : minSpeed;
 }
 
 bool Piece::IsLocked() const

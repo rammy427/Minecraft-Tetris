@@ -11,6 +11,7 @@ public:
 	void UpdateDrop(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void LockToBoard();
+	void InitPotionEffect(bool isSpeedingUp);
 	bool IsLocked() const;
 	bool IsColliding() const;
 	static void UpdateFreeFallTime(int nClearedLines);
@@ -26,8 +27,12 @@ private:
 	float speed;
 	float curTime = 0.0f;
 	static float freeFallTime;
+	bool isUnderPotionEffect = false;
+	float curEffectTime = 0.0f;
+	static constexpr float potionEffectDuration = 10.0f;
 	static constexpr float softDropTime = 0.0625f;
 	static constexpr float minSpeed = 0.0625f;
+	static constexpr float maxSpeed = 2.0f;
 	static constexpr int tileAmount = 4;
 	static constexpr int nShapes = 7;
 	std::vector<Vei2> tilePositions;

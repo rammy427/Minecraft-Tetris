@@ -193,7 +193,7 @@ void Game::ResetGame()
 void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
+	pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
 }
 
 int Game::RollPiece()
