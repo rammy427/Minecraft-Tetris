@@ -54,11 +54,10 @@ private:
 class Potion : public Item
 {
 public:
-	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
+	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
 private:
 	void ProcessUsage() override;
 private:
-	Piece& piece;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> fallDist = std::uniform_int_distribution<int>(0, 1);
 };

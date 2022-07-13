@@ -6,16 +6,23 @@
 class Piece
 {
 public:
+	enum class Effect
+	{
+		None,
+		Slowdown,
+		Speedup
+	};
+public:
 	Piece(int shape, const Vei2& gridPos, Board& brd);
 	void ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode);
 	void UpdateDrop(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void LockToBoard();
-	void InitPotionEffect(bool isSpeedingUp);
 	bool IsLocked() const;
 	bool IsColliding() const;
+	static void InitPotionEffect(bool isSpeedingUp);
 	static void UpdateFreeFallTime(int nClearedLines);
-	static void ResetFreeFallTime();
+	static void ResetStaticData();
 	static int GetMaxShapes();
 	const std::vector<Vei2>& GetTilePositions() const;
 private:
@@ -27,8 +34,8 @@ private:
 	float speed;
 	float curTime = 0.0f;
 	static float freeFallTime;
-	bool isUnderPotionEffect = false;
-	float curEffectTime = 0.0f;
+	static Effect effect;
+	static float curEffectTime;
 	static constexpr float potionEffectDuration = 10.0f;
 	static constexpr float softDropTime = 0.0625f;
 	static constexpr float minSpeed = 0.0625f;

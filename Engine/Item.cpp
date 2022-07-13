@@ -136,16 +136,15 @@ void Sand::ProcessUsage()
 	Reset();
 }
 
-Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
 	:
-	Item(rectTopLeft, brd, mouse, "Sprites\\potion.bmp"),
-	piece(piece)
+	Item(rectTopLeft, brd, mouse, "Sprites\\potion.bmp")
 {
 }
 
 void Potion::ProcessUsage()
 {
 	const bool isSlowingDown = bool(fallDist(rng));
-	piece.InitPotionEffect(isSlowingDown);
+	Piece::InitPotionEffect(isSlowingDown);
 	Reset();
 }

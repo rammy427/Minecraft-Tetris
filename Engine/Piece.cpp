@@ -112,18 +112,27 @@ void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
-	if (isUnderPotionEffect)
+	if (effect != Effect::None)
 	{
 		curEffectTime += dt;
 		if (curEffectTime >= potionEffectDuration)
 		{
-			isUnderPotionEffect = false;
+			effect = Effect::None;
 			curEffectTime = 0.0f;
 		}
 	}
-	else
+
+	switch (effect)
 	{
+	case Effect::None:
 		speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
+		break;
+	case Effect::Slowdown:
+		speed = maxSpeed;
+		break;
+	case Effect::Speedup:
+		speed = minSpeed;
+		break;
 	}
 
 	curTime += dt;
@@ -156,12 +165,6 @@ void Piece::LockToBoard()
 	tilePositions.clear();
 }
 
-void Piece::InitPotionEffect(bool isSlowingDown)
-{
-	isUnderPotionEffect = true;
-	speed = isSlowingDown ? maxSpeed : minSpeed;
-}
-
 bool Piece::IsLocked() const
 {
 	// If locked, position vector should be empty.
@@ -174,14 +177,21 @@ bool Piece::IsColliding() const
 	return std::any_of(tilePositions.begin(), tilePositions.end(), pred);
 }
 
+void Piece::InitPotionEffect(bool isSpeedingUp)
+{
+	effect = isSpeedingUp ? Effect::Speedup : Effect::Slowdown;
+}
+
 void Piece::UpdateFreeFallTime(int nClearedLines)
 {
 	freeFallTime = std::max(minSpeed, 1 / std::powf(2, float(nClearedLines) / 25));
 }
 
-void Piece::ResetFreeFallTime()
+void Piece::ResetStaticData()
 {
 	freeFallTime = 1.0f;
+	curEffectTime = 0.0f;
+	effect = Effect::None;
 }
 
 int Piece::GetMaxShapes()
@@ -259,3 +269,5 @@ bool Piece::TileIsColliding(const Vei2& gridPos) const
 }
 
 float Piece::freeFallTime = 1.0f;
+float Piece::curEffectTime = 0.0f;
+Piece::Effect Piece::effect = Effect::None;
