@@ -48,7 +48,7 @@ void Item::Draw(const Font& font, Graphics& gfx) const
 {
 	border.Draw(gfx);
 	const Vei2 pos = border.GetInnerBounds().GetCenter() - Vei2(sprite.GetWidth(), sprite.GetHeight()) / 2;
-	gfx.DrawSprite(pos.x, pos.y, sprite, SpriteEffect::Copy{});
+	gfx.DrawSprite(pos.x, pos.y, sprite, SpriteEffect::Chroma{});
 	if (isOnCooldown)
 	{
 		const Vei2 topLeft = { border.GetInnerBounds().left, border.GetInnerBounds().top };
