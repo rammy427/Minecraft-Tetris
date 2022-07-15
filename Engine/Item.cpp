@@ -148,3 +148,41 @@ void Potion::ProcessUsage()
 	Piece::InitPotionEffect(isSlowingDown);
 	Reset();
 }
+
+Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+	:
+	Item(rectTopLeft, brd, mouse, "Sprites\\pickaxe.bmp")
+{
+}
+
+void Pickaxe::Reset()
+{
+	nTiles = 0;
+	Item::Reset();
+}
+
+void Pickaxe::ProcessUsage()
+{
+	while (!mouse.IsEmpty())
+	{
+		const Mouse::Event e = mouse.Read();
+		if (e.GetType() == Mouse::Event::Type::LPress)
+		{
+			const Vei2 mousePos = e.GetPos();
+			if (brd.GetRect().Contains(mousePos))
+			{
+				auto& tile = brd.TileAt(brd.ScreenToGrid(mousePos));
+				if (tile.IsAlive())
+				{
+					tile.Kill();
+					nTiles++;
+				}
+			}
+		}
+	}
+
+	if (nTiles >= nMaxTiles)
+	{
+		Reset();
+	}
+}

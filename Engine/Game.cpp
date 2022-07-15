@@ -147,7 +147,7 @@ void Game::SpawnPiece(int nShape)
 void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse);
+	pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse);
 }
 
 void Game::SwapHoldPiece()

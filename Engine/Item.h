@@ -11,7 +11,7 @@ public:
 	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
 	void Update(float dt);
 	void Activate();
-	void Reset();
+	virtual void Reset();
 	void Draw(const Font& font, Graphics& gfx) const;
 private:
 	virtual void ProcessUsage() = 0;
@@ -60,4 +60,16 @@ private:
 private:
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> fallDist = std::uniform_int_distribution<int>(0, 1);
+};
+
+class Pickaxe : public Item
+{
+public:
+	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+	void Reset() override;
+private:
+	void ProcessUsage() override;
+private:
+	int nTiles = 0;
+	static constexpr int nMaxTiles = 10;
 };
