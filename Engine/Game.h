@@ -52,11 +52,11 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void SpawnPiece(int nShape);
+	void SpawnItem();
 	void SwapHoldPiece();
 	void DrawQueuePreview();
 	void DrawHoldPreview();
 	void ResetGame();
-	void SpawnItem();
 	int RollPiece();
 	bool GameIsWon();
 	// Sound functions.
