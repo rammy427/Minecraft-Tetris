@@ -9,6 +9,7 @@ class Item
 {
 public:
 	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
+	virtual ~Item() = default;
 	void Update(float dt);
 	void Activate();
 	virtual void Reset();
