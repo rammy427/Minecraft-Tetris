@@ -1,9 +1,10 @@
 #include "Item.h"
 
-Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename)
+Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
+	piece(piece),
 	border({ rectTopLeft, spriteDim, spriteDim }, 10),
 	sprite(spritename)
 {
@@ -63,9 +64,9 @@ void Item::Draw(const Font& font, Graphics& gfx) const
 	TextManager::DrawItemText(font, border.GetInnerBounds(), gfx);
 }
 
-Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 	:
-	Item(rectTopLeft, brd, mouse, "Sprites\\tnt.bmp")
+	Item(rectTopLeft, brd, mouse, piece, "Sprites\\tnt.bmp")
 {
 }
 
@@ -100,10 +101,9 @@ void Bomb::ProcessUsage()
 	}
 }
 
-Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece)
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 	:
-	Item(rectTopLeft, brd, mouse, "Sprites\\sand.bmp"),
-	piece(piece)
+	Item(rectTopLeft, brd, mouse, piece, "Sprites\\sand.bmp")
 {
 }
 
@@ -136,9 +136,9 @@ void Sand::ProcessUsage()
 	Reset();
 }
 
-Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 	:
-	Item(rectTopLeft, brd, mouse, "Sprites\\potion.bmp")
+	Item(rectTopLeft, brd, mouse, piece, "Sprites\\potion.bmp")
 {
 }
 
@@ -149,9 +149,9 @@ void Potion::ProcessUsage()
 	Reset();
 }
 
-Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse)
+Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 	:
-	Item(rectTopLeft, brd, mouse, "Sprites\\pickaxe.bmp")
+	Item(rectTopLeft, brd, mouse, piece, "Sprites\\pickaxe.bmp")
 {
 }
 

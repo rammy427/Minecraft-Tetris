@@ -8,7 +8,7 @@
 class Item
 {
 public:
-	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const std::string& spritename);
+	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, const std::string& spritename);
 	virtual ~Item() = default;
 	void Update(float dt);
 	void Activate();
@@ -19,6 +19,7 @@ private:
 protected:
 	Board& brd;
 	Mouse& mouse;
+	Piece& piece;
 	Surface sprite;
 	Border border;
 	static constexpr int spriteDim = 64;
@@ -31,7 +32,7 @@ protected:
 class Bomb : public Item
 {
 public:
-	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
 private:
 	void ProcessUsage() override;
 private:
@@ -41,11 +42,10 @@ private:
 class Sand : public Item
 {
 public:
-	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, const Piece& piece);
+	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
 private:
 	void ProcessUsage() override;
 private:
-	const Piece& piece;
 	static constexpr int nBlocks = 10;
 	static constexpr Color c = { 230, 206, 184 }; // Apricot
 	std::mt19937 rng = std::mt19937(std::random_device{}());
@@ -55,7 +55,7 @@ private:
 class Potion : public Item
 {
 public:
-	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
 private:
 	void ProcessUsage() override;
 private:
@@ -66,7 +66,7 @@ private:
 class Pickaxe : public Item
 {
 public:
-	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse);
+	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
 	void Reset() override;
 private:
 	void ProcessUsage() override;
