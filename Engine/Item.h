@@ -23,7 +23,7 @@ protected:
 	Surface sprite;
 	Border border;
 	static constexpr int spriteDim = 64;
-	static constexpr float coolTime = 5.0f;
+	static constexpr float coolTime = 60.0f;
 	float curTime = .0f;
 	bool isActive = false;
 	bool isOnCooldown = true;
