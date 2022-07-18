@@ -76,7 +76,7 @@ void Game::UpdateModel(float dt)
 					pItem->Activate();
 					break;
 				case VK_SHIFT:
-					pItem->Reset();
+					pItem->EndUse();
 					break;
 				default:
 					piece.ProcessTransformations(wnd.kbd, charCode);
@@ -89,11 +89,14 @@ void Game::UpdateModel(float dt)
 		pItem->Update(dt);
 		brd.ClearRows();
 
+		if (pItem->HasEnded())
+		{
+			SpawnItem();
+		}
 		if (GameIsWon())
 		{
 			state = State::Victory;
 		}
-
 		if (piece.IsLocked())
 		{
 			SpawnPiece(RollPiece());
@@ -149,7 +152,24 @@ void Game::SpawnPiece(int nShape)
 void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
+	switch (itemDist(rng))
+	{
+	case 0:
+		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece);
+		break;
+	case 1:
+		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
+		break;
+	case 2:
+		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
+		break;
+	case 3:
+		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
+		break;
+	case 4:
+		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
+		break;
+	}
 }
 
 void Game::SwapHoldPiece()
@@ -195,6 +215,7 @@ void Game::ResetGame()
 	nHoldPiece = -1;
 	Piece::ResetStaticData();
 	SpawnPiece(RollPiece());
+	SpawnItem();
 	ShuffleBoardBGM();
 }
 
