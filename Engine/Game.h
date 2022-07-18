@@ -91,12 +91,8 @@ private:
 	Surface background = "Sprites\\bg.bmp";
 	Surface title = "Sprites\\title.bmp";
 	// Sound members.
-	static constexpr int nSongs = 10;
-	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, nSongs - 1);
+	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, 9);
 	Sound boardBgm;
-	// Item management members.
 	std::unique_ptr<Item> pItem;
-	static constexpr int nItems = 5;
-	std::uniform_int_distribution<int> itemDist = std::uniform_int_distribution<int>(0, nItems - 1);
 	/********************************/
 };

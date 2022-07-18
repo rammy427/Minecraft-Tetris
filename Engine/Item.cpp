@@ -39,6 +39,12 @@ void Item::Activate()
 	}
 }
 
+void Item::Reset()
+{
+	isActive = false;
+	isOnCooldown = true;
+}
+
 void Item::Draw(const Font& font, Graphics& gfx) const
 {
 	border.Draw(gfx);
@@ -56,17 +62,6 @@ void Item::Draw(const Font& font, Graphics& gfx) const
 		gfx.DrawRect({ topLeft, border.GetInnerBounds().GetWidth(), border.GetInnerBounds().GetHeight() }, Border::GetColor(), true);
 	}
 	TextManager::DrawItemText(font, border.GetInnerBounds(), gfx);
-}
-
-bool Item::HasBeenUsed() const
-{
-	return hasBeenUsed;
-}
-
-void Item::Reset()
-{
-	isActive = false;
-	hasBeenUsed = true;
 }
 
 Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
