@@ -62,23 +62,25 @@ void Game::UpdateModel(float dt)
 			if (e.IsPress())
 			{
 				const unsigned char charCode = e.GetCode();
-				if (charCode == VK_ESCAPE)
+				switch (charCode)
 				{
+				case VK_ESCAPE:
 					state = State::Paused;
 					wnd.kbd.DisableAutorepeat();
-				}
-				else if (charCode == 'Q')
-				{
+					break;
+				case 'Q':
 					wnd.kbd.DisableAutorepeat();
 					SwapHoldPiece();
-				}
-				else if (charCode == '1')
-				{
+					break;
+				case '1':
 					pItem->Activate();
-				}
-				else
-				{
+					break;
+				case VK_SHIFT:
+					pItem->Reset();
+					break;
+				default:
 					piece.ProcessTransformations(wnd.kbd, charCode);
+					break;
 				}
 			}
 		}

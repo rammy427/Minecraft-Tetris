@@ -41,8 +41,11 @@ void Item::Activate()
 
 void Item::Reset()
 {
-	isActive = false;
-	isOnCooldown = true;
+	if (isActive)
+	{
+		isActive = false;
+		isOnCooldown = true;
+	}
 }
 
 void Item::Draw(const Font& font, Graphics& gfx) const
