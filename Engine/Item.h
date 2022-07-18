@@ -12,8 +12,9 @@ public:
 	virtual ~Item() = default;
 	void Update(float dt);
 	void Activate();
-	virtual void Reset();
+	virtual void EndUse();
 	void Draw(const Font& font, Graphics& gfx) const;
+	bool HasEnded() const;
 private:
 	virtual void ProcessUsage() = 0;
 protected:
@@ -27,6 +28,7 @@ protected:
 	float curTime = .0f;
 	bool isActive = false;
 	bool isOnCooldown = true;
+	bool hasEnded = false;
 };
 
 class Bomb : public Item
@@ -67,7 +69,6 @@ class Pickaxe : public Item
 {
 public:
 	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
-	void Reset() override;
 private:
 	void ProcessUsage() override;
 private:

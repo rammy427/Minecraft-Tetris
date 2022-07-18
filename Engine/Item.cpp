@@ -39,12 +39,11 @@ void Item::Activate()
 	}
 }
 
-void Item::Reset()
+void Item::EndUse()
 {
 	if (isActive)
 	{
-		isActive = false;
-		isOnCooldown = true;
+		hasEnded = true;
 	}
 }
 
@@ -65,6 +64,11 @@ void Item::Draw(const Font& font, Graphics& gfx) const
 		gfx.DrawRect({ topLeft, border.GetInnerBounds().GetWidth(), border.GetInnerBounds().GetHeight() }, Border::GetColor(), true);
 	}
 	TextManager::DrawItemText(font, border.GetInnerBounds(), gfx);
+}
+
+bool Item::HasEnded() const
+{
+	return hasEnded;
 }
 
 Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
@@ -98,7 +102,7 @@ void Bomb::ProcessUsage()
 						}
 					}
 				}
-				Reset();
+				EndUse();
 			}
 		}
 	}
@@ -136,7 +140,7 @@ void Sand::ProcessUsage()
 		brd.TileAt(gridPos).SetColor(c);
 		brd.TileAt(gridPos).Set();
 	}
-	Reset();
+	EndUse();
 }
 
 Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
@@ -149,19 +153,13 @@ void Potion::ProcessUsage()
 {
 	const bool isSlowingDown = bool(fallDist(rng));
 	Piece::InitPotionEffect(isSlowingDown);
-	Reset();
+	EndUse();
 }
 
 Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 	:
 	Item(rectTopLeft, brd, mouse, piece, "Sprites\\pickaxe.bmp")
 {
-}
-
-void Pickaxe::Reset()
-{
-	nTiles = 0;
-	Item::Reset();
 }
 
 void Pickaxe::ProcessUsage()
@@ -186,7 +184,7 @@ void Pickaxe::ProcessUsage()
 
 	if (nTiles >= nMaxTiles)
 	{
-		Reset();
+		EndUse();
 	}
 }
 
@@ -199,5 +197,5 @@ Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
 void Star::ProcessUsage()
 {
 	brd.Reset(false);
-	Reset();
+	EndUse();
 }
