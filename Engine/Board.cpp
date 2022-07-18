@@ -114,13 +114,17 @@ void Board::ClearRows()
 	}
 }
 
-void Board::Reset()
+void Board::Reset(bool clearLines)
 {
 	for (Tile& t : tiles)
 	{
 		t.Kill();
 	}
-	nClearedLines = 0;
+	
+	if (clearLines)
+	{
+		nClearedLines = 0;
+	}
 }
 
 void Board::Draw(Graphics& gfx)

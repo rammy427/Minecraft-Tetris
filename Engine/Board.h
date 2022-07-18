@@ -31,7 +31,7 @@ private:
 public:
 	Board(const Vei2& center);
 	void ClearRows();
-	void Reset();
+	void Reset(bool clearLines = true);
 	void Draw(Graphics& gfx);
 	bool IsInsideBoard(const Vei2& gridPos) const;
 	int GetWidth() const;

@@ -74,3 +74,11 @@ private:
 	int nTiles = 0;
 	static constexpr int nMaxTiles = 10;
 };
+
+class Star : public Item
+{
+public:
+	Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece);
+private:
+	void ProcessUsage() override;
+};

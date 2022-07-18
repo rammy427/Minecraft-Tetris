@@ -186,3 +186,15 @@ void Pickaxe::ProcessUsage()
 		Reset();
 	}
 }
+
+Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+	:
+	Item(rectTopLeft, brd, mouse, piece, "Sprites\\star.bmp")
+{
+}
+
+void Star::ProcessUsage()
+{
+	brd.Reset(false);
+	Reset();
+}

@@ -147,7 +147,7 @@ void Game::SpawnPiece(int nShape)
 void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
+	pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
 }
 
 void Game::SwapHoldPiece()
