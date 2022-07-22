@@ -52,7 +52,8 @@ private:
 	/********************************/
 	/*  User Functions              */
 	void SpawnPiece(int nShape);
-	void SpawnItem();
+	void SpawnItem(int nItem); // nItem = 0 -> Rare, 1+ -> Common
+	void GenerateItem();
 	void SwapHoldPiece();
 	void DrawQueuePreview();
 	void DrawHoldPreview();

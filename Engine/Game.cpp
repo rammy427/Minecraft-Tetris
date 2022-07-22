@@ -35,7 +35,7 @@ Game::Game( MainWindow& wnd )
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
 	SpawnPiece(RollPiece());
-	SpawnItem();
+	GenerateItem();
 }
 
 void Game::Go()
@@ -91,7 +91,7 @@ void Game::UpdateModel(float dt)
 
 		if (pItem->HasEnded())
 		{
-			SpawnItem();
+			GenerateItem();
 		}
 		if (GameIsWon())
 		{
@@ -149,29 +149,39 @@ void Game::SpawnPiece(int nShape)
 	holdIsLocked = false;
 }
 
-void Game::SpawnItem()
+void Game::SpawnItem(int nItem)
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	const int r = itemDist(rng);
-	if (r == rareItemProb)
+	switch (nItem)
 	{
+	case 0:
 		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
-	}
-	else if (r >= rareItemProb + 1 && r <= rareItemProb + commonItemProb)
-	{
+		break;
+	case 1:
 		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece);
-	}
-	else if (r >= rareItemProb + commonItemProb + 1 && r <= rareItemProb + 2 * commonItemProb)
-	{
+		break;
+	case 2:
 		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
-	}
-	else if (r >= rareItemProb + commonItemProb * 2 + 1 && r <= rareItemProb + 3 * commonItemProb)
-	{
+		break;
+	case 3:
 		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
-	}
-	else
-	{
+		break;
+	case 4:
 		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
+		break;
+	}
+}
+
+void Game::GenerateItem()
+{
+	const int chance = itemDist(rng);
+	for (int i = 0; i < 5; i++)
+	{
+		if (chance >= rareItemProb + std::max(i - 1, 0) * commonItemProb + std::min(i, 1) &&
+			chance <= rareItemProb + i * commonItemProb)
+		{
+			SpawnItem(i);
+		}
 	}
 }
 
@@ -218,7 +228,7 @@ void Game::ResetGame()
 	nHoldPiece = -1;
 	Piece::ResetStaticData();
 	SpawnPiece(RollPiece());
-	SpawnItem();
+	GenerateItem();
 	ShuffleBoardBGM();
 }
 
