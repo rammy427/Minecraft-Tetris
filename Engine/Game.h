@@ -96,7 +96,8 @@ private:
 	Sound boardBgm;
 	// Item management members.
 	std::unique_ptr<Item> pItem;
-	static constexpr int nItems = 5;
-	std::uniform_int_distribution<int> itemDist = std::uniform_int_distribution<int>(0, nItems - 1);
+	static constexpr int rareItemProb = 1;		// Rare:	1/25 =  4% Spawn Rate
+	static constexpr int commonItemProb = 6;	// Common:	6/25 = 24% Spawn Rate
+	std::uniform_int_distribution<int> itemDist = std::uniform_int_distribution<int>(1, 25);
 	/********************************/
 };

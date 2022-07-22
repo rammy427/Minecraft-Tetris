@@ -152,23 +152,26 @@ void Game::SpawnPiece(int nShape)
 void Game::SpawnItem()
 {
 	const Vei2 topLeft = { (Graphics::ScreenWidth + brd.GetRect().right - 64) / 2, brd.GetRect().bottom - 74 };
-	switch (itemDist(rng))
+	const int r = itemDist(rng);
+	if (r == rareItemProb)
 	{
-	case 0:
-		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece);
-		break;
-	case 1:
-		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
-		break;
-	case 2:
-		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
-		break;
-	case 3:
-		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
-		break;
-	case 4:
 		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
-		break;
+	}
+	else if (r >= rareItemProb + 1 && r <= rareItemProb + commonItemProb)
+	{
+		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece);
+	}
+	else if (r >= rareItemProb + commonItemProb + 1 && r <= rareItemProb + 2 * commonItemProb)
+	{
+		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
+	}
+	else if (r >= rareItemProb + commonItemProb * 2 + 1 && r <= rareItemProb + 3 * commonItemProb)
+	{
+		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
+	}
+	else
+	{
+		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
 	}
 }
 
