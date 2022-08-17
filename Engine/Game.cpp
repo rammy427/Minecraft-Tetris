@@ -21,6 +21,7 @@
 #include "Game.h"
 #include "MainWindow.h"
 #include "SpriteEffect.h"
+#include "Score.h"
 
 Game::Game( MainWindow& wnd )
 	:
@@ -36,6 +37,7 @@ Game::Game( MainWindow& wnd )
 	nNextPiece = shapeDist(rng);
 	SpawnPiece(RollPiece());
 	GenerateItem();
+	Score::LoadTop();
 }
 
 void Game::Go()
@@ -134,6 +136,7 @@ void Game::UpdateModel(float dt)
 					break;
 				case State::Victory:
 				case State::GameOver:
+					Score::SaveTop();
 					ResetGame();
 					state = State::Title;
 					break;
@@ -230,6 +233,8 @@ void Game::ResetGame()
 	SpawnPiece(RollPiece());
 	GenerateItem();
 	ShuffleBoardBGM();
+	Score::LoadTop();
+	Score::Reset();
 }
 
 int Game::RollPiece()
@@ -258,6 +263,7 @@ void Game::ComposeFrame()
 	{
 	case State::Title:
 		gfx.DrawSprite(0, 0, title, SpriteEffect::Chroma{});
+		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Playing:
 		brd.Draw(gfx);
@@ -266,6 +272,7 @@ void Game::ComposeFrame()
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
+		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
 		break;
 	case State::Paused:
@@ -275,16 +282,19 @@ void Game::ComposeFrame()
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
+		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
 		brd.Draw(gfx);
+		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawGameOver(consolab, gfx);
 		break;
 	case State::Victory:
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
+		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
 		break;
 	}

@@ -28,8 +28,15 @@ void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& 
 void TextManager::DrawScore(const Font& font, const Board& brd, Graphics& gfx)
 {
 	const std::string str = "Score:";
-	font.DrawText("Score:", { brd.GetRect().right + spacing * 2, spacing }, Colors::White, gfx);
+	font.DrawText(str, { brd.GetRect().right + spacing * 2, spacing }, Colors::White, gfx);
 	font.DrawText(std::to_string(Score::GetScore()), { brd.GetRect().right + spacing * 2, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
+}
+
+void TextManager::DrawTopScore(const Font& font, const Board& brd, Graphics& gfx)
+{
+	const std::string str = "Top Score:";
+	font.DrawText(str, { brd.GetRect().right + spacing * 15, spacing }, Colors::White, gfx);
+	font.DrawText(std::to_string(Score::GetTop()), { brd.GetRect().right + spacing * 15, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
 }
 
 void TextManager::DrawQueueText(const Font& font, const RectI& borderRect, Graphics& gfx)
