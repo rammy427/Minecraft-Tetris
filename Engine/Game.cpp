@@ -27,7 +27,7 @@ Game::Game( MainWindow& wnd )
 	wnd( wnd ),
 	gfx( wnd ),
 	brd({ int(Graphics::GetRect().GetCenter().x / 1.1875f), Graphics::GetRect().GetCenter().y }),
-	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
+	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight)
@@ -265,7 +265,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawScore(consola, gfx);
+		TextManager::DrawScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
 		break;
 	case State::Paused:
@@ -274,7 +274,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawScore(consola, gfx);
+		TextManager::DrawScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
@@ -284,7 +284,7 @@ void Game::ComposeFrame()
 		break;
 	case State::Victory:
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawScore(consola, gfx);
+		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
 		break;
 	}
