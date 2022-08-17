@@ -1,5 +1,6 @@
 #include "Piece.h"
 #include "ChiliWin.h"
+#include "Score.h"
 #include <sstream>
 
 Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
@@ -163,6 +164,7 @@ void Piece::LockToBoard()
 	// Clear piece tiles since they're now locked to the board.
 	// Piece should now be deleted.
 	tilePositions.clear();
+	Score::Add(10);
 }
 
 bool Piece::IsLocked() const

@@ -1,4 +1,5 @@
 #include "Item.h"
+#include "Score.h"
 
 Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, const std::string& spritename)
 	:
@@ -36,6 +37,7 @@ void Item::Activate()
 	{
 		mouse.Flush();
 		isActive = true;
+		Score::Add(100);
 	}
 }
 

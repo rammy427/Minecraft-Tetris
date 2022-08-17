@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <iterator>
 #include "Piece.h"
+#include "Score.h"
 
 Board::Tile::Tile(const RectI& rect)
 	:
@@ -110,6 +111,7 @@ void Board::ClearRows()
 				}
 			}
 			Piece::UpdateFreeFallTime(++nClearedLines);
+			Score::Add(200);
 		}
 	}
 }

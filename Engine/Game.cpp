@@ -265,6 +265,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawScore(consola, gfx);
 		pItem->Draw(consola, gfx);
 		break;
 	case State::Paused:
@@ -273,6 +274,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawScore(consola, gfx);
 		pItem->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
 		break;
@@ -282,6 +284,7 @@ void Game::ComposeFrame()
 		break;
 	case State::Victory:
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawScore(consola, gfx);
 		TextManager::DrawVictory(consolab, gfx);
 		break;
 	}

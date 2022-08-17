@@ -1,4 +1,5 @@
 #include "TextManager.h"
+#include "Score.h"
 
 void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 {
@@ -22,6 +23,13 @@ void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& 
 {
 	font.DrawText("Lines:", { spacing, spacing }, Colors::White, gfx);
 	font.DrawText(std::to_string(brd.GetClearedLineCount()), { spacing, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
+}
+
+void TextManager::DrawScore(const Font& font, Graphics& gfx)
+{
+	const std::string str = "Score:";
+	font.DrawText("Score:", { Graphics::ScreenWidth - font.GetGlyphWidth() * int(str.size()), spacing }, Colors::White, gfx);
+	font.DrawText(std::to_string(Score::GetScore()), { Graphics::ScreenWidth - font.GetGlyphWidth() * int(str.size()), spacing + font.GetGlyphHeight() }, Colors::White, gfx);
 }
 
 void TextManager::DrawQueueText(const Font& font, const RectI& borderRect, Graphics& gfx)
