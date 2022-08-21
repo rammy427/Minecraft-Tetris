@@ -83,6 +83,7 @@ Board::Board(const Vei2& center)
 
 void Board::ClearRows()
 {
+	int streak = 0;
 	for (Vei2 gridPos = { 0, 0 }; gridPos.y < height; gridPos.y++)
 	{
 		const auto begin = std::begin(tiles) + width * std::size_t(gridPos.y);
@@ -112,7 +113,14 @@ void Board::ClearRows()
 			}
 			Piece::UpdateFreeFallTime(++nClearedLines);
 			Score::Add(200);
+			streak++;
 		}
+	}
+
+	if (streak >= 4)
+	{
+		// TETRIS combo achieved.
+		Score::Add(1000);
 	}
 }
 
