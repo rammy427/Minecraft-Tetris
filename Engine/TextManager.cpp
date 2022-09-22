@@ -1,6 +1,14 @@
 #include "TextManager.h"
 #include "Score.h"
 
+void TextManager::DrawTitleSubText(const Font& font, Graphics& gfx)
+{
+	const std::string str = "Press ENTER";
+	const int x = (Graphics::ScreenWidth - font.GetGlyphWidth() * int(str.size())) / 2;
+	const int y = (Graphics::ScreenHeight * 3 - font.GetGlyphHeight() * 2) / 4;
+	font.DrawText(str, { x, y }, Colors::Yellow, gfx);
+}
+
 void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 {
 	const std::string str = "NO ESTAS FILU";

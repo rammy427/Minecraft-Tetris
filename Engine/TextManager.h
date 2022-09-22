@@ -6,6 +6,7 @@
 class TextManager
 {
 public:
+	static void DrawTitleSubText(const Font& font, Graphics& gfx);
 	static void DrawGameOver(const Font& font, Graphics& gfx);
 	static void DrawPaused(const Font& font, Graphics& gfx);
 	static void DrawVictory(const Font& font, Graphics& gfx);

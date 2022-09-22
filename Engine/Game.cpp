@@ -262,7 +262,8 @@ void Game::ComposeFrame()
 	switch (state)
 	{
 	case State::Title:
-		gfx.DrawSprite(0, 0, title, SpriteEffect::Chroma{});
+		gfx.DrawSprite(0, -100, title, SpriteEffect::Chroma{});
+		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Playing:
