@@ -1,17 +1,18 @@
 #include "Menu.h"
 
-Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos)
+Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const Font& font)
 	:
 	min(min),
 	max(max),
 	step(step),
-	def(def)
+	def(def),
+	font(font)
 {
 	selection = def;
-	const int padding = 10;
 	for (int i = 0; i < 2; i++)
 	{
-		rects[i] = { { pos.x + i * dimension + padding, pos.y }, dimension, dimension };
+		const int x = pos.x + i * (dimension + int(std::to_string(max).size()) * font.GetGlyphWidth() + spacing * 2);
+		rects[i] = { { x, pos.y }, dimension, dimension };
 	}
 }
 
@@ -33,6 +34,10 @@ void Menu::Entry::Draw(Graphics& gfx)
 	{
 		gfx.DrawRect(r, Colors::Gray);
 	}
+	const std::string str = std::to_string(selection);
+	const int x = (rects[0].right + rects[1].left - int(str.size()) * font.GetGlyphWidth()) / 2;
+	const int y = rects[0].GetCenter().y - font.GetGlyphHeight() / 2;
+	font.DrawText(str, { x, y }, Colors::White, gfx);
 }
 
 int Menu::Entry::GetMin() const
@@ -50,10 +55,10 @@ int Menu::Entry::GetSelection() const
 	return selection;
 }
 
-Menu::Menu(Mouse& mouse)
+Menu::Menu(Mouse& mouse, const Font& font)
 	:
 	mouse(mouse),
-	entry(10, 200, 5, 100, { 50, 50 })
+	entry(10, 200, 5, 100, { 50, 50 }, font)
 {
 }
 

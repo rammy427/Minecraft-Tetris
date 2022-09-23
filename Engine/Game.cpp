@@ -32,7 +32,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	menu(wnd.mouse)
+	menu(wnd.mouse, consola)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -107,6 +107,8 @@ void Game::UpdateModel(float dt)
 		if (piece.IsColliding())
 		{
 			boardBgm.StopAll();
+			Score::SaveTop();
+			Score::LoadTop();
 			state = State::GameOver;
 		}
 	}
@@ -150,8 +152,6 @@ void Game::UpdateModel(float dt)
 					break;
 				case State::Victory:
 				case State::GameOver:
-					Score::SaveTop();
-					Score::LoadTop();
 					state = State::Title;
 					break;
 				}
@@ -310,6 +310,9 @@ void Game::ComposeFrame()
 		break;
 	case State::GameOver:
 		brd.Draw(gfx);
+		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawGoal(consola, brd, gfx);
+		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawGameOver(consolab, gfx);
 		break;
