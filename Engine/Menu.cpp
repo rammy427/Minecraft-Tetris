@@ -67,7 +67,7 @@ void Menu::Update()
 	while (!mouse.IsEmpty())
 	{
 		const Mouse::Event e = mouse.Read();
-		if (e.LeftIsPressed())
+		if (e.GetType() == Mouse::Event::Type::LPress)
 		{
 			entry.Update(e.GetPos());
 		}
