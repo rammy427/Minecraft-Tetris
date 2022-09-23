@@ -272,6 +272,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawGoal(consola, lineWinThreshold, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
@@ -282,6 +283,7 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawGoal(consola, lineWinThreshold, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
@@ -294,6 +296,7 @@ void Game::ComposeFrame()
 		break;
 	case State::Victory:
 		TextManager::DrawLineCounter(consola, brd, gfx);
+		TextManager::DrawGoal(consola, lineWinThreshold, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);

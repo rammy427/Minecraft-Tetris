@@ -33,6 +33,14 @@ void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& 
 	font.DrawText(std::to_string(brd.GetClearedLineCount()), { spacing, font.GetGlyphHeight() + spacing }, Colors::White, gfx);
 }
 
+void TextManager::DrawGoal(const Font& font, int goal, Graphics& gfx)
+{
+	const int x = font.GetGlyphWidth() * 9 + spacing;
+	const int y = spacing;
+	font.DrawText("Goal:", { x, y }, Colors::White, gfx);
+	font.DrawText(std::to_string(goal), { x, font.GetGlyphHeight() + y }, Colors::White, gfx);
+}
+
 void TextManager::DrawScore(const Font& font, const Board& brd, Graphics& gfx)
 {
 	const std::string str = "Score:";
