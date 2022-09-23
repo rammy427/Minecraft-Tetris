@@ -29,6 +29,7 @@
 #include "Piece.h"
 #include "Sound.h"
 #include "Item.h"
+#include "Menu.h"
 
 class Game
 {
@@ -36,6 +37,7 @@ private:
 	enum class State
 	{
 		Title,
+		Menu,
 		Playing,
 		Paused,
 		GameOver,
@@ -73,6 +75,7 @@ private:
 	FrameTimer ft;
 	Board brd;
 	Piece piece = { 0, { 0,0 }, brd };
+	Menu menu;
 	State state = State::Title;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	std::uniform_int_distribution<int> shapeDist = std::uniform_int_distribution<int>(0, Piece::GetMaxShapes() - 1);

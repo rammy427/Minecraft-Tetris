@@ -79,7 +79,11 @@ Board::Board(const Vei2& center)
 			TileAt(gridPos) = { { gridPos * dim + topLeft, dim, dim } };
 		}
 	}
-	Reset(true);
+}
+
+void Board::SetLineGoal(int goal)
+{
+	lineGoal = goal;
 }
 
 void Board::ClearRows()

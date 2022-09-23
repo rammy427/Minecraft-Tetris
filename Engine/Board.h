@@ -30,6 +30,7 @@ private:
 	};
 public:
 	Board(const Vei2& center);
+	void SetLineGoal(int goal);
 	void ClearRows();
 	void Reset(bool clearLines = true);
 	void Draw(Graphics& gfx);

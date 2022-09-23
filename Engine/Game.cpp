@@ -31,7 +31,8 @@ Game::Game( MainWindow& wnd )
 	queueBorder({ { (Graphics::ScreenWidth + brd.GetRect().right - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
-	holdPreview(maxPreviewWidth, maxPreviewHeight)
+	holdPreview(maxPreviewWidth, maxPreviewHeight),
+	menu(wnd.mouse)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -121,6 +122,20 @@ void Game::UpdateModel(float dt)
 			}
 		}
 	}
+	else if (state == State::Menu)
+	{
+		menu.Update();
+		while (!wnd.kbd.KeyIsEmpty())
+		{
+			const Keyboard::Event e = wnd.kbd.ReadKey();
+			if (e.IsPress() && e.GetCode() == VK_RETURN)
+			{
+				ResetGame();
+				boardBgm.Play();
+				state = State::Playing;
+			}
+		}
+	}
 	else
 	{
 		while (!wnd.kbd.KeyIsEmpty())
@@ -131,13 +146,12 @@ void Game::UpdateModel(float dt)
 				switch (state)
 				{
 				case State::Title:
-					boardBgm.Play();
-					state = State::Playing;
+					state = State::Menu;
 					break;
 				case State::Victory:
 				case State::GameOver:
 					Score::SaveTop();
-					ResetGame();
+					Score::LoadTop();
 					state = State::Title;
 					break;
 				}
@@ -228,12 +242,12 @@ void Game::DrawHoldPreview()
 void Game::ResetGame()
 {
 	brd.Reset();
+	brd.SetLineGoal(menu.GetEntry().GetSelection());
 	nHoldPiece = -1;
 	Piece::ResetStaticData();
 	SpawnPiece(RollPiece());
 	GenerateItem();
 	ShuffleBoardBGM();
-	Score::LoadTop();
 	Score::Reset();
 }
 
@@ -263,6 +277,11 @@ void Game::ComposeFrame()
 	{
 	case State::Title:
 		gfx.DrawSprite(0, -100, title, SpriteEffect::Chroma{});
+		TextManager::DrawTitleSubText(consolab, gfx);
+		TextManager::DrawTopScore(consola, brd, gfx);
+		break;
+	case State::Menu:
+		menu.Draw(gfx);
 		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
