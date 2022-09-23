@@ -79,6 +79,7 @@ Board::Board(const Vei2& center)
 			TileAt(gridPos) = { { gridPos * dim + topLeft, dim, dim } };
 		}
 	}
+	Reset(true);
 }
 
 void Board::ClearRows()
@@ -134,6 +135,7 @@ void Board::Reset(bool clearLines)
 	if (clearLines)
 	{
 		nClearedLines = 0;
+		lineGoal = 2;
 	}
 }
 
@@ -167,6 +169,11 @@ int Board::GetHeight() const
 int Board::GetClearedLineCount() const
 {
 	return nClearedLines;
+}
+
+int Board::GetLineGoal() const
+{
+	return lineGoal;
 }
 
 const RectI& Board::GetRect() const

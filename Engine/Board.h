@@ -37,6 +37,7 @@ public:
 	int GetWidth() const;
 	int GetHeight() const;
 	int GetClearedLineCount() const;
+	int GetLineGoal() const;
 	const RectI& GetRect() const;
 	Tile& TileAt(const Vei2& gridPos);
 	const Tile& TileAt(const Vei2& gridPos) const;
@@ -48,5 +49,6 @@ private:
 	Tile tiles[width * height];
 	Vei2 topLeft;
 	int nClearedLines = 0;
+	int lineGoal;
 	Border border;
 };

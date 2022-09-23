@@ -80,7 +80,6 @@ private:
 	int nNextPiece;
 	int nHoldPiece = -1;
 	bool holdIsLocked = false;
-	static constexpr int lineWinThreshold = 120;
 	// Preview sprite members.
 	static constexpr int maxPreviewWidth = 80;
 	static constexpr int maxPreviewHeight = 40;
