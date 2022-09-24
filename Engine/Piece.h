@@ -21,7 +21,7 @@ public:
 	bool IsLocked() const;
 	bool IsColliding() const;
 	static void InitPotionEffect(bool isSpeedingUp);
-	static void UpdateFreeFallTime(int nClearedLines);
+	static void UpdateFreeFallTime();
 	static void ResetStaticData(float startingSpeed = 1.0f);
 	static int GetMaxShapes();
 	const std::vector<Vei2>& GetTilePositions() const;
@@ -40,6 +40,7 @@ private:
 	static constexpr float softDropTime = 0.0625f;
 	static constexpr float minSpeed = 0.0625f;
 	static constexpr float maxSpeed = 2.0f;
+	static constexpr float speedStep = 0.009375f;
 	static constexpr int tileAmount = 4;
 	static constexpr int nShapes = 7;
 	std::vector<Vei2> tilePositions;

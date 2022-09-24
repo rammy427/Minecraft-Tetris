@@ -184,9 +184,9 @@ void Piece::InitPotionEffect(bool isSpeedingUp)
 	effect = isSpeedingUp ? Effect::Speedup : Effect::Slowdown;
 }
 
-void Piece::UpdateFreeFallTime(int nClearedLines)
+void Piece::UpdateFreeFallTime()
 {
-	freeFallTime = std::max(minSpeed, 1 / std::powf(2, float(nClearedLines) / 25));
+	freeFallTime = std::max(minSpeed, freeFallTime - speedStep);
 }
 
 void Piece::ResetStaticData(float startingSpeed)

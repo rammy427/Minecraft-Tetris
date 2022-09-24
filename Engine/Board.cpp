@@ -116,7 +116,8 @@ void Board::ClearRows()
 					}
 				}
 			}
-			Piece::UpdateFreeFallTime(++nClearedLines);
+			nClearedLines++;
+			Piece::UpdateFreeFallTime();
 			Score::Add(200);
 			streak++;
 		}
