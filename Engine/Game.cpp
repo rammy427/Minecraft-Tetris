@@ -244,7 +244,7 @@ void Game::ResetGame()
 	brd.Reset();
 	brd.SetLineGoal(menu.GetGoalEntry().GetSelection());
 	nHoldPiece = -1;
-	Piece::ResetStaticData();
+	Piece::ResetStaticData(menu.GetSpeedEntry().GetSelection());
 	SpawnPiece(RollPiece());
 	GenerateItem();
 	ShuffleBoardBGM();

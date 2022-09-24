@@ -77,7 +77,9 @@ public:
 	void Update();
 	void Draw(Graphics& gfx);
 	const Entry<int>& GetGoalEntry() const;
+	const Entry<float>& GetSpeedEntry() const;
 private:
 	Mouse& mouse;
 	Entry<int> goalEntry;
+	Entry<float> speedEntry;
 };

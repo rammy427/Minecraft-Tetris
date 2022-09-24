@@ -189,9 +189,9 @@ void Piece::UpdateFreeFallTime(int nClearedLines)
 	freeFallTime = std::max(minSpeed, 1 / std::powf(2, float(nClearedLines) / 25));
 }
 
-void Piece::ResetStaticData()
+void Piece::ResetStaticData(float startingSpeed)
 {
-	freeFallTime = 1.0f;
+	freeFallTime = startingSpeed;
 	curEffectTime = 0.0f;
 	effect = Effect::None;
 }

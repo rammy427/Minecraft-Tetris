@@ -22,7 +22,7 @@ public:
 	bool IsColliding() const;
 	static void InitPotionEffect(bool isSpeedingUp);
 	static void UpdateFreeFallTime(int nClearedLines);
-	static void ResetStaticData();
+	static void ResetStaticData(float startingSpeed = 1.0f);
 	static int GetMaxShapes();
 	const std::vector<Vei2>& GetTilePositions() const;
 private:
