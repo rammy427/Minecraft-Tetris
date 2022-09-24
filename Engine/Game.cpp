@@ -242,7 +242,7 @@ void Game::DrawHoldPreview()
 void Game::ResetGame()
 {
 	brd.Reset();
-	brd.SetLineGoal(menu.GetEntry().GetSelection());
+	brd.SetLineGoal(menu.GetGoalEntry().GetSelection());
 	nHoldPiece = -1;
 	Piece::ResetStaticData();
 	SpawnPiece(RollPiece());
