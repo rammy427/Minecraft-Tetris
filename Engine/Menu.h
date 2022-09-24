@@ -23,7 +23,7 @@ public:
 			selection = def;
 			for (int i = 0; i < 2; i++)
 			{
-				const int x = pos.x + i * (dimension + int(std::to_string(max).size()) * font.GetGlyphWidth() + spacing * 2);
+				const int x = pos.x + i * (dimension + int(std::to_string(0.0f).size()) * font.GetGlyphWidth() + spacing * 2);
 				rects[i] = { { x, pos.y }, dimension, dimension };
 			}
 		}
@@ -48,6 +48,9 @@ public:
 			const int x = (rects[0].right + rects[1].left - int(str.size()) * font.GetGlyphWidth()) / 2;
 			const int y = rects[0].GetCenter().y - font.GetGlyphHeight() / 2;
 			font.DrawText(str, { x, y }, Colors::White, gfx);
+
+			font.DrawText("<", rects[0].GetCenter() - Vei2(font.GetGlyphWidth(), font.GetGlyphHeight()) / 2, Colors::Black, gfx);
+			font.DrawText(">", rects[1].GetCenter() - Vei2(font.GetGlyphWidth(), font.GetGlyphHeight()) / 2, Colors::Black, gfx);
 		}
 		T GetMin() const
 		{
