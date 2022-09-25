@@ -87,12 +87,13 @@ private:
 		T selection;
 	};
 public:
-	Menu(Mouse& mouse, const Font& font);
+	Menu(const Vei2& center, Mouse& mouse, const Font& font);
 	void Update();
 	void Draw(Graphics& gfx);
 	const Entry<int>& GetGoalEntry() const;
 	const Entry<float>& GetSpeedEntry() const;
 private:
+	Vei2 topLeft;
 	Mouse& mouse;
 	Entry<int> goalEntry;
 	Entry<float> speedEntry;

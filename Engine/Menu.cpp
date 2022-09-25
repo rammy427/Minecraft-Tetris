@@ -1,10 +1,13 @@
 #include "Menu.h"
 
-Menu::Menu(Mouse& mouse, const Font& font)
+Menu::Menu(const Vei2& center, Mouse& mouse, const Font& font)
 	:
 	mouse(mouse),
-	goalEntry(10, 200, 5, 100, { 50, 50 }, "Line goal:", font),
-	speedEntry(0.0625f, 2.0f, 0.05f, 1.0f, {50, 92}, "Starting speed:", font)
+	topLeft(center - Vei2(
+		(Menu::Entry<int>::valueStrSize + Menu::Entry<int>::headerSize) * 11 + Menu::Entry<int>::spacing * 7 + Menu::Entry<int>::dimension * 2,
+		Menu::Entry<int>::dimension * 2 + Menu::Entry<int>::spacing) / 2),
+	goalEntry(10, 200, 5, 100, topLeft, "Line goal:", font),
+	speedEntry(0.0625f, 2.0f, 0.05f, 1.0f, {topLeft.x, topLeft.y + Menu::Entry<int>::dimension + Menu::Entry<int>::spacing}, "Starting speed:", font)
 {
 }
 
