@@ -3,8 +3,8 @@
 Menu::Menu(Mouse& mouse, const Font& font)
 	:
 	mouse(mouse),
-	goalEntry(10, 200, 5, 100, { 50, 50 }, font),
-	speedEntry(0.0625f, 2.0f, 0.05f, 1.0f, {50, 92}, font)
+	goalEntry(10, 200, 5, 100, { 50, 50 }, "Line goal:", font),
+	speedEntry(0.0625f, 2.0f, 0.05f, 1.0f, {50, 92}, "Starting speed:", font)
 {
 }
 

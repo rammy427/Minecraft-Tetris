@@ -12,18 +12,21 @@ public:
 	{
 	public:
 		Entry() = default;
-		Entry(T min, T max, T step, T def, const Vei2& pos, const Font& font)
+		Entry(T min, T max, T step, T def, const Vei2& pos, const std::string& header, const Font& font)
 			:
 			min(min),
 			max(max),
 			step(step),
 			def(def),
+			pos(pos),
+			header(header),
 			font(font)
 		{
 			selection = def;
+			const int left = pos.x + font.GetGlyphWidth() * headerSize + spacing * 5;
 			for (int i = 0; i < 2; i++)
 			{
-				const int x = pos.x + i * (dimension + int(std::to_string(0.0f).size()) * font.GetGlyphWidth() + spacing * 2);
+				const int x = left + i * (dimension + valueStrSize * font.GetGlyphWidth() + spacing * 2);
 				rects[i] = { { x, pos.y }, dimension, dimension };
 			}
 		}
@@ -40,10 +43,13 @@ public:
 		}
 		void Draw(Graphics& gfx)
 		{
+			font.DrawText(header, { pos.x, pos.y + (dimension - font.GetGlyphHeight()) / 2 }, Colors::Yellow, gfx);
+
 			for (const RectI& r : rects)
 			{
 				gfx.DrawRect(r, Colors::Gray);
 			}
+
 			const std::string str = std::to_string(selection);
 			const int x = (rects[0].right + rects[1].left - int(str.size()) * font.GetGlyphWidth()) / 2;
 			const int y = rects[0].GetCenter().y - font.GetGlyphHeight() / 2;
@@ -65,10 +71,14 @@ public:
 			return selection;
 		}
 	private:
+		Vei2 pos;
 		const Font& font;
+		std::string header;
 		RectI rects[2];
 		static constexpr int dimension = 32;
 		static constexpr int spacing = 10;
+		static constexpr int headerSize = 15;
+		static constexpr int valueStrSize = 8;
 		T min;
 		T max;
 		T step;
