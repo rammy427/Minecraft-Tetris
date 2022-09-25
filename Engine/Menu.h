@@ -6,7 +6,7 @@
 
 class Menu
 {
-public:
+private:
 	template <typename T>
 	class Entry
 	{
@@ -70,15 +70,16 @@ public:
 		{
 			return selection;
 		}
+	public:
+		static constexpr int dimension = 32;
+		static constexpr int spacing = 10;
+		static constexpr int headerSize = 15;
+		static constexpr int valueStrSize = 8;
 	private:
 		Vei2 pos;
 		const Font& font;
 		std::string header;
 		RectI rects[2];
-		static constexpr int dimension = 32;
-		static constexpr int spacing = 10;
-		static constexpr int headerSize = 15;
-		static constexpr int valueStrSize = 8;
 		T min;
 		T max;
 		T step;
