@@ -75,7 +75,7 @@ void Game::UpdateModel(float dt)
 					wnd.kbd.DisableAutorepeat();
 					SwapHoldPiece();
 					break;
-				case '1':
+				case 'E':
 					pItem->Activate();
 					break;
 				case VK_SHIFT:
