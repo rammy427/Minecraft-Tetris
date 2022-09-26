@@ -161,6 +161,9 @@ void Game::UpdateModel(float dt)
 			}
 		}
 	}
+
+	wnd.kbd.Flush();
+	wnd.mouse.Flush();
 }
 
 void Game::SpawnPiece(int nShape)
