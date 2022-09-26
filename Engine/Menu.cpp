@@ -1,8 +1,7 @@
 #include "Menu.h"
 
-Menu::Menu(const Vei2& center, Mouse& mouse, const Font& font)
+Menu::Menu(const Vei2& center, const Font& font)
 	:
-	mouse(mouse),
 	topLeft(center - Vei2(
 		(Menu::Entry<int>::valueStrSize + Menu::Entry<int>::headerSize) * 11 + Menu::Entry<int>::spacing * 7 + Menu::Entry<int>::dimension * 2,
 		Menu::Entry<int>::dimension * 2 + Menu::Entry<int>::spacing) / 2),
@@ -11,23 +10,48 @@ Menu::Menu(const Vei2& center, Mouse& mouse, const Font& font)
 {
 }
 
-void Menu::Update()
+void Menu::Update(Keyboard& kbd, Mouse& mouse)
 {
-	while (!mouse.IsEmpty())
+	if (IsSelecting())
 	{
-		const Mouse::Event e = mouse.Read();
-		if (e.GetType() == Mouse::Event::Type::LPress)
+		while (!mouse.IsEmpty())
 		{
-			goalEntry.Update(e.GetPos());
-			speedEntry.Update(e.GetPos());
+			const Mouse::Event e = mouse.Read();
+			if (e.GetType() == Mouse::Event::Type::LPress)
+			{
+				goalEntry.Update(e.GetPos());
+				speedEntry.Update(e.GetPos());
+			}
+		}
+
+		if (kbd.KeyIsPressed('1'))
+		{
+			curPage = Page::Controls;
+		}
+	}
+	else
+	{
+		if (kbd.KeyIsPressed(VK_ESCAPE))
+		{
+			curPage = Page::Select;
 		}
 	}
 }
 
 void Menu::Draw(Graphics& gfx)
 {
-	goalEntry.Draw(gfx);
-	speedEntry.Draw(gfx);
+	switch (curPage)
+	{
+	case Page::Select:
+		goalEntry.Draw(gfx);
+		speedEntry.Draw(gfx);
+		break;
+	case Page::Controls:
+		const int x = (Graphics::ScreenWidth - controls.GetWidth()) / 2;
+		const int y = (Graphics::ScreenHeight - controls.GetHeight()) / 2;
+		gfx.DrawSprite(x, y, controls, SpriteEffect::Chroma{});
+		break;
+	}
 }
 
 const Menu::Entry<int>& Menu::GetGoalEntry() const

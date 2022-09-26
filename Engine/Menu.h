@@ -2,6 +2,7 @@
 
 #include "Border.h"
 #include "Mouse.h"
+#include "Keyboard.h"
 #include "Font.h"
 
 class Menu
@@ -93,16 +94,16 @@ private:
 		T selection;
 	};
 public:
-	Menu(const Vei2& center, Mouse& mouse, const Font& font);
-	void Update();
+	Menu(const Vei2& center, const Font& font);
+	void Update(Keyboard& kbd, Mouse& mouse);
 	void Draw(Graphics& gfx);
 	const Entry<int>& GetGoalEntry() const;
 	const Entry<float>& GetSpeedEntry() const;
 	bool IsSelecting() const;
 private:
 	Vei2 topLeft;
-	Mouse& mouse;
 	Page curPage = Page::Select;
 	Entry<int> goalEntry;
 	Entry<float> speedEntry;
+	Surface controls = "Sprites\\controlpage.bmp";
 };

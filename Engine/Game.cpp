@@ -32,7 +32,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	menu(Graphics::GetRect().GetCenter(), wnd.mouse, consola)
+	menu(Graphics::GetRect().GetCenter(), consola)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -126,7 +126,7 @@ void Game::UpdateModel(float dt)
 	}
 	else if (state == State::Menu)
 	{
-		menu.Update();
+		menu.Update(wnd.kbd, wnd.mouse);
 		if (menu.IsSelecting())
 		{
 			while (!wnd.kbd.KeyIsEmpty())
@@ -286,9 +286,9 @@ void Game::ComposeFrame()
 		if (menu.IsSelecting())
 		{
 			gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
+			TextManager::DrawTitleSubText(consolab, gfx);
 		}
 		menu.Draw(gfx);
-		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Playing:
