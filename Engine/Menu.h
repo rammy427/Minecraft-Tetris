@@ -6,6 +6,12 @@
 
 class Menu
 {
+public:
+	enum class Page
+	{
+		Select,
+		Controls
+	};
 private:
 	template <typename T>
 	class Entry
@@ -92,9 +98,11 @@ public:
 	void Draw(Graphics& gfx);
 	const Entry<int>& GetGoalEntry() const;
 	const Entry<float>& GetSpeedEntry() const;
+	bool IsSelecting() const;
 private:
 	Vei2 topLeft;
 	Mouse& mouse;
+	Page curPage = Page::Select;
 	Entry<int> goalEntry;
 	Entry<float> speedEntry;
 };

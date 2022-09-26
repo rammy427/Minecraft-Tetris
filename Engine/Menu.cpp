@@ -39,3 +39,8 @@ const Menu::Entry<float>& Menu::GetSpeedEntry() const
 {
 	return speedEntry;
 }
+
+bool Menu::IsSelecting() const
+{
+	return curPage == Page::Select;
+}
