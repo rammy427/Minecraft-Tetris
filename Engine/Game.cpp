@@ -127,14 +127,17 @@ void Game::UpdateModel(float dt)
 	else if (state == State::Menu)
 	{
 		menu.Update();
-		while (!wnd.kbd.KeyIsEmpty())
+		if (menu.IsSelecting())
 		{
-			const Keyboard::Event e = wnd.kbd.ReadKey();
-			if (e.IsPress() && e.GetCode() == VK_RETURN)
+			while (!wnd.kbd.KeyIsEmpty())
 			{
-				ResetGame();
-				boardBgm.Play();
-				state = State::Playing;
+				const Keyboard::Event e = wnd.kbd.ReadKey();
+				if (e.IsPress() && e.GetCode() == VK_RETURN)
+				{
+					ResetGame();
+					boardBgm.Play();
+					state = State::Playing;
+				}
 			}
 		}
 	}
@@ -271,21 +274,25 @@ void Game::ShuffleBoardBGM()
 
 void Game::ComposeFrame()
 {
-	gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
-
 	switch (state)
 	{
 	case State::Title:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		gfx.DrawSprite(0, -100, title, SpriteEffect::Chroma{});
 		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Menu:
+		if (menu.IsSelecting())
+		{
+			gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
+		}
 		menu.Draw(gfx);
 		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Playing:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		piece.Draw(gfx);
 		DrawQueuePreview();
@@ -297,6 +304,7 @@ void Game::ComposeFrame()
 		pItem->Draw(consola, gfx);
 		break;
 	case State::Paused:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		piece.Draw(gfx);
 		DrawQueuePreview();
@@ -309,6 +317,7 @@ void Game::ComposeFrame()
 		TextManager::DrawPaused(consolab, gfx);
 		break;
 	case State::GameOver:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawGoal(consola, brd, gfx);
@@ -317,6 +326,7 @@ void Game::ComposeFrame()
 		TextManager::DrawGameOver(consolab, gfx);
 		break;
 	case State::Victory:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		TextManager::DrawLineCounter(consola, brd, gfx);
 		TextManager::DrawGoal(consola, brd, gfx);
 		TextManager::DrawScore(consola, brd, gfx);
