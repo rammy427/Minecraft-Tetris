@@ -105,5 +105,6 @@ private:
 	Page curPage = Page::Select;
 	Entry<int> goalEntry;
 	Entry<float> speedEntry;
+	const Font& font;
 	Surface controls = "Sprites\\controlpage.bmp";
 };
