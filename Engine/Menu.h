@@ -11,7 +11,8 @@ public:
 	enum class Page
 	{
 		Select,
-		Controls
+		Controls,
+		Items
 	};
 private:
 	template <typename T>
@@ -107,4 +108,5 @@ private:
 	Entry<float> speedEntry;
 	const Font& font;
 	Surface controls = "Sprites\\controlpage.bmp";
+	Surface items = "Sprites\\itempage.bmp";
 };
