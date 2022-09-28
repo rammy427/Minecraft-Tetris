@@ -327,6 +327,7 @@ void Game::ComposeFrame()
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawGameOver(consolab, gfx);
+		TextManager::DrawReturnText(consola, gfx);
 		break;
 	case State::Victory:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
@@ -335,6 +336,7 @@ void Game::ComposeFrame()
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
+		TextManager::DrawReturnText(consola, gfx);
 		break;
 	}
 }

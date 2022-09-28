@@ -11,7 +11,7 @@ void TextManager::DrawTitleSubText(const Font& font, Graphics& gfx)
 
 void TextManager::DrawGameOver(const Font& font, Graphics& gfx)
 {
-	const std::string str = "NO ESTAS FILU";
+	const std::string str = "GAME OVER";
 	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Red, gfx);
 }
 
@@ -23,8 +23,17 @@ void TextManager::DrawPaused(const Font& font, Graphics& gfx)
 
 void TextManager::DrawVictory(const Font& font, Graphics& gfx)
 {
-	const std::string str = "ESTAS BIEN FILU!";
+	const std::string str = "VICTORY!";
 	font.DrawText(str, Graphics::GetRect().GetCenter() - Vei2(font.GetGlyphWidth() * int(str.size()), font.GetGlyphHeight()) / 2, Colors::Yellow, gfx);
+}
+
+void TextManager::DrawReturnText(const Font& font, Graphics& gfx)
+{
+	const std::string str = "Press ENTER to return to the menu.";
+	const int spacing = 20;
+	const int x = Graphics::GetRect().GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2;
+	const int y = Graphics::ScreenHeight - font.GetGlyphHeight() - spacing;
+	font.DrawText(str, { x, y }, Colors::White, gfx);
 }
 
 void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx)

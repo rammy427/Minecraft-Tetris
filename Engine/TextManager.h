@@ -10,6 +10,7 @@ public:
 	static void DrawGameOver(const Font& font, Graphics& gfx);
 	static void DrawPaused(const Font& font, Graphics& gfx);
 	static void DrawVictory(const Font& font, Graphics& gfx);
+	static void DrawReturnText(const Font& font, Graphics& gfx);
 	static void DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx);
 	static void DrawGoal(const Font& font, const Board& brd, Graphics& gfx);
 	static void DrawScore(const Font& font, const Board& brd, Graphics& gfx);
