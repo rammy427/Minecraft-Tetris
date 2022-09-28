@@ -37,9 +37,9 @@ namespace SpriteEffect
 			if (src != chroma)
 			{
 				const Color newColor = {
-					unsigned char(((255 - float(src.GetR())) / 255) * sub.GetR()),
-					unsigned char(((255 - float(src.GetG())) / 255) * sub.GetG()),
-					unsigned char(((255 - float(src.GetB())) / 255) * sub.GetB())
+					unsigned char(sub.GetR() * (src.GetR() + 1)),
+					unsigned char(sub.GetG() * (src.GetG() + 1)),
+					unsigned char(sub.GetB() * (src.GetB() + 1))
 				};
 				gfx.PutPixel(xDest, yDest, newColor);
 			}
