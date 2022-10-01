@@ -103,6 +103,8 @@ void Game::UpdateModel(float dt)
 		{
 			boardBgm.StopAll();
 			victoryBgm.Play();
+			Score::SaveTop();
+			Score::LoadTop();
 			state = State::Victory;
 		}
 		if (piece.IsLocked())
