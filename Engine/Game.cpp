@@ -32,13 +32,15 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	menu(Graphics::GetRect().GetCenter(), consola)
+	menu(Graphics::GetRect().GetCenter(), consola),
+	titleBgm(L"Music\\title.wav", true)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
 	SpawnPiece(RollPiece());
 	GenerateItem();
 	Score::LoadTop();
+	titleBgm.Play();
 }
 
 void Game::Go()
@@ -134,6 +136,7 @@ void Game::UpdateModel(float dt)
 				const Keyboard::Event e = wnd.kbd.ReadKey();
 				if (e.IsPress() && e.GetCode() == VK_RETURN)
 				{
+					titleBgm.StopAll();
 					ResetGame();
 					boardBgm.Play();
 					state = State::Playing;
@@ -155,6 +158,7 @@ void Game::UpdateModel(float dt)
 					break;
 				case State::Victory:
 				case State::GameOver:
+					titleBgm.Play();
 					state = State::Title;
 					break;
 				}
