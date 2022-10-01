@@ -33,7 +33,8 @@ Game::Game( MainWindow& wnd )
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
 	menu(Graphics::GetRect().GetCenter(), consola),
-	titleBgm(L"Music\\title.wav", true)
+	titleBgm(L"Music\\title.wav", true),
+	victoryBgm(L"Music\\victory.wav", true)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -100,6 +101,8 @@ void Game::UpdateModel(float dt)
 		}
 		if (GameIsWon())
 		{
+			boardBgm.StopAll();
+			victoryBgm.Play();
 			state = State::Victory;
 		}
 		if (piece.IsLocked())
@@ -157,6 +160,7 @@ void Game::UpdateModel(float dt)
 					state = State::Menu;
 					break;
 				case State::Victory:
+					victoryBgm.StopAll();
 				case State::GameOver:
 					titleBgm.Play();
 					state = State::Title;
