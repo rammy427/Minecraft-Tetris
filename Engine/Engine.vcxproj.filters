@@ -28,6 +28,9 @@
     <Filter Include="Resources\Music">
       <UniqueIdentifier>{1eebba43-8bc8-4eb5-9bc9-d93d249b3bcf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\SFX">
+      <UniqueIdentifier>{52b818c4-5202-4e29-a691-fb703956effc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ChiliWin.h">
@@ -239,6 +242,27 @@
     <Image Include="Sprites\tnt.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
+    <Image Include="Sprites\itempage.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\pickaxe.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\potion.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\sand.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\star.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\title.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
+    <Image Include="Sprites\controlpage.bmp">
+      <Filter>Resources\Sprites</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Music\play3.wav">
@@ -270,6 +294,24 @@
     </Media>
     <Media Include="Music\play2.wav">
       <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play11.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play12.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\title.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\victory.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="Music\play10.wav">
+      <Filter>Resources\Music</Filter>
+    </Media>
+    <Media Include="SFX\explosion.wav">
+      <Filter>Resources\SFX</Filter>
     </Media>
   </ItemGroup>
 </Project>
