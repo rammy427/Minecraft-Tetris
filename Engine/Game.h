@@ -99,6 +99,7 @@ private:
 	Sound titleBgm = { L"Music\\title.wav", true };
 	Sound victoryBgm = { L"Music\\victory.wav", true };
 	// Item SFX (must be handled here due to scope).
+	SoundEffect sndBomb = { { L"SFX\\explosion.wav" } };
 	SoundEffect placeholder = {};
 	// Item management members.
 	std::unique_ptr<Item> pItem;

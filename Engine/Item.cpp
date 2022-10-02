@@ -105,6 +105,7 @@ void Bomb::ProcessUsage()
 						}
 					}
 				}
+				sound.Play(rng);
 				EndUse();
 			}
 		}

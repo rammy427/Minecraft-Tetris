@@ -189,7 +189,7 @@ void Game::SpawnItem(int nItem)
 		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	case 1:
-		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, placeholder);
+		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, sndBomb);
 		break;
 	case 2:
 		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, placeholder);
