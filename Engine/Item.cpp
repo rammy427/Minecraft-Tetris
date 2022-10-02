@@ -1,12 +1,13 @@
 #include "Item.h"
 #include "Score.h"
 
-Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, const std::string& spritename)
+Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
 	piece(piece),
 	border({ rectTopLeft, spriteDim, spriteDim }, 10),
+	sound(sound),
 	sprite(spritename)
 {
 }
@@ -73,9 +74,9 @@ bool Item::HasEnded() const
 	return hasEnded;
 }
 
-Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
 	:
-	Item(rectTopLeft, brd, mouse, piece, "Sprites\\tnt.bmp")
+	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\tnt.bmp")
 {
 }
 
@@ -110,9 +111,9 @@ void Bomb::ProcessUsage()
 	}
 }
 
-Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
 	:
-	Item(rectTopLeft, brd, mouse, piece, "Sprites\\sand.bmp")
+	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\sand.bmp")
 {
 }
 
@@ -145,9 +146,9 @@ void Sand::ProcessUsage()
 	EndUse();
 }
 
-Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
 	:
-	Item(rectTopLeft, brd, mouse, piece, "Sprites\\potion.bmp")
+	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\potion.bmp")
 {
 }
 
@@ -158,9 +159,9 @@ void Potion::ProcessUsage()
 	EndUse();
 }
 
-Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
 	:
-	Item(rectTopLeft, brd, mouse, piece, "Sprites\\pickaxe.bmp")
+	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\pickaxe.bmp")
 {
 }
 
@@ -190,9 +191,9 @@ void Pickaxe::ProcessUsage()
 	}
 }
 
-Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece)
+Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
 	:
-	Item(rectTopLeft, brd, mouse, piece, "Sprites\\star.bmp")
+	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\star.bmp")
 {
 }
 

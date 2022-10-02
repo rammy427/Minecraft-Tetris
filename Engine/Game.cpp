@@ -186,19 +186,19 @@ void Game::SpawnItem(int nItem)
 	switch (nItem)
 	{
 	case 0:
-		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece);
+		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	case 1:
-		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece);
+		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	case 2:
-		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece);
+		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	case 3:
-		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece);
+		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	case 4:
-		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece);
+		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece, placeholder);
 		break;
 	}
 }

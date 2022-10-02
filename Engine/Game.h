@@ -27,7 +27,6 @@
 #include "Keyboard.h"
 #include "Mouse.h"
 #include "Piece.h"
-#include "Sound.h"
 #include "Item.h"
 #include "Menu.h"
 
@@ -99,6 +98,8 @@ private:
 	Sound boardBgm;
 	Sound titleBgm = { L"Music\\title.wav", true };
 	Sound victoryBgm = { L"Music\\victory.wav", true };
+	// Item SFX (must be handled here due to scope).
+	SoundEffect placeholder = {};
 	// Item management members.
 	std::unique_ptr<Item> pItem;
 	static constexpr int rareItemProb = 1;		// Rare:	1/25 =  4% Spawn Rate
