@@ -97,8 +97,8 @@ private:
 	static constexpr int nSongs = 13;
 	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, nSongs - 1);
 	Sound boardBgm;
-	Sound titleBgm;
-	Sound victoryBgm;
+	Sound titleBgm = { L"Music\\title.wav", true };
+	Sound victoryBgm = { L"Music\\victory.wav", true };
 	// Item management members.
 	std::unique_ptr<Item> pItem;
 	static constexpr int rareItemProb = 1;		// Rare:	1/25 =  4% Spawn Rate
