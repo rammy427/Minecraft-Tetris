@@ -27,7 +27,8 @@ protected:
 	SoundEffect& sound;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	static constexpr int spriteDim = 64;
-	static constexpr float coolTime = 60.0f;
+	static constexpr float coolTime = 1.0f;
+	// Change cooldown time to 60 after all SFX are tested.
 	float curTime = .0f;
 	bool isActive = false;
 	bool isOnCooldown = true;
