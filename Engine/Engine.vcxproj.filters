@@ -313,5 +313,8 @@
     <Media Include="SFX\explosion.wav">
       <Filter>Resources\SFX</Filter>
     </Media>
+    <Media Include="SFX\potion.wav">
+      <Filter>Resources\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>

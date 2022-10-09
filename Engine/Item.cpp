@@ -157,6 +157,7 @@ void Potion::ProcessUsage()
 {
 	const bool isSlowingDown = bool(fallDist(rng));
 	Piece::InitPotionEffect(isSlowingDown);
+	sound.Play(rng);
 	EndUse();
 }
 
