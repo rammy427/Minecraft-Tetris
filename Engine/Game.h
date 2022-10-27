@@ -103,7 +103,7 @@ private:
 	SoundEffect sndPotion = { { L"SFX\\potion.wav" } };
 	SoundEffect sndPickaxe = { { L"SFX\\pickaxe.wav" } };
 	SoundEffect sndStar = { { L"SFX\\star.wav" } };
-	SoundEffect placeholder = {};
+	SoundEffect sndSand = { { L"SFX\\sandfall.wav" } };
 	// Item management members.
 	std::unique_ptr<Item> pItem;
 	static constexpr int rareItemProb = 1;		// Rare:	1/25 =  4% Spawn Rate

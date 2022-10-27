@@ -144,6 +144,7 @@ void Sand::ProcessUsage()
 		brd.TileAt(gridPos).SetColor(c);
 		brd.TileAt(gridPos).Set();
 	}
+	sound.Play(rng);
 	EndUse();
 }
 

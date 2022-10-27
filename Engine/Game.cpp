@@ -192,7 +192,7 @@ void Game::SpawnItem(int nItem)
 		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, sndBomb);
 		break;
 	case 2:
-		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, placeholder);
+		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, sndSand);
 		break;
 	case 3:
 		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece, sndPotion);
@@ -211,7 +211,7 @@ void Game::GenerateItem()
 		if (chance >= rareItemProb + std::max(i - 1, 0) * commonItemProb + std::min(i, 1) &&
 			chance <= rareItemProb + i * commonItemProb)
 		{
-			const int test = 0;
+			const int test = 2;
 			SpawnItem(test);
 			// Replace 'test' with 'i' after SFX tests.
 		}
