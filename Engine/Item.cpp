@@ -203,5 +203,6 @@ Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect
 void Star::ProcessUsage()
 {
 	brd.Reset(false);
+	sound.Play(rng);
 	EndUse();
 }
