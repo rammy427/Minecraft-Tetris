@@ -337,5 +337,8 @@
     <Media Include="SFX\gameover.wav">
       <Filter>Resources\SFX</Filter>
     </Media>
+    <Media Include="SFX\combo.wav">
+      <Filter>Resources\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Border.h"
+#include "Sound.h"
 
 class Board
 {
@@ -52,4 +53,5 @@ private:
 	int nClearedLines = 0;
 	int lineGoal;
 	Border border;
+	Sound sndCombo = L"SFX\\combo.wav";
 };

@@ -127,6 +127,7 @@ void Board::ClearRows()
 	{
 		// TETRIS combo achieved.
 		Score::Add(1000);
+		sndCombo.Play();
 	}
 }
 

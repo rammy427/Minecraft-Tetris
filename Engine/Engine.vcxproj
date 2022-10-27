@@ -303,6 +303,7 @@
     <Media Include="Music\play9.wav" />
     <Media Include="Music\title.wav" />
     <Media Include="Music\victory.wav" />
+    <Media Include="SFX\combo.wav" />
     <Media Include="SFX\explosion.wav" />
     <Media Include="SFX\gameover.wav" />
     <Media Include="SFX\item.wav" />
