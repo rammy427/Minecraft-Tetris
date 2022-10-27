@@ -331,5 +331,8 @@
     <Media Include="SFX\rotation.wav">
       <Filter>Resources\SFX</Filter>
     </Media>
+    <Media Include="SFX\lock.wav">
+      <Filter>Resources\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>

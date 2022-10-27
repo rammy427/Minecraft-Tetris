@@ -107,6 +107,7 @@ void Game::UpdateModel(float dt)
 		}
 		if (piece.IsLocked())
 		{
+			sndLock.Play();
 			SpawnPiece(RollPiece());
 		}
 		if (piece.IsColliding())

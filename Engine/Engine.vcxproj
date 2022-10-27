@@ -305,6 +305,7 @@
     <Media Include="Music\victory.wav" />
     <Media Include="SFX\explosion.wav" />
     <Media Include="SFX\item.wav" />
+    <Media Include="SFX\lock.wav" />
     <Media Include="SFX\pickaxe.wav" />
     <Media Include="SFX\potion.wav" />
     <Media Include="SFX\rotation.wav" />
