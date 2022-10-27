@@ -316,5 +316,8 @@
     <Media Include="SFX\potion.wav">
       <Filter>Resources\SFX</Filter>
     </Media>
+    <Media Include="SFX\pickaxe.wav">
+      <Filter>Resources\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>

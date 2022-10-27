@@ -182,6 +182,7 @@ void Pickaxe::ProcessUsage()
 				{
 					tile.Kill();
 					nTiles++;
+					sound.Play(rng);
 				}
 			}
 		}

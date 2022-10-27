@@ -304,6 +304,7 @@
     <Media Include="Music\title.wav" />
     <Media Include="Music\victory.wav" />
     <Media Include="SFX\explosion.wav" />
+    <Media Include="SFX\pickaxe.wav" />
     <Media Include="SFX\potion.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

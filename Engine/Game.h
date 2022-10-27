@@ -101,6 +101,7 @@ private:
 	// Item SFX (must be handled here due to scope).
 	SoundEffect sndBomb = { { L"SFX\\explosion.wav" } };
 	SoundEffect sndPotion = { { L"SFX\\potion.wav" } };
+	SoundEffect sndPickaxe = { { L"SFX\\pickaxe.wav" } };
 	SoundEffect placeholder = {};
 	// Item management members.
 	std::unique_ptr<Item> pItem;
