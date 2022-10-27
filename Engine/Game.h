@@ -98,16 +98,16 @@ private:
 	Sound boardBgm;
 	Sound titleBgm = { L"Music\\title.wav", true };
 	Sound victoryBgm = { L"Music\\victory.wav", true };
-	Sound sndGameOver = { L"SFX\\gameover.wav" };
+	Sound sndGameOver = L"SFX\\gameover.wav";
 	// Item SFX (must be handled here due to scope).
-	SoundEffect sndUse = { { L"SFX\\item.wav" } };
-	SoundEffect sndBomb = { { L"SFX\\explosion.wav" } };
-	SoundEffect sndPotion = { { L"SFX\\potion.wav" } };
-	SoundEffect sndPickaxe = { { L"SFX\\pickaxe.wav" } };
-	SoundEffect sndStar = { { L"SFX\\star.wav" } };
-	SoundEffect sndSand = { { L"SFX\\sandfall.wav" } };
+	SoundEffect sndUse = { L"SFX\\item.wav" };
+	SoundEffect sndBomb = { L"SFX\\explosion.wav" };
+	SoundEffect sndPotion = { L"SFX\\potion.wav" };
+	SoundEffect sndPickaxe = { L"SFX\\pickaxe.wav" };
+	SoundEffect sndStar = { L"SFX\\star.wav" };
+	SoundEffect sndSand = { L"SFX\\sandfall.wav" };
 	// Piece sound effect (also out of scope).
-	Sound sndLock = { L"SFX\\lock.wav" };
+	Sound sndLock = L"SFX\\lock.wav";
 	// Item management members.
 	std::unique_ptr<Item> pItem;
 	static constexpr int rareItemProb = 1;		// Rare:	1/25 =  4% Spawn Rate

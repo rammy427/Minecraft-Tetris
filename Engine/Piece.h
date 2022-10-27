@@ -47,5 +47,5 @@ private:
 	std::vector<Vei2> tilePositions;
 	Color c;
 	std::reference_wrapper<Board> brd;
-	Sound sndRotate = { L"SFX\\rotation.wav" };
+	Sound sndRotate = L"SFX\\rotation.wav";
 };
