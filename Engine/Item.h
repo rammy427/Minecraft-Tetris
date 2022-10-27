@@ -9,7 +9,7 @@
 class Item
 {
 public:
-	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound, const std::string& spritename);
+	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd, const std::string& spritename);
 	virtual ~Item() = default;
 	void Update(float dt);
 	void Activate();
@@ -24,7 +24,7 @@ protected:
 	Piece& piece;
 	Surface sprite;
 	Border border;
-	SoundEffect& sound;
+	SoundEffect& effectSnd;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	static constexpr int spriteDim = 64;
 	static constexpr float coolTime = 1.0f;
@@ -38,7 +38,7 @@ protected:
 class Bomb : public Item
 {
 public:
-	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound);
+	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -48,7 +48,7 @@ private:
 class Sand : public Item
 {
 public:
-	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound);
+	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -60,7 +60,7 @@ private:
 class Potion : public Item
 {
 public:
-	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound);
+	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -70,7 +70,7 @@ private:
 class Pickaxe : public Item
 {
 public:
-	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound);
+	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -81,7 +81,7 @@ private:
 class Star : public Item
 {
 public:
-	Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound);
+	Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 };

@@ -1,13 +1,13 @@
 #include "Item.h"
 #include "Score.h"
 
-Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound, const std::string& spritename)
+Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
 	piece(piece),
 	border({ rectTopLeft, spriteDim, spriteDim }, 10),
-	sound(sound),
+	effectSnd(effectSnd),
 	sprite(spritename)
 {
 }
@@ -74,9 +74,9 @@ bool Item::HasEnded() const
 	return hasEnded;
 }
 
-Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
+Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\tnt.bmp")
+	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\tnt.bmp")
 {
 }
 
@@ -105,16 +105,16 @@ void Bomb::ProcessUsage()
 						}
 					}
 				}
-				sound.Play(rng);
+				effectSnd.Play(rng);
 				EndUse();
 			}
 		}
 	}
 }
 
-Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\sand.bmp")
+	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\sand.bmp")
 {
 }
 
@@ -144,13 +144,13 @@ void Sand::ProcessUsage()
 		brd.TileAt(gridPos).SetColor(c);
 		brd.TileAt(gridPos).Set();
 	}
-	sound.Play(rng);
+	effectSnd.Play(rng);
 	EndUse();
 }
 
-Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
+Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\potion.bmp")
+	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\potion.bmp")
 {
 }
 
@@ -158,13 +158,13 @@ void Potion::ProcessUsage()
 {
 	const bool isSlowingDown = bool(fallDist(rng));
 	Piece::InitPotionEffect(isSlowingDown);
-	sound.Play(rng);
+	effectSnd.Play(rng);
 	EndUse();
 }
 
-Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
+Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\pickaxe.bmp")
+	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\pickaxe.bmp")
 {
 }
 
@@ -183,7 +183,7 @@ void Pickaxe::ProcessUsage()
 				{
 					tile.Kill();
 					nTiles++;
-					sound.Play(rng);
+					effectSnd.Play(rng);
 				}
 			}
 		}
@@ -195,15 +195,15 @@ void Pickaxe::ProcessUsage()
 	}
 }
 
-Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& sound)
+Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, sound, "Sprites\\star.bmp")
+	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\star.bmp")
 {
 }
 
 void Star::ProcessUsage()
 {
 	brd.Reset(false);
-	sound.Play(rng);
+	effectSnd.Play(rng);
 	EndUse();
 }
