@@ -211,9 +211,7 @@ void Game::GenerateItem()
 		if (chance >= rareItemProb + std::max(i - 1, 0) * commonItemProb + std::min(i, 1) &&
 			chance <= rareItemProb + i * commonItemProb)
 		{
-			const int test = 2;
 			SpawnItem(i);
-			// Replace 'test' with 'i' after SFX tests.
 		}
 	}
 }
