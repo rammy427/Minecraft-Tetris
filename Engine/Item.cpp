@@ -1,12 +1,13 @@
 #include "Item.h"
 #include "Score.h"
 
-Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd, const std::string& spritename)
+Item::Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd, const std::string& spritename)
 	:
 	brd(brd),
 	mouse(mouse),
 	piece(piece),
 	border({ rectTopLeft, spriteDim, spriteDim }, 10),
+	useSnd(useSnd),
 	effectSnd(effectSnd),
 	sprite(spritename)
 {
@@ -38,6 +39,7 @@ void Item::Activate()
 	{
 		mouse.Flush();
 		isActive = true;
+		useSnd.Play(rng);
 		Score::Add(100);
 	}
 }
@@ -74,9 +76,9 @@ bool Item::HasEnded() const
 	return hasEnded;
 }
 
-Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
+Bomb::Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\tnt.bmp")
+	Item(rectTopLeft, brd, mouse, piece, useSnd, effectSnd, "Sprites\\tnt.bmp")
 {
 }
 
@@ -112,9 +114,9 @@ void Bomb::ProcessUsage()
 	}
 }
 
-Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
+Sand::Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\sand.bmp")
+	Item(rectTopLeft, brd, mouse, piece, useSnd, effectSnd, "Sprites\\sand.bmp")
 {
 }
 
@@ -148,9 +150,9 @@ void Sand::ProcessUsage()
 	EndUse();
 }
 
-Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
+Potion::Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\potion.bmp")
+	Item(rectTopLeft, brd, mouse, piece, useSnd, effectSnd, "Sprites\\potion.bmp")
 {
 }
 
@@ -162,9 +164,9 @@ void Potion::ProcessUsage()
 	EndUse();
 }
 
-Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
+Pickaxe::Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\pickaxe.bmp")
+	Item(rectTopLeft, brd, mouse, piece, useSnd, effectSnd, "Sprites\\pickaxe.bmp")
 {
 }
 
@@ -195,9 +197,9 @@ void Pickaxe::ProcessUsage()
 	}
 }
 
-Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd)
+Star::Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd)
 	:
-	Item(rectTopLeft, brd, mouse, piece, effectSnd, "Sprites\\star.bmp")
+	Item(rectTopLeft, brd, mouse, piece, useSnd, effectSnd, "Sprites\\star.bmp")
 {
 }
 

@@ -186,19 +186,19 @@ void Game::SpawnItem(int nItem)
 	switch (nItem)
 	{
 	case 0:
-		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece, sndStar);
+		pItem = std::make_unique<Star>(topLeft, brd, wnd.mouse, piece, sndUse, sndStar);
 		break;
 	case 1:
-		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, sndBomb);
+		pItem = std::make_unique<Bomb>(topLeft, brd, wnd.mouse, piece, sndUse, sndBomb);
 		break;
 	case 2:
-		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, sndSand);
+		pItem = std::make_unique<Sand>(topLeft, brd, wnd.mouse, piece, sndUse, sndSand);
 		break;
 	case 3:
-		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece, sndPotion);
+		pItem = std::make_unique<Potion>(topLeft, brd, wnd.mouse, piece, sndUse, sndPotion);
 		break;
 	case 4:
-		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece, sndPickaxe);
+		pItem = std::make_unique<Pickaxe>(topLeft, brd, wnd.mouse, piece, sndUse, sndPickaxe);
 		break;
 	}
 }
@@ -212,7 +212,7 @@ void Game::GenerateItem()
 			chance <= rareItemProb + i * commonItemProb)
 		{
 			const int test = 2;
-			SpawnItem(test);
+			SpawnItem(i);
 			// Replace 'test' with 'i' after SFX tests.
 		}
 	}

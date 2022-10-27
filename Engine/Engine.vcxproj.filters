@@ -325,5 +325,8 @@
     <Media Include="SFX\sandfall.wav">
       <Filter>Resources\SFX</Filter>
     </Media>
+    <Media Include="SFX\item.wav">
+      <Filter>Resources\SFX</Filter>
+    </Media>
   </ItemGroup>
 </Project>

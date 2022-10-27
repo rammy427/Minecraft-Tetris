@@ -99,6 +99,7 @@ private:
 	Sound titleBgm = { L"Music\\title.wav", true };
 	Sound victoryBgm = { L"Music\\victory.wav", true };
 	// Item SFX (must be handled here due to scope).
+	SoundEffect sndUse = { { L"SFX\\item.wav" } };
 	SoundEffect sndBomb = { { L"SFX\\explosion.wav" } };
 	SoundEffect sndPotion = { { L"SFX\\potion.wav" } };
 	SoundEffect sndPickaxe = { { L"SFX\\pickaxe.wav" } };

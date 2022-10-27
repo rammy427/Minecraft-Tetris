@@ -9,7 +9,7 @@
 class Item
 {
 public:
-	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd, const std::string& spritename);
+	Item(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd, const std::string& spritename);
 	virtual ~Item() = default;
 	void Update(float dt);
 	void Activate();
@@ -24,6 +24,7 @@ protected:
 	Piece& piece;
 	Surface sprite;
 	Border border;
+	SoundEffect& useSnd;
 	SoundEffect& effectSnd;
 	std::mt19937 rng = std::mt19937(std::random_device{}());
 	static constexpr int spriteDim = 64;
@@ -38,7 +39,7 @@ protected:
 class Bomb : public Item
 {
 public:
-	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
+	Bomb(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -48,7 +49,7 @@ private:
 class Sand : public Item
 {
 public:
-	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
+	Sand(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -60,7 +61,7 @@ private:
 class Potion : public Item
 {
 public:
-	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
+	Potion(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -70,7 +71,7 @@ private:
 class Pickaxe : public Item
 {
 public:
-	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
+	Pickaxe(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 private:
@@ -81,7 +82,7 @@ private:
 class Star : public Item
 {
 public:
-	Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& effectSnd);
+	Star(Vei2 rectTopLeft, Board& brd, Mouse& mouse, Piece& piece, SoundEffect& useSnd, SoundEffect& effectSnd);
 private:
 	void ProcessUsage() override;
 };
