@@ -98,6 +98,7 @@ private:
 	Sound boardBgm;
 	Sound titleBgm = { L"Music\\title.wav", true };
 	Sound victoryBgm = { L"Music\\victory.wav", true };
+	Sound sndGameOver = { L"SFX\\gameover.wav" };
 	// Item SFX (must be handled here due to scope).
 	SoundEffect sndUse = { { L"SFX\\item.wav" } };
 	SoundEffect sndBomb = { { L"SFX\\explosion.wav" } };

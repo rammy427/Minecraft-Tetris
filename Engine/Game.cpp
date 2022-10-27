@@ -116,6 +116,7 @@ void Game::UpdateModel(float dt)
 			Score::SaveTop();
 			Score::LoadTop();
 			state = State::GameOver;
+			sndGameOver.Play();
 		}
 	}
 	else if (state == State::Paused)
@@ -163,6 +164,7 @@ void Game::UpdateModel(float dt)
 				case State::Victory:
 					victoryBgm.StopAll();
 				case State::GameOver:
+					sndGameOver.StopAll();
 					titleBgm.Play();
 					state = State::Title;
 					break;
