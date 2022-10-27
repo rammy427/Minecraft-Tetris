@@ -262,6 +262,10 @@ void Piece::Rotate(bool clockwise)
 			// Revert rotation.
 			tilePositions = old;
 		}
+		else
+		{
+			sndRotate.Play();
+		}
 	}
 }
 
