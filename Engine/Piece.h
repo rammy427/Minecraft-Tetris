@@ -19,6 +19,7 @@ public:
 	void UpdateDrop(Keyboard& kbd, float dt);
 	void Draw(Graphics& gfx);
 	void LockToBoard();
+	void Cut();
 	bool IsLocked() const;
 	bool IsColliding() const;
 	static void InitPotionEffect(bool isSpeedingUp);

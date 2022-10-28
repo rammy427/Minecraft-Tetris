@@ -112,6 +112,8 @@ void Game::UpdateModel(float dt)
 		}
 		if (piece.IsColliding())
 		{
+			piece.Cut();
+			piece.LockToBoard();
 			boardBgm.StopAll();
 			Score::SaveTop();
 			Score::LoadTop();

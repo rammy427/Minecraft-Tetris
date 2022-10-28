@@ -155,16 +155,33 @@ void Piece::Draw(Graphics& gfx)
 
 void Piece::LockToBoard()
 {
-	assert(!tilePositions.empty());
-	for (Vei2& pos : tilePositions)
+	if (!tilePositions.empty())
 	{
-		brd.get().TileAt(pos).SetColor(c);
-		brd.get().TileAt(pos).Set();
+		for (Vei2& pos : tilePositions)
+		{
+			brd.get().TileAt(pos).SetColor(c);
+			brd.get().TileAt(pos).Set();
+		}
+		// Clear piece tiles since they're now locked to the board.
+		// Piece should now be deleted.
+		tilePositions.clear();
+		Score::Add(10);
 	}
-	// Clear piece tiles since they're now locked to the board.
-	// Piece should now be deleted.
-	tilePositions.clear();
-	Score::Add(10);
+}
+
+void Piece::Cut()
+{
+	for (auto i = tilePositions.begin(); i != tilePositions.end();)
+	{
+		if (TileIsColliding(*i))
+		{
+			i = tilePositions.erase(i);
+		}
+		else
+		{
+			i++;
+		}
+	}
 }
 
 bool Piece::IsLocked() const
