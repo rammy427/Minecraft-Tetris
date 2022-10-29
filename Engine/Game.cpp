@@ -293,8 +293,7 @@ void Game::ComposeFrame()
 	switch (state)
 	{
 	case State::Title:
-		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
-		gfx.DrawSprite(0, -100, title, SpriteEffect::Chroma{});
+		gfx.DrawSprite(0, 0, title, SpriteEffect::Copy{});
 		TextManager::DrawTitleSubText(consolab, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
