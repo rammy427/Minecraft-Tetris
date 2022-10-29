@@ -197,7 +197,7 @@
     </ResourceCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Chili.ico">
+    <Image Include="Sprites\mct.ico">
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="Fonts\Consolas27x50.bmp">

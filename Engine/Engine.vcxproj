@@ -264,7 +264,7 @@
     <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Chili.ico" />
+    <Image Include="Sprites\mct.ico" />
     <Image Include="Fonts\Consolas11x21.bmp" />
     <Image Include="Fonts\Consolas27x50.bmp" />
     <Image Include="Fonts\ConsolasBold11x21.bmp" />
