@@ -5,6 +5,7 @@
 
 Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 	:
+	shape(shape),
 	brd(brd)
 {
 	std::vector<std::vector<Vei2>> shapes;
@@ -255,7 +256,7 @@ void Piece::Drop()
 
 void Piece::Rotate(bool clockwise)
 {
-	if (!IsLocked())
+	if (shape != 3 && !IsLocked())
 	{
 		const std::vector<Vei2> old = tilePositions;
 		// Rotate piece by 90 degrees.

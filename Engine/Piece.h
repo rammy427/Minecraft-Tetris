@@ -45,6 +45,7 @@ private:
 	static constexpr float speedStep = 0.009375f;
 	static constexpr int tileAmount = 4;
 	static constexpr int nShapes = 7;
+	int shape;
 	std::vector<Vei2> tilePositions;
 	Color c;
 	std::reference_wrapper<Board> brd;
