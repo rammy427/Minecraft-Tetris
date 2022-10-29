@@ -274,6 +274,19 @@ void Piece::Rotate(bool clockwise)
 			}
 		}
 
+		const auto pred = [&](const Vei2& lhs, const Vei2& rhs) {return lhs.x < rhs.x; };
+		const auto left = std::min_element(tilePositions.begin(), tilePositions.end(), pred)->x;
+		const auto right = std::max_element(tilePositions.begin(), tilePositions.end(), pred)->x;
+
+		if (left < 0)
+		{
+			TranslateBy({ -left, 0 });
+		}
+		else if (right >= brd.get().GetWidth())
+		{
+			TranslateBy({ brd.get().GetWidth() - right - 1, 0 });
+		}
+
 		if (IsColliding())
 		{
 			// Revert rotation.
