@@ -46,7 +46,7 @@ void Item::Activate()
 
 void Item::EndUse()
 {
-	if (isActive)
+	if (!isOnCooldown)
 	{
 		hasEnded = true;
 	}
