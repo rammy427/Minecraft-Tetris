@@ -29,13 +29,14 @@ void Item::Update(float dt)
 	}
 	else
 	{
+		piece.Freeze();
 		ProcessUsage();
 	}
 }
 
 void Item::Activate()
 {
-	if (!isOnCooldown)
+	if (!isOnCooldown && !isActive)
 	{
 		mouse.Flush();
 		isActive = true;

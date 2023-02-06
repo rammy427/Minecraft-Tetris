@@ -96,6 +96,7 @@ void Game::UpdateModel(float dt)
 		if (pItem->HasEnded())
 		{
 			GenerateItem();
+			piece.Unfreeze();
 		}
 		if (GameIsWon())
 		{
@@ -223,17 +224,20 @@ void Game::GenerateItem()
 
 void Game::SwapHoldPiece()
 {
-	if (nHoldPiece == -1)
+	if (!piece.IsFrozen())
 	{
-		nHoldPiece = nCurPiece;
-		SpawnPiece(RollPiece());
-		holdIsLocked = true;
-	}
-	else if (!holdIsLocked && nCurPiece != nHoldPiece)
-	{
-		std::swap(nHoldPiece, nCurPiece);
-		SpawnPiece(nCurPiece);
-		holdIsLocked = true;
+		if (nHoldPiece == -1)
+		{
+			nHoldPiece = nCurPiece;
+			SpawnPiece(RollPiece());
+			holdIsLocked = true;
+		}
+		else if (!holdIsLocked && nCurPiece != nHoldPiece)
+		{
+			std::swap(nHoldPiece, nCurPiece);
+			SpawnPiece(nCurPiece);
+			holdIsLocked = true;
+		}
 	}
 }
 

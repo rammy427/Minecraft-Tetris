@@ -20,8 +20,11 @@ public:
 	void Draw(Graphics& gfx);
 	void LockToBoard();
 	void Cut();
+	void Freeze();
+	void Unfreeze();
 	bool IsLocked() const;
 	bool IsColliding() const;
+	bool IsFrozen() const;
 	static void InitPotionEffect(bool isSpeedingUp);
 	static void UpdateFreeFallTime();
 	static void ResetStaticData(float startingSpeed = 1.0f);
@@ -35,6 +38,7 @@ private:
 private:
 	float speed;
 	float curTime = 0.0f;
+	bool isFrozen = false;
 	static float freeFallTime;
 	static Effect effect;
 	static float curEffectTime;

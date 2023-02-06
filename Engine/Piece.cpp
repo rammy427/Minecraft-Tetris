@@ -86,62 +86,68 @@ Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 
 void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
 {
-	std::vector<Vei2> old = tilePositions;
-	switch (eventCharCode)
+	if (!isFrozen)
 	{
-	case 'A':
-		kbd.DisableAutorepeat();
-		Rotate(false);
-		break;
-	case 'D':
-		kbd.DisableAutorepeat();
-		Rotate(true);
-		break;
-	case VK_LEFT:
-		kbd.EnableAutorepeat();
-		TranslateBy({ -1, 0 });
-		break;
-	case VK_RIGHT:
-		kbd.EnableAutorepeat();
-		TranslateBy({ 1, 0 });
-		break;
-	case VK_UP:
-		kbd.DisableAutorepeat();
-		Drop();
-		break;
+		std::vector<Vei2> old = tilePositions;
+		switch (eventCharCode)
+		{
+		case 'A':
+			kbd.DisableAutorepeat();
+			Rotate(false);
+			break;
+		case 'D':
+			kbd.DisableAutorepeat();
+			Rotate(true);
+			break;
+		case VK_LEFT:
+			kbd.EnableAutorepeat();
+			TranslateBy({ -1, 0 });
+			break;
+		case VK_RIGHT:
+			kbd.EnableAutorepeat();
+			TranslateBy({ 1, 0 });
+			break;
+		case VK_UP:
+			kbd.DisableAutorepeat();
+			Drop();
+			break;
+		}
 	}
 }
 
 void Piece::UpdateDrop(Keyboard& kbd, float dt)
 {
-	if (effect != Effect::None)
+	if (!isFrozen)
 	{
-		curEffectTime += dt;
-		if (curEffectTime >= potionEffectDuration)
+		if (effect != Effect::None)
 		{
-			effect = Effect::None;
-			curEffectTime = 0.0f;
+			curEffectTime += dt;
+			if (curEffectTime >= potionEffectDuration)
+			{
+				effect = Effect::None;
+				curEffectTime = 0.0f;
+			}
 		}
-	}
 
-	switch (effect)
-	{
-	case Effect::None:
-		speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
-		break;
-	case Effect::Slowdown:
-		speed = maxSpeed;
-		break;
-	case Effect::Speedup:
-		speed = minSpeed;
-		break;
-	}
+		switch (effect)
+		{
+		case Effect::None:
+			speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
+			break;
+		case Effect::Slowdown:
+			speed = maxSpeed;
+			break;
+		case Effect::Speedup:
+			speed = minSpeed;
+			break;
+		}
 
-	curTime += dt;
-	while (curTime >= speed)
-	{
-		TranslateBy({ 0, 1 });
-		curTime = 0.0f;
+		curTime += dt;
+		while (curTime >= speed)
+		{
+			TranslateBy({ 0, 1 });
+			curTime = 0.0f;
+		}
 	}
 }
 
@@ -185,6 +191,16 @@ void Piece::Cut()
 	}
 }
 
+void Piece::Freeze()
+{
+	isFrozen = true;
+}
+
+void Piece::Unfreeze()
+{
+	isFrozen = false;
+}
+
 bool Piece::IsLocked() const
 {
 	// If locked, position vector should be empty.
@@ -195,6 +211,11 @@ bool Piece::IsColliding() const
 {
 	const auto pred = [&](const Vei2& pos){ return TileIsColliding(pos); };
 	return std::any_of(tilePositions.begin(), tilePositions.end(), pred);
+}
+
+bool Piece::IsFrozen() const
+{
+	return isFrozen;
 }
 
 void Piece::InitPotionEffect(bool isSpeedingUp)
