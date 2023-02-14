@@ -36,6 +36,15 @@ void TextManager::DrawReturnText(const Font& font, Graphics& gfx)
 	font.DrawText(str, { x, y }, Colors::White, gfx);
 }
 
+void TextManager::DrawQuitText(const Font& font, Graphics& gfx)
+{
+	const std::string str = "Press Q to return to the menu.";
+	const int spacing = 20;
+	const int x = Graphics::GetRect().GetCenter().x - (font.GetGlyphWidth() * int(str.size())) / 2;
+	const int y = Graphics::ScreenHeight - font.GetGlyphHeight() - spacing;
+	font.DrawText(str, { x, y }, Colors::Yellow, gfx);
+}
+
 void TextManager::DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx)
 {
 	font.DrawText("Lines:", { spacing, spacing }, Colors::White, gfx);

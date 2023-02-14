@@ -127,10 +127,20 @@ void Game::UpdateModel(float dt)
 		while (!wnd.kbd.KeyIsEmpty())
 		{
 			const Keyboard::Event e = wnd.kbd.ReadKey();
-			if (e.IsPress() && e.GetCode() == VK_ESCAPE)
+			if (e.IsPress())
 			{
-				state = State::Playing;
-				wnd.kbd.DisableAutorepeat();
+				if (e.GetCode() == VK_ESCAPE)
+				{
+					state = State::Playing;
+					wnd.kbd.DisableAutorepeat();
+				}
+				else if (e.GetCode() == 'Q')
+				{
+					boardBgm.StopAll();
+					state = State::Title;
+					titleBgm.Play();
+					wnd.kbd.DisableAutorepeat();
+				}
 			}
 		}
 	}
@@ -334,6 +344,7 @@ void Game::ComposeFrame()
 		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
 		TextManager::DrawPaused(consolab, gfx);
+		TextManager::DrawQuitText(consola, gfx);
 		break;
 	case State::GameOver:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
