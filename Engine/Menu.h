@@ -99,13 +99,13 @@ public:
 	void Update(Keyboard& kbd, Mouse& mouse);
 	void Draw(Graphics& gfx);
 	const Entry<int>& GetGoalEntry() const;
-	const Entry<float>& GetSpeedEntry() const;
+	const Entry<int>& GetSpeedEntry() const;
 	bool IsSelecting() const;
 private:
 	Vei2 topLeft;
 	Page curPage = Page::Select;
 	Entry<int> goalEntry;
-	Entry<float> speedEntry;
+	Entry<int> speedEntry;
 	const Font& font;
 	Surface controls = "Sprites\\controlpage.bmp";
 	Surface items = "Sprites\\itempage.bmp";

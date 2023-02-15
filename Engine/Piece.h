@@ -27,7 +27,7 @@ public:
 	bool IsFrozen() const;
 	static void InitPotionEffect(bool isSpeedingUp);
 	static void UpdateFreeFallTime();
-	static void ResetStaticData(float startingSpeed = 1.0f);
+	static void ResetStaticData(int minLevel, int maxLevel, int startingLevel);
 	static int GetMaxShapes();
 	const std::vector<Vei2>& GetTilePositions() const;
 private:
@@ -35,6 +35,7 @@ private:
 	void Drop();
 	void Rotate(bool clockwise);
 	bool TileIsColliding(const Vei2& gridPos) const;
+	static void SetInitialSpeed(int minLevel, int maxLevel, int startingLevel);
 private:
 	float speed;
 	float curTime = 0.0f;

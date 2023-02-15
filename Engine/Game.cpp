@@ -277,7 +277,12 @@ void Game::ResetGame()
 	brd.Reset();
 	brd.SetLineGoal(menu.GetGoalEntry().GetSelection());
 	nHoldPiece = -1;
-	Piece::ResetStaticData(menu.GetSpeedEntry().GetSelection());
+
+	const int minLevel = menu.GetSpeedEntry().GetMin();
+	const int maxLevel = menu.GetSpeedEntry().GetMax();
+	const int startingLevel = menu.GetSpeedEntry().GetSelection();
+	Piece::ResetStaticData(minLevel, maxLevel, startingLevel);
+
 	SpawnPiece(RollPiece());
 	GenerateItem();
 	ShuffleBoardBGM();

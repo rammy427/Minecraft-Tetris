@@ -7,7 +7,7 @@ Menu::Menu(const Vei2& center, const Font& font)
 		(Menu::Entry<int>::valueStrSize + Menu::Entry<int>::headerSize) * 11 + Menu::Entry<int>::spacing * 7 + Menu::Entry<int>::dimension * 2,
 		Menu::Entry<int>::dimension * 4 + Menu::Entry<int>::spacing) / 2),
 	goalEntry(10, 200, 5, 100, topLeft, "Line goal:", font),
-	speedEntry(0.0625f, 2.0f, 0.03125f, 1.0f, {topLeft.x, topLeft.y + Menu::Entry<int>::dimension + Menu::Entry<int>::spacing}, "Seconds per move:", font)
+	speedEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry<int>::dimension + Menu::Entry<int>::spacing}, "Starting level:", font)
 {
 }
 
@@ -71,7 +71,7 @@ const Menu::Entry<int>& Menu::GetGoalEntry() const
 	return goalEntry;
 }
 
-const Menu::Entry<float>& Menu::GetSpeedEntry() const
+const Menu::Entry<int>& Menu::GetSpeedEntry() const
 {
 	return speedEntry;
 }

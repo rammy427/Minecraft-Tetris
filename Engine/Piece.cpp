@@ -228,9 +228,9 @@ void Piece::UpdateFreeFallTime()
 	freeFallTime = std::max(minSpeed, freeFallTime - speedStep);
 }
 
-void Piece::ResetStaticData(float startingSpeed)
+void Piece::ResetStaticData(int minLevel, int maxLevel, int startingLevel)
 {
-	freeFallTime = startingSpeed;
+	SetInitialSpeed(minLevel, maxLevel, startingLevel);
 	curEffectTime = 0.0f;
 	effect = Effect::None;
 }
@@ -324,6 +324,11 @@ void Piece::Rotate(bool clockwise)
 bool Piece::TileIsColliding(const Vei2& gridPos) const
 {
 	return !brd.get().IsInsideBoard(gridPos) || brd.get().TileAt(gridPos).IsAlive();
+}
+
+void Piece::SetInitialSpeed(int minLevel, int maxLevel, int startingLevel)
+{
+	freeFallTime = (maxSpeed / 2 - minSpeed) / (minLevel - maxLevel) * (startingLevel - maxLevel) + minSpeed;
 }
 
 float Piece::freeFallTime = 1.0f;
