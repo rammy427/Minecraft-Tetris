@@ -278,9 +278,9 @@ void Game::ResetGame()
 	brd.SetLineGoal(menu.GetGoalEntry().GetSelection());
 	nHoldPiece = -1;
 
-	const int minLevel = menu.GetSpeedEntry().GetMin();
-	const int maxLevel = menu.GetSpeedEntry().GetMax();
-	const int startingLevel = menu.GetSpeedEntry().GetSelection();
+	const int minLevel = menu.GetLevelEntry().GetMin();
+	const int maxLevel = menu.GetLevelEntry().GetMax();
+	const int startingLevel = menu.GetLevelEntry().GetSelection();
 	Piece::ResetStaticData(minLevel, maxLevel, startingLevel);
 
 	SpawnPiece(RollPiece());

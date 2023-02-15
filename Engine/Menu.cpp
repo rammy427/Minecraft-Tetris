@@ -7,7 +7,7 @@ Menu::Menu(const Vei2& center, const Font& font)
 		(Menu::Entry::valueStrSize + Menu::Entry::headerSize) * 11 + Menu::Entry::spacing * 7 + Menu::Entry::dimension * 2,
 		Menu::Entry::dimension * 4 + Menu::Entry::spacing) / 2),
 	goalEntry(10, 200, 5, 100, topLeft, "Line goal:", font),
-	speedEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "Starting level:", font)
+	levelEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "Starting level:", font)
 {
 }
 
@@ -21,7 +21,7 @@ void Menu::Update(Keyboard& kbd, Mouse& mouse)
 			if (e.GetType() == Mouse::Event::Type::LPress)
 			{
 				goalEntry.Update(e.GetPos());
-				speedEntry.Update(e.GetPos());
+				levelEntry.Update(e.GetPos());
 			}
 		}
 
@@ -50,7 +50,7 @@ void Menu::Draw(Graphics& gfx)
 	case Page::Select:
 	{
 		goalEntry.Draw(gfx);
-		speedEntry.Draw(gfx);
+		levelEntry.Draw(gfx);
 		const int top = topLeft.y + (Menu::Entry::dimension - font.GetGlyphHeight()) / 2;
 		const int unit_offset = Menu::Entry::dimension + Menu::Entry::spacing;
 		font.DrawText("Press 1 to view controls.", { topLeft.x, top + unit_offset * 2 }, Colors::Yellow, gfx);
@@ -71,9 +71,9 @@ const Menu::Entry& Menu::GetGoalEntry() const
 	return goalEntry;
 }
 
-const Menu::Entry& Menu::GetSpeedEntry() const
+const Menu::Entry& Menu::GetLevelEntry() const
 {
-	return speedEntry;
+	return levelEntry;
 }
 
 bool Menu::IsSelecting() const
