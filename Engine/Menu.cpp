@@ -6,9 +6,9 @@ Menu::Menu(const Vei2& center, const Font& font)
 	topLeft(center - Vei2(
 		(Menu::Entry::valueStrSize + Menu::Entry::headerSize) * 11 + Menu::Entry::spacing * 7 + Menu::Entry::dimension * 2,
 		Menu::Entry::dimension * 4 + Menu::Entry::spacing) / 2),
-	goalEntry(10, 200, 5, 100, topLeft, "Line goal:", font),
-	levelEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "Starting level:", font),
-	songEntry(0, 13, 1, 13, { topLeft.x, topLeft.y + 2 * (Menu::Entry::dimension + Menu::Entry::spacing) }, "BGM track:", font)
+	goalEntry(10, 200, 5, 100, topLeft, "LINE GOAL:", font),
+	levelEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "STARTING LEVEL:", font),
+	songEntry(0, 13, 1, 13, { topLeft.x, topLeft.y + 2 * (Menu::Entry::dimension + Menu::Entry::spacing) }, "BGM TRACK:", font)
 {
 }
 
