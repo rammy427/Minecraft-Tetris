@@ -47,12 +47,14 @@ public:
 	void Draw(Graphics& gfx);
 	const Entry& GetGoalEntry() const;
 	const Entry& GetLevelEntry() const;
+	const Entry& GetSongEntry() const;
 	bool IsSelecting() const;
 private:
 	Vei2 topLeft;
 	Page curPage = Page::Select;
 	Entry goalEntry;
 	Entry levelEntry;
+	Entry songEntry;
 	const Font& font;
 	Surface controls = "Sprites\\controlpage.bmp";
 	Surface items = "Sprites\\itempage.bmp";

@@ -32,7 +32,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	menu(Graphics::GetRect().GetCenter(), consola)
+	menu(Graphics::GetRect().GetCenter() - Vei2(0, 50), consola)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
@@ -304,7 +304,11 @@ bool Game::GameIsWon()
 
 void Game::ShuffleBoardBGM()
 {
-	boardBgm = { L"Music\\play" + std::to_wstring(bgmDist(rng)) + L".wav", true };
+	// Choose song manually on interval [0, nSongs - 1].
+	// Shuffle randomly on nSongs.
+	const int selection = menu.GetSongEntry().GetSelection();
+	const int track = (selection == nSongs) ? bgmDist(rng) : selection;
+	boardBgm = { L"Music\\play" + std::to_wstring(track) + L".wav", true };
 }
 
 void Game::ComposeFrame()

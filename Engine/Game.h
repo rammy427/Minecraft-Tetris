@@ -93,7 +93,7 @@ private:
 	Surface background = "Sprites\\bg.bmp";
 	Surface title = "Sprites\\title.bmp";
 	// Sound members.
-	static constexpr int nSongs = 13;
+	const int nSongs = menu.GetSongEntry().GetMax();
 	std::uniform_int_distribution<int> bgmDist = std::uniform_int_distribution<int>(0, nSongs - 1);
 	Sound boardBgm;
 	Sound titleBgm = { L"Music\\title.wav", true };
