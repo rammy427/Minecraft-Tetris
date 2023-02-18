@@ -66,30 +66,33 @@ void Game::UpdateModel(float dt)
 			if (e.IsPress())
 			{
 				const unsigned char charCode = e.GetCode();
-				switch (charCode)
+
+				if (charCode == controller.GetBinding(Controller::Key::Pause))
 				{
-				case VK_ESCAPE:
 					state = State::Paused;
 					wnd.kbd.DisableAutorepeat();
-					break;
-				case 'Q':
+				}
+				else if (charCode == controller.GetBinding(Controller::Key::SwapPiece))
+				{
 					wnd.kbd.DisableAutorepeat();
 					SwapHoldPiece();
-					break;
-				case 'E':
+				}
+				else if (charCode == controller.GetBinding(Controller::Key::UseItem))
+				{
 					pItem->Activate();
-					break;
-				case VK_SHIFT:
+				}
+				else if (charCode == controller.GetBinding(Controller::Key::CancelItem))
+				{
 					pItem->EndUse();
-					break;
-				default:
-					piece.ProcessTransformations(wnd.kbd, charCode);
-					break;
+				}
+				else
+				{
+					piece.ProcessTransformations(wnd.kbd, controller, charCode);
 				}
 			}
 		}
 
-		piece.UpdateDrop(wnd.kbd, dt);
+		piece.UpdateDrop(wnd.kbd, controller, dt);
 		pItem->Update(dt);
 		brd.ClearRows();
 
@@ -129,12 +132,12 @@ void Game::UpdateModel(float dt)
 			const Keyboard::Event e = wnd.kbd.ReadKey();
 			if (e.IsPress())
 			{
-				if (e.GetCode() == VK_ESCAPE)
+				if (e.GetCode() == controller.GetBinding(Controller::Key::Pause))
 				{
 					state = State::Playing;
 					wnd.kbd.DisableAutorepeat();
 				}
-				else if (e.GetCode() == 'Q')
+				else if (e.GetCode() == controller.GetBinding(Controller::Key::Quit))
 				{
 					boardBgm.StopAll();
 					state = State::Title;
@@ -152,7 +155,7 @@ void Game::UpdateModel(float dt)
 			while (!wnd.kbd.KeyIsEmpty())
 			{
 				const Keyboard::Event e = wnd.kbd.ReadKey();
-				if (e.IsPress() && e.GetCode() == VK_RETURN)
+				if (e.IsPress() && e.GetCode() == controller.GetBinding(Controller::Key::Transition))
 				{
 					titleBgm.StopAll();
 					ResetGame();
@@ -167,7 +170,7 @@ void Game::UpdateModel(float dt)
 		while (!wnd.kbd.KeyIsEmpty())
 		{
 			const Keyboard::Event e = wnd.kbd.ReadKey();
-			if (e.IsPress() && e.GetCode() == VK_RETURN)
+			if (e.IsPress() && e.GetCode() == controller.GetBinding(Controller::Key::Transition))
 			{
 				switch (state)
 				{

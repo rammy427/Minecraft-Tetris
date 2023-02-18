@@ -1,5 +1,4 @@
 #include "Piece.h"
-#include "ChiliWin.h"
 #include "Score.h"
 #include <sstream>
 
@@ -84,38 +83,41 @@ Piece::Piece(int shape, const Vei2& gridPos, Board& brd)
 	c = colors[shape];
 }
 
-void Piece::ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode)
+void Piece::ProcessTransformations(Keyboard& kbd, Controller& controller, unsigned char eventCharCode)
 {
 	if (!isFrozen)
 	{
 		std::vector<Vei2> old = tilePositions;
-		switch (eventCharCode)
+
+		if (eventCharCode == controller.GetBinding(Controller::Key::RotateLeft))
 		{
-		case 'A':
 			kbd.DisableAutorepeat();
 			Rotate(false);
-			break;
-		case 'D':
+		}
+		else if (eventCharCode == controller.GetBinding(Controller::Key::RotateRight))
+		{
 			kbd.DisableAutorepeat();
 			Rotate(true);
-			break;
-		case VK_LEFT:
+		}
+		else if (eventCharCode == controller.GetBinding(Controller::Key::MoveLeft))
+		{
 			kbd.EnableAutorepeat();
 			TranslateBy({ -1, 0 });
-			break;
-		case VK_RIGHT:
+		}
+		else if (eventCharCode == controller.GetBinding(Controller::Key::MoveRight))
+		{
 			kbd.EnableAutorepeat();
 			TranslateBy({ 1, 0 });
-			break;
-		case VK_UP:
+		}
+		else if (eventCharCode == controller.GetBinding(Controller::Key::HardDrop))
+		{
 			kbd.DisableAutorepeat();
 			Drop();
-			break;
 		}
 	}
 }
 
-void Piece::UpdateDrop(Keyboard& kbd, float dt)
+void Piece::UpdateDrop(Keyboard& kbd, Controller& controller, float dt)
 {
 	if (!isFrozen)
 	{
@@ -132,7 +134,7 @@ void Piece::UpdateDrop(Keyboard& kbd, float dt)
 		switch (effect)
 		{
 		case Effect::None:
-			speed = kbd.KeyIsPressed(VK_DOWN) ? softDropTime : freeFallTime;
+			speed = kbd.KeyIsPressed(controller.GetBinding(Controller::Key::SoftDrop)) ? softDropTime : freeFallTime;
 			break;
 		case Effect::Slowdown:
 			speed = maxSpeed;

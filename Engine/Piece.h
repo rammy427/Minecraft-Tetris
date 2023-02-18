@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Board.h"
-#include "Keyboard.h"
+#include "Controller.h"
 #include "SoundEffect.h"
 
 class Piece
@@ -15,8 +15,8 @@ public:
 	};
 public:
 	Piece(int shape, const Vei2& gridPos, Board& brd);
-	void ProcessTransformations(Keyboard& kbd, unsigned char eventCharCode);
-	void UpdateDrop(Keyboard& kbd, float dt);
+	void ProcessTransformations(Keyboard& kbd, Controller& controller, unsigned char eventCharCode);
+	void UpdateDrop(Keyboard& kbd, Controller& controller, float dt);
 	void Draw(Graphics& gfx);
 	void LockToBoard();
 	void Cut();

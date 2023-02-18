@@ -22,9 +22,9 @@
 
 #include <memory>
 #include <random>
+#include "Controller.h"
 #include "FrameTimer.h"
 #include "Graphics.h"
-#include "Keyboard.h"
 #include "Mouse.h"
 #include "Piece.h"
 #include "Item.h"
@@ -72,6 +72,7 @@ private:
 	const Font consola = "Fonts\\Consolas11x21.bmp";
 	const Font consolab = "Fonts\\ConsolasBold43x77.bmp";
 	FrameTimer ft;
+	Controller controller;
 	Board brd;
 	Piece piece = { 0, { 0,0 }, brd };
 	Menu menu;
