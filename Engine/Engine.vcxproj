@@ -139,6 +139,7 @@
     <ClInclude Include="Beveler.h" />
     <ClInclude Include="Board.h" />
     <ClInclude Include="Border.h" />
+    <ClInclude Include="Controller.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Piece.h" />
     <ClInclude Include="ChiliException.h" />
@@ -168,6 +169,7 @@
     <ClCompile Include="Beveler.cpp" />
     <ClCompile Include="Board.cpp" />
     <ClCompile Include="Border.cpp" />
+    <ClCompile Include="Controller.cpp" />
     <ClCompile Include="GraphicsOD.cpp">
       <Optimization Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">MaxSpeed</Optimization>
       <FavorSizeOrSpeed Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Speed</FavorSizeOrSpeed>
