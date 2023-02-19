@@ -21,10 +21,14 @@ public:
 		CancelItem,
 		Transition,
 		Pause,
-		Quit
+		Quit,
+		Count
 	};
 public:
 	Controller();
+	void SaveBindings();
+	// Returns true if file loaded successfully.
+	bool LoadBindings();
 	unsigned char GetBinding(Key key) const;
 private:
 	std::map<Key, unsigned char> bindings;
