@@ -14,7 +14,7 @@ Menu::Menu(const Vei2& center, const Font& font)
 
 void Menu::Update(Keyboard& kbd, Mouse& mouse)
 {
-	if (IsSelecting())
+	if (IsOnMain())
 	{
 		while (!mouse.IsEmpty())
 		{
@@ -45,15 +45,15 @@ void Menu::Update(Keyboard& kbd, Mouse& mouse)
 	}
 }
 
-void Menu::Draw(Graphics& gfx)
+void Menu::Draw(const Font& font, Graphics& gfx)
 {
 	switch (curPage)
 	{
 	case Page::Select:
 	{
-		goalEntry.Draw(gfx);
-		levelEntry.Draw(gfx);
-		songEntry.Draw(gfx);
+		goalEntry.Draw(font, gfx);
+		levelEntry.Draw(font, gfx);
+		songEntry.Draw(font, gfx);
 		const int top = topLeft.y + (Menu::Entry::dimension - font.GetGlyphHeight()) / 2;
 		const int unit_offset = Menu::Entry::dimension + Menu::Entry::spacing;
 		font.DrawText("Press 1 to view controls.", { topLeft.x, top + unit_offset * 3 }, Colors::Yellow, gfx);
@@ -84,7 +84,7 @@ const Menu::Entry& Menu::GetSongEntry() const
 	return songEntry;
 }
 
-bool Menu::IsSelecting() const
+bool Menu::IsOnMain() const
 {
 	return curPage == Page::Select;
 }
@@ -96,8 +96,7 @@ Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const s
 	step(step),
 	def(def),
 	pos(pos),
-	header(header),
-	font(font)
+	header(header)
 {
 	selection = def;
 	const int left = pos.x + font.GetGlyphWidth() * headerSize + spacing * 5;
@@ -120,7 +119,7 @@ void Menu::Entry::Update(const Vei2& mousePos)
 	}
 }
 
-void Menu::Entry::Draw(Graphics& gfx)
+void Menu::Entry::Draw(const Font& font, Graphics& gfx)
 {
 	font.DrawText(header, { pos.x, pos.y + (dimension - font.GetGlyphHeight()) / 2 }, Colors::Yellow, gfx);
 

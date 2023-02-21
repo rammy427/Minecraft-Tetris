@@ -18,10 +18,9 @@ private:
 	class Entry
 	{
 	public:
-		Entry() = default;
 		Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font);
 		void Update(const Vei2& mousePos);
-		void Draw(Graphics& gfx);
+		void Draw(const Font& font, Graphics& gfx);
 		int GetMin() const;
 		int GetMax() const;
 		int GetSelection() const;
@@ -32,7 +31,6 @@ private:
 		static constexpr int valueStrSize = 8;
 	private:
 		Vei2 pos;
-		const Font& font;
 		std::string header;
 		RectI rects[2];
 		int min;
@@ -44,11 +42,11 @@ private:
 public:
 	Menu(const Vei2& center, const Font& font);
 	void Update(Keyboard& kbd, Mouse& mouse);
-	void Draw(Graphics& gfx);
+	void Draw(const Font& font, Graphics& gfx);
 	const Entry& GetGoalEntry() const;
 	const Entry& GetLevelEntry() const;
 	const Entry& GetSongEntry() const;
-	bool IsSelecting() const;
+	bool IsOnMain() const;
 private:
 	Vei2 topLeft;
 	Page curPage = Page::Select;

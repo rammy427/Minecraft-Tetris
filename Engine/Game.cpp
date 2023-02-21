@@ -150,7 +150,7 @@ void Game::UpdateModel(float dt)
 	else if (state == State::Menu)
 	{
 		menu.Update(wnd.kbd, wnd.mouse);
-		if (menu.IsSelecting())
+		if (menu.IsOnMain())
 		{
 			while (!wnd.kbd.KeyIsEmpty())
 			{
@@ -324,12 +324,12 @@ void Game::ComposeFrame()
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Menu:
-		if (menu.IsSelecting())
+		if (menu.IsOnMain())
 		{
 			gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 			TextManager::DrawTitleSubText(consolab, gfx);
 		}
-		menu.Draw(gfx);
+		menu.Draw(consola, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Playing:
