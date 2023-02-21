@@ -137,7 +137,7 @@ void Game::UpdateModel(float dt)
 					state = State::Playing;
 					wnd.kbd.DisableAutorepeat();
 				}
-				else if (e.GetCode() == controller.GetBinding(Controller::Key::Quit))
+				else if (e.GetCode() == 'Q')
 				{
 					boardBgm.StopAll();
 					state = State::Title;
@@ -155,7 +155,7 @@ void Game::UpdateModel(float dt)
 			while (!wnd.kbd.KeyIsEmpty())
 			{
 				const Keyboard::Event e = wnd.kbd.ReadKey();
-				if (e.IsPress() && e.GetCode() == controller.GetBinding(Controller::Key::Transition))
+				if (e.IsPress() && e.GetCode() == VK_RETURN)
 				{
 					titleBgm.StopAll();
 					ResetGame();
@@ -170,7 +170,7 @@ void Game::UpdateModel(float dt)
 		while (!wnd.kbd.KeyIsEmpty())
 		{
 			const Keyboard::Event e = wnd.kbd.ReadKey();
-			if (e.IsPress() && e.GetCode() == controller.GetBinding(Controller::Key::Transition))
+			if (e.IsPress() && e.GetCode() == VK_RETURN)
 			{
 				switch (state)
 				{

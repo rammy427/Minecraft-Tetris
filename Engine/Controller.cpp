@@ -14,9 +14,7 @@ Controller::Controller()
 		bindings.emplace(Key::SwapPiece, 'Q');
 		bindings.emplace(Key::UseItem, 'E');
 		bindings.emplace(Key::CancelItem, VK_SHIFT);
-		bindings.emplace(Key::Transition, VK_RETURN);
 		bindings.emplace(Key::Pause, VK_ESCAPE);
-		bindings.emplace(Key::Quit, 'Q');
 		SaveBindings();
 	}
 }

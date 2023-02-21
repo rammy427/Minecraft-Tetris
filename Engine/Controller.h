@@ -19,9 +19,7 @@ public:
 		SwapPiece,
 		UseItem,
 		CancelItem,
-		Transition,
 		Pause,
-		Quit,
 		Count
 	};
 public:
