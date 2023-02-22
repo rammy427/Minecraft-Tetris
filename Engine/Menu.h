@@ -18,7 +18,7 @@ private:
 	class Entry
 	{
 	public:
-		Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font);
+		Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode = false);
 		void Update(const Vei2& mousePos);
 		void Draw(const Font& font, Graphics& gfx);
 		int GetMin() const;
@@ -33,6 +33,7 @@ private:
 		Vei2 pos;
 		std::string header;
 		RectI rects[2];
+		bool isOnCharMode;
 		int min;
 		int max;
 		int step;
@@ -46,6 +47,7 @@ public:
 	const Entry& GetGoalEntry() const;
 	const Entry& GetLevelEntry() const;
 	const Entry& GetSongEntry() const;
+	const std::vector<Entry>& GetKeyEntries() const;
 	bool IsOnMain() const;
 private:
 	Vei2 topLeft;
@@ -53,7 +55,7 @@ private:
 	Entry goalEntry;
 	Entry levelEntry;
 	Entry songEntry;
+	std::vector<Entry> keyEntries;
 	const Font& font;
-	Surface controls = "Sprites\\controlpage.bmp";
 	Surface items = "Sprites\\itempage.bmp";
 };

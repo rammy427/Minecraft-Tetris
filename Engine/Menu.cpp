@@ -1,4 +1,5 @@
 #include "Menu.h"
+#include "TextManager.h"
 
 Menu::Menu(const Vei2& center, const Font& font)
 	:
@@ -10,11 +11,31 @@ Menu::Menu(const Vei2& center, const Font& font)
 	levelEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "STARTING LEVEL:", font),
 	songEntry(0, 13, 1, 13, { topLeft.x, topLeft.y + 2 * (Menu::Entry::dimension + Menu::Entry::spacing) }, "BGM TRACK:", font)
 {
+	const std::vector<std::string> keyHeaders =
+	{
+		"MOVE LEFT:",
+		"MOVE RIGHT:",
+		"HARD DROP:",
+		"SOFT DROP:",
+		"ROTATE LEFT:",
+		"ROTATE RIGHT:",
+		"SWAP PIECE:",
+		"USE ITEM:",
+		"CANCEL ITEM:",
+		"PAUSE:"
+	};
+
+	for (int i = 0; i < int(keyHeaders.size()); i++)
+	{
+		const int x = topLeft.x;
+		const int y = topLeft.y + (i - 2) * (Menu::Entry::dimension + Menu::Entry::spacing);
+		keyEntries.emplace_back(33, 96, 1, 33, Vei2(x, y), keyHeaders[i], font, true);
+	}
 }
 
 void Menu::Update(Keyboard& kbd, Mouse& mouse)
 {
-	if (IsOnMain())
+	if (curPage == Page::Select)
 	{
 		while (!mouse.IsEmpty())
 		{
@@ -36,7 +57,22 @@ void Menu::Update(Keyboard& kbd, Mouse& mouse)
 			curPage = Page::Items;
 		}
 	}
-	else
+	else if (curPage == Page::Controls)
+	{
+		while (!mouse.IsEmpty())
+		{
+			const Mouse::Event e = mouse.Read();
+			if (e.GetType() == Mouse::Event::Type::LPress)
+			{
+				for (Entry& k : keyEntries)
+				{
+					k.Update(e.GetPos());
+				}
+			}
+		}
+	}
+
+	if (!IsOnMain())
 	{
 		if (kbd.KeyIsPressed(VK_ESCAPE))
 		{
@@ -61,7 +97,11 @@ void Menu::Draw(const Font& font, Graphics& gfx)
 		break;
 	}
 	case Page::Controls:
-		gfx.DrawSprite(0, 0, controls, SpriteEffect::Copy{});
+		for (Entry& k : keyEntries)
+		{
+			k.Draw(font, gfx);
+		}
+		TextManager::DrawMenuReturnText(font, gfx);
 		break;
 	case Page::Items:
 		gfx.DrawSprite(0, 0, items, SpriteEffect::Copy{});
@@ -84,19 +124,25 @@ const Menu::Entry& Menu::GetSongEntry() const
 	return songEntry;
 }
 
+const std::vector<Menu::Entry>& Menu::GetKeyEntries() const
+{
+	return keyEntries;
+}
+
 bool Menu::IsOnMain() const
 {
 	return curPage == Page::Select;
 }
 
-Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font)
+Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode)
 	:
 	min(min),
 	max(max),
 	step(step),
 	def(def),
 	pos(pos),
-	header(header)
+	header(header),
+	isOnCharMode(charMode)
 {
 	selection = def;
 	const int left = pos.x + font.GetGlyphWidth() * headerSize + spacing * 5;
@@ -128,7 +174,16 @@ void Menu::Entry::Draw(const Font& font, Graphics& gfx)
 		gfx.DrawRect(r, Colors::Gray);
 	}
 
-	const std::string str = std::to_string(selection);
+	std::string str;
+	if (isOnCharMode)
+	{
+		str = { char(selection) };
+	}
+	else
+	{
+		str = std::to_string(selection);
+	}
+
 	const int x = (rects[0].right + rects[1].left - int(str.size()) * font.GetGlyphWidth()) / 2;
 	const int y = rects[0].GetCenter().y - font.GetGlyphHeight() / 2;
 	font.DrawText(str, { x, y }, Colors::White, gfx);

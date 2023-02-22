@@ -11,6 +11,7 @@ public:
 	static void DrawPaused(const Font& font, Graphics& gfx);
 	static void DrawVictory(const Font& font, Graphics& gfx);
 	static void DrawReturnText(const Font& font, Graphics& gfx);
+	static void DrawMenuReturnText(const Font& font, Graphics& gfx);
 	static void DrawQuitText(const Font& font, Graphics& gfx);
 	static void DrawLineCounter(const Font& font, const Board& brd, Graphics& gfx);
 	static void DrawGoal(const Font& font, const Board& brd, Graphics& gfx);

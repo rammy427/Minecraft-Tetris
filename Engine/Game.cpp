@@ -324,9 +324,9 @@ void Game::ComposeFrame()
 		TextManager::DrawTopScore(consola, brd, gfx);
 		break;
 	case State::Menu:
+		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		if (menu.IsOnMain())
 		{
-			gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 			TextManager::DrawTitleSubText(consolab, gfx);
 		}
 		menu.Draw(consola, gfx);
