@@ -5,17 +5,16 @@ Controller::Controller()
 {
 	if (!LoadBindings())
 	{
-		bindings.emplace(Key::MoveLeft, VK_LEFT);
-		bindings.emplace(Key::MoveRight, VK_RIGHT);
-		bindings.emplace(Key::HardDrop, VK_UP);
-		bindings.emplace(Key::SoftDrop, VK_DOWN);
-		bindings.emplace(Key::RotateLeft, 'A');
-		bindings.emplace(Key::RotateRight, 'D');
-		bindings.emplace(Key::SwapPiece, 'Q');
-		bindings.emplace(Key::UseItem, 'E');
-		bindings.emplace(Key::CancelItem, VK_SHIFT);
-		bindings.emplace(Key::Pause, VK_ESCAPE);
+		SetBindings(defaults);
 		SaveBindings();
+	}
+}
+
+void Controller::SetBindings(const std::vector<unsigned char>& keys)
+{
+	for (int i = 0; i < int(Key::Count); i++)
+	{
+		bindings[Key(i)] = keys[i];
 	}
 }
 
@@ -36,16 +35,18 @@ bool Controller::LoadBindings()
 {
 	std::ifstream in("bindings.txt");
 	if (!in) return false;
+	std::vector<unsigned char> keys;
 	for (int i = 0; i < int(Key::Count); i++)
 	{
 		unsigned char binding;
 		in.seekg(sizeof(i), std::ios::cur);
 		in.read(reinterpret_cast<char*>(&binding), sizeof(binding));
-		bindings[Key(i)] = binding;
+		keys.push_back(binding);
 
 		// Skip new lines (carriage return + line feed).
 		in.seekg(2, std::ios::cur);
 	}
+	SetBindings(keys);
 	return true;
 }
 

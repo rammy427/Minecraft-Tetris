@@ -59,6 +59,7 @@ private:
 	void DrawQueuePreview();
 	void DrawHoldPreview();
 	void ResetGame();
+	void UpdateKeyBindings();
 	int RollPiece();
 	bool GameIsWon();
 	// Sound functions.

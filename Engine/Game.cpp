@@ -157,6 +157,7 @@ void Game::UpdateModel(float dt)
 				const Keyboard::Event e = wnd.kbd.ReadKey();
 				if (e.IsPress() && e.GetCode() == VK_RETURN)
 				{
+					UpdateKeyBindings();
 					titleBgm.StopAll();
 					ResetGame();
 					boardBgm.Play();
@@ -290,6 +291,17 @@ void Game::ResetGame()
 	GenerateItem();
 	ShuffleBoardBGM();
 	Score::Reset();
+}
+
+void Game::UpdateKeyBindings()
+{
+	std::vector<unsigned char> keys;
+	for (int i = 0; i < int(Controller::Key::Count); i++)
+	{
+		keys.push_back(char(menu.GetKeyEntries()[i].GetSelection()));
+	}
+	controller.SetBindings(keys);
+	controller.SaveBindings();
 }
 
 int Game::RollPiece()
