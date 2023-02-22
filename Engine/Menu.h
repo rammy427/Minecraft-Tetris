@@ -2,7 +2,7 @@
 
 #include "Border.h"
 #include "Mouse.h"
-#include "Keyboard.h"
+#include "Controller.h"
 #include "Font.h"
 
 class Menu
@@ -41,7 +41,7 @@ private:
 		int selection;
 	};
 public:
-	Menu(const Vei2& center, const Font& font);
+	Menu(const Vei2& center, const Font& font, const Controller& controller);
 	void Update(Keyboard& kbd, Mouse& mouse);
 	void Draw(const Font& font, Graphics& gfx);
 	const Entry& GetGoalEntry() const;

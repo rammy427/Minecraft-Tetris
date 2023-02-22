@@ -1,7 +1,7 @@
 #include "Menu.h"
 #include "TextManager.h"
 
-Menu::Menu(const Vei2& center, const Font& font)
+Menu::Menu(const Vei2& center, const Font& font, const Controller& controller)
 	:
 	font(font),
 	topLeft(center - Vei2(
@@ -25,11 +25,11 @@ Menu::Menu(const Vei2& center, const Font& font)
 		"PAUSE:"
 	};
 
-	for (int i = 0; i < int(keyHeaders.size()); i++)
+	for (int i = 0; i < int(Controller::Key::Count); i++)
 	{
 		const int x = topLeft.x;
 		const int y = topLeft.y + (i - 2) * (Menu::Entry::dimension + Menu::Entry::spacing);
-		keyEntries.emplace_back(33, 96, 1, 33, Vei2(x, y), keyHeaders[i], font, true);
+		keyEntries.emplace_back(33, 96, 1, controller.GetBinding(Controller::Key(i)), Vei2(x, y), keyHeaders[i], font, true);
 	}
 }
 

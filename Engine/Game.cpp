@@ -32,7 +32,7 @@ Game::Game( MainWindow& wnd )
 	holdBorder({ { (brd.GetRect().left - maxPreviewWidth) / 2, consola.GetGlyphHeight() * 4 + 30 }, maxPreviewWidth, maxPreviewHeight }, 10),
 	queuePreview(maxPreviewWidth, maxPreviewHeight),
 	holdPreview(maxPreviewWidth, maxPreviewHeight),
-	menu(Graphics::GetRect().GetCenter() - Vei2(0, 50), consola)
+	menu(Graphics::GetRect().GetCenter() - Vei2(0, 50), consola, controller)
 {
 	ShuffleBoardBGM();
 	nNextPiece = shapeDist(rng);
