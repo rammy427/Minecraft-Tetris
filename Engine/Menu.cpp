@@ -29,7 +29,8 @@ Menu::Menu(const Vei2& center, const Font& font, const Controller& controller)
 	{
 		const int x = topLeft.x;
 		const int y = topLeft.y + (i - 2) * (Menu::Entry::dimension + Menu::Entry::spacing);
-		keyEntries.emplace_back(33, 96, 1, controller.GetBinding(Controller::Key(i)), Vei2(x, y), keyHeaders[i], font, true);
+		// 13 = VK_RETURN, 90 = Z
+		keyEntries.emplace_back(13, 90, 1, controller.GetBinding(Controller::Key(i)), Vei2(x, y), keyHeaders[i], font, true);
 	}
 }
 
@@ -177,7 +178,45 @@ void Menu::Entry::Draw(const Font& font, Graphics& gfx)
 	std::string str;
 	if (isOnCharMode)
 	{
-		str = { char(selection) };
+		switch (selection)
+		{
+		case VK_RETURN:
+			str = "ENTER";
+			break;
+		case VK_SHIFT:
+			str = "SHIFT";
+			break;
+		case VK_CONTROL:
+			str = "CTRL";
+			break;
+		case VK_MENU:
+			str = "MENU";
+			break;
+		case VK_PAUSE:
+			str = "PAUSE";
+			break;
+		case VK_ESCAPE:
+			str = "ESCAPE";
+			break;
+		case VK_SPACE:
+			str = "SPACE";
+			break;
+		case VK_LEFT:
+			str = "LEFT";
+			break;
+		case VK_UP:
+			str = "UP";
+			break;
+		case VK_RIGHT:
+			str = "RIGHT";
+			break;
+		case VK_DOWN:
+			str = "DOWN";
+			break;
+		default:
+			str = { char(selection) };
+			break;
+		}
 	}
 	else
 	{
