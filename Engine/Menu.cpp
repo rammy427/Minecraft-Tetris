@@ -7,7 +7,7 @@ Menu::Menu(const Vei2& center, const Font& font, const Controller& controller)
 	topLeft(center - Vei2(
 		(Menu::Entry::valueStrSize + Menu::Entry::headerSize) * 11 + Menu::Entry::spacing * 7 + Menu::Entry::dimension * 2,
 		Menu::Entry::dimension * 4 + Menu::Entry::spacing) / 2),
-	goalEntry(10, 200, 5, 100, topLeft, "LINE GOAL:", font),
+	goalEntry(10, 205, 5, 100, topLeft, "LINE GOAL:", font, false, true),
 	levelEntry(1, 10, 1, 1, {topLeft.x, topLeft.y + Menu::Entry::dimension + Menu::Entry::spacing}, "STARTING LEVEL:", font),
 	songEntry(0, 13, 1, 13, { topLeft.x, topLeft.y + 2 * (Menu::Entry::dimension + Menu::Entry::spacing) }, "BGM TRACK:", font)
 {
@@ -135,7 +135,7 @@ bool Menu::IsOnMain() const
 	return curPage == Page::Select;
 }
 
-Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode)
+Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode, bool hasEndlessMode)
 	:
 	min(min),
 	max(max),
@@ -143,7 +143,8 @@ Menu::Entry::Entry(int min, int max, int step, int def, const Vei2& pos, const s
 	def(def),
 	pos(pos),
 	header(header),
-	isOnCharMode(charMode)
+	isOnCharMode(charMode),
+	hasEndlessMode(hasEndlessMode)
 {
 	selection = def;
 	const int left = pos.x + font.GetGlyphWidth() * headerSize + spacing * 5;
@@ -220,7 +221,14 @@ void Menu::Entry::Draw(const Font& font, Graphics& gfx)
 	}
 	else
 	{
-		str = std::to_string(selection);
+		if (hasEndlessMode && selection == max)
+		{
+			str = "ENDLESS";
+		}
+		else
+		{
+			str = std::to_string(selection);
+		}
 	}
 
 	const int x = (rects[0].right + rects[1].left - int(str.size()) * font.GetGlyphWidth()) / 2;

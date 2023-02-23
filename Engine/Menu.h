@@ -18,7 +18,7 @@ private:
 	class Entry
 	{
 	public:
-		Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode = false);
+		Entry(int min, int max, int step, int def, const Vei2& pos, const std::string& header, const Font& font, bool charMode = false, bool hasEndlessMode = false);
 		void Update(const Vei2& mousePos);
 		void Draw(const Font& font, Graphics& gfx);
 		int GetMin() const;
@@ -34,6 +34,7 @@ private:
 		std::string header;
 		RectI rects[2];
 		bool isOnCharMode;
+		bool hasEndlessMode;
 		int min;
 		int max;
 		int step;

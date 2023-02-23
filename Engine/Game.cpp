@@ -279,7 +279,7 @@ void Game::DrawHoldPreview()
 void Game::ResetGame()
 {
 	brd.Reset();
-	brd.SetLineGoal(menu.GetGoalEntry().GetSelection());
+	UpdateLineGoal();
 	nHoldPiece = -1;
 
 	const int minLevel = menu.GetLevelEntry().GetMin();
@@ -291,6 +291,20 @@ void Game::ResetGame()
 	GenerateItem();
 	ShuffleBoardBGM();
 	Score::Reset();
+}
+
+void Game::UpdateLineGoal()
+{
+	const int selection = menu.GetGoalEntry().GetSelection();
+	const int max = menu.GetGoalEntry().GetMax();
+	if (selection == max)
+	{
+		brd.SetLineGoal(std::numeric_limits<int>::max());
+	}
+	else
+	{
+		brd.SetLineGoal(selection);
+	}
 }
 
 void Game::UpdateKeyBindings()
@@ -351,7 +365,10 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawGoal(consola, brd, gfx);
+		if (menu.GetGoalEntry().GetSelection() != menu.GetGoalEntry().GetMax())
+		{
+			TextManager::DrawGoal(consola, brd, gfx);
+		}
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
@@ -363,7 +380,10 @@ void Game::ComposeFrame()
 		DrawQueuePreview();
 		DrawHoldPreview();
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawGoal(consola, brd, gfx);
+		if (menu.GetGoalEntry().GetSelection() != menu.GetGoalEntry().GetMax())
+		{
+			TextManager::DrawGoal(consola, brd, gfx);
+		}
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		pItem->Draw(consola, gfx);
@@ -374,7 +394,10 @@ void Game::ComposeFrame()
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		brd.Draw(gfx);
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawGoal(consola, brd, gfx);
+		if (menu.GetGoalEntry().GetSelection() != menu.GetGoalEntry().GetMax())
+		{
+			TextManager::DrawGoal(consola, brd, gfx);
+		}
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawGameOver(consolab, gfx);
@@ -383,7 +406,10 @@ void Game::ComposeFrame()
 	case State::Victory:
 		gfx.DrawSprite(0, 0, background, SpriteEffect::Copy{});
 		TextManager::DrawLineCounter(consola, brd, gfx);
-		TextManager::DrawGoal(consola, brd, gfx);
+		if (menu.GetGoalEntry().GetSelection() != menu.GetGoalEntry().GetMax())
+		{
+			TextManager::DrawGoal(consola, brd, gfx);
+		}
 		TextManager::DrawScore(consola, brd, gfx);
 		TextManager::DrawTopScore(consola, brd, gfx);
 		TextManager::DrawVictory(consolab, gfx);
