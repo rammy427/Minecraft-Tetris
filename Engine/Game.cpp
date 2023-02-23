@@ -140,6 +140,8 @@ void Game::UpdateModel(float dt)
 				else if (e.GetCode() == 'Q')
 				{
 					boardBgm.StopAll();
+					Score::SaveTop();
+					Score::LoadTop();
 					state = State::Title;
 					titleBgm.Play();
 					wnd.kbd.DisableAutorepeat();
