@@ -266,9 +266,6 @@
     <Image Include="Sprites\title.bmp">
       <Filter>Resources\Sprites</Filter>
     </Image>
-    <Image Include="Sprites\controlpage.bmp">
-      <Filter>Resources\Sprites</Filter>
-    </Image>
   </ItemGroup>
   <ItemGroup>
     <Media Include="Music\play3.wav">

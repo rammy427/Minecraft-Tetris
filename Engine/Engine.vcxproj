@@ -273,7 +273,6 @@
     <Image Include="Fonts\ConsolasBold27x50.bmp" />
     <Image Include="Fonts\ConsolasBold43x77.bmp" />
     <Image Include="Sprites\bg.bmp" />
-    <Image Include="Sprites\controlpage.bmp" />
     <Image Include="Sprites\itempage.bmp" />
     <Image Include="Sprites\pickaxe.bmp" />
     <Image Include="Sprites\potion.bmp" />
